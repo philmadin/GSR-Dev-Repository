@@ -1,0 +1,3 @@
+<h3>Weapon: Hawkmoon</h3> Stalk thy prey and let loose thy talons upon the Darkness.
+
+<h3>SPECIAL: Luck in the Chamber - One random bullet in the magazine causes considerable bonus damage + Holding Aces - Two more random bullets in your magazine deal considerable bonus damage</h3>

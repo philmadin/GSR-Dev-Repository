@@ -1,0 +1,1 @@
+&lt;i&gt;iO&lt;/i&gt; is a platformer that utilises physics as a way of getting a ball you control to the goal. You&#039;ll progress through a series of puzzling situations that puts your problem solving to the test. It&#039;s not a game that&#039;ll knock your socks off but it does provide an interesting challenge.

@@ -1,0 +1,3 @@
+The graphics of this 1:1 scale space simulator are what you would expect of space. Each planet glows, off in the distance, like looking at Mars from Earth, until you get close and then you can see the detailing, making space breath-taking.<br />
+<br />
+The user interface is all holographic, floating just over the dash of your ship, labelling out your ship’s details, your plotted route, incoming signals. Everything is to a Sci-Fi lover’s expectations.

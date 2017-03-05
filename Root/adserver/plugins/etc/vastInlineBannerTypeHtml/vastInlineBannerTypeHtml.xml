@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>vastInlineBannerTypeHtml</name>
+    <displayName>IAB VAST Inline Banner Type Plugin</displayName>
+    <creationDate>2015-11-19</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides IAB VAST video ad support.</description>
+    <version>1.11.3</version>
+    <oxversion>3.2.0-beta-rc3</oxversion>
+    <extends>bannerTypeHtml</extends>
+
+    <install>
+        <files>
+            <file path="{MODULEPATH}bannerTypeHtml/vastInlineBannerTypeHtml/">vastInlineHtml.class.php</file>
+            <file path="{MODULEPATH}bannerTypeHtml/vastInlineBannerTypeHtml/">vastInlineHtml.delivery.php</file>
+            <file path="{MODULEPATH}bannerTypeHtml/vastInlineBannerTypeHtml/">common.php</file>
+            <file path="{MODULEPATH}bannerTypeHtml/vastInlineBannerTypeHtml/">commonAdmin.php</file>
+            <file path="{MODULEPATH}bannerTypeHtml/vastInlineBannerTypeHtml/">commonDelivery.php</file>
+            <file path="{MODULEPATH}videoAds/">vastEvent.delivery.php</file>
+        </files>
+
+        <schema>
+            <mdb2schema>tables_vastbannertypehtml</mdb2schema>
+            <dboschema>db_schema</dboschema>
+            <dbolinks>db_schema.links</dbolinks>
+            <dataobject>Banner_vast_element.php</dataobject>
+            <dataobject>Data_bkt_vast_e.php</dataobject>
+            <dataobject>Stats_vast.php</dataobject>
+        </schema>
+
+    </install>
+
+</plugin>

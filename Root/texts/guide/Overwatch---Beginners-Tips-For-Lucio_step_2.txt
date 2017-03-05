@@ -1,0 +1,3 @@
+<h3>Weaknesses</h3>- Can't have both Crossfade:Heal and Crossfade:Speed active at the same time
+- Crossfade:Heal provides low individual healing 
+- Sound Barrier can be wasted by bad timing. 

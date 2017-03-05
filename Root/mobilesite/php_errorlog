@@ -1,0 +1,10 @@
+[11-May-2016 03:28:56 CST6CDT] PHP Parse error:  syntax error, unexpected end of file, expecting variable (T_VARIABLE) or ${ (T_DOLLAR_OPEN_CURLY_BRACES) or {$ (T_CURLY_OPEN) in /home/gameshar/public_html/mobilesite/review.php on line 68
+[18-May-2016 03:53:31 CST6CDT] PHP Parse error:  syntax error, unexpected ';' in /home/gameshar/public_html/mobilesite/index.php on line 7
+[18-May-2016 20:18:55 Australia/Brisbane] PHP Fatal error:  Cannot redeclare remove_prefix() (previously declared in /home/gameshar/public_html/mobilesite/mysql_con.php:3) in /home/gameshar/public_html/mobilesite/mysql_con.php on line 7
+[22-May-2016 20:34:05 Australia/Brisbane] PHP Parse error:  syntax error, unexpected end of file in /home/gameshar/public_html/mobilesite/usermenu.php on line 80
+[22-May-2016 20:34:11 Australia/Brisbane] PHP Parse error:  syntax error, unexpected end of file in /home/gameshar/public_html/mobilesite/usermenu.php on line 80
+[19-Jun-2016 15:56:34 Australia/Brisbane] PHP Parse error:  syntax error, unexpected end of file in /home/gameshar/public_html/mobilesite/usermenu.php on line 71
+[19-Jun-2016 15:57:18 Australia/Brisbane] PHP Parse error:  syntax error, unexpected end of file in /home/gameshar/public_html/mobilesite/usermenu.php on line 71
+[19-Jun-2016 15:58:23 Australia/Brisbane] PHP Parse error:  syntax error, unexpected end of file in /home/gameshar/public_html/mobilesite/usermenu.php on line 71
+[19-Jun-2016 16:00:12 Australia/Brisbane] PHP Parse error:  syntax error, unexpected end of file in /home/gameshar/public_html/mobilesite/usermenu.php on line 68
+[03-Mar-2017 06:01:30 Australia/Brisbane] PHP Fatal error:  Cannot redeclare most_relevant() (previously declared in /home/gameshar/public_html/mobilesite/related-articles.php:17) in /home/gameshar/public_html/mobilesite/related-articles.php on line 17

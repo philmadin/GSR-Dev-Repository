@@ -1,0 +1,5 @@
+<h3>Charisma</h3> 
+Increases chance to persuade during conversations and gives better buy/sell prices at shops. 
+
+Perk: Local Leader 
+Joins settlements together, allowing you to assign your settlers to connect your workbenches together, so any connected settlements have access to any crafting materials stored.  

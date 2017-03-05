@@ -1,0 +1,5 @@
+Hacknet is primarily text-based, running on a Linux-esque screen where you can interact with an IP map for quick connections and hacking. Learning the codes and remembering the ports you need to type can be difficult, but all add to the wonderful feeling of digitally accessing that which isn’t yours. <br />
+<br />
+A pen and paper is advisable to remember some codes, passwords and IPs you need so you don’t have to constantly re-hack everything you go through. <br />
+<br />
+Beware, stumble across a tracker and you better have learned how to hack quickly before you get caught, or it may mean Game Over.

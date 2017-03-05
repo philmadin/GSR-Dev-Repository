@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>oxLogRequest</name>
+    <displayName>Banner Request Logging Plugin</displayName>
+    <creationDate>2014-03-10</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides logging of banner requests.</description>
+    <version>1.1.2</version>
+    <oxversion>3.2.0-beta-rc3</oxversion>
+    <extends>deliveryLog</extends>
+
+    <install>
+        <files>
+            <file path="{MODULEPATH}deliveryLog/oxLogRequest/">logRequest.delivery.php</file>
+            <file path="{MODULEPATH}deliveryLog/oxLogRequest/">logRequest.class.php</file>
+        </files>
+
+        <postscript>postscript_install_oxLogRequest.php</postscript>
+
+        <components>
+           <component>
+                <name>logRequest</name>
+                <hook>logRequest</hook>
+           </component>
+        </components>
+
+    </install>
+
+
+</plugin>

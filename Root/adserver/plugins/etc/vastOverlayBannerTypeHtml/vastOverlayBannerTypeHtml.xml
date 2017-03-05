@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>vastOverlayBannerTypeHtml</name>
+    <displayName>IAB VAST Overlay Banner Type Plugin</displayName>
+    <creationDate>2015-11-19</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides IAB VAST video ad support.</description>
+    <version>1.11.3</version>
+    <oxversion>3.2.0-beta-rc3</oxversion>
+    <extends>bannerTypeHtml</extends>
+
+    <install>
+        <files>
+            <file path="{MODULEPATH}bannerTypeHtml/vastOverlayBannerTypeHtml/">vastOverlayHtml.class.php</file>
+            <file path="{MODULEPATH}bannerTypeHtml/vastOverlayBannerTypeHtml/">vastOverlayHtml.delivery.php</file>
+        </files>
+
+        <configuration>
+            <!-- only administrator has permissions to change settings in config file -->
+
+            <setting key="isVastOverlayAsTextEnabled" type="checkbox" label="Allow overlay video banners to be defined as text" required="0" size="1" visible="1">1</setting>
+
+            <setting key="isVastOverlayAsSwfEnabled" type="checkbox" label="Allow overlay video banners to be defined as a SWF" required="0" size="1" visible="1">1</setting>
+
+            <setting key="isVastOverlayAsImageEnabled" type="checkbox" label="Allow overlay video banners to be defined as an Image" required="0" size="1" visible="1">1</setting>
+
+            <setting key="isVastOverlayAsHtmlEnabled" type="checkbox" label="Allow overlay video banners to be defined as html" required="0" size="1" visible="1">1</setting>
+
+        </configuration>
+
+    </install>
+
+</plugin>

@@ -1,0 +1,7 @@
+<h3>Always choose Hero Bodyguard when an option</h3>
+
+Whenever you die, you may see a new option showing a Hero Bodyguard (On the Rebels you spawn on Leia, on the Imperials you spawn on The Emperor).
+
+The Rebel Guards use a Blaster Rifle and the Imperial ones have a Long Range Rifle (both sides also carry a Smart Rocket and Homing Shot). 
+
+The Bodyguards are essentially Soldiers who have Hero health and damage, which make them incredibly useful in soaking up damage while inflicting more on your enemies.

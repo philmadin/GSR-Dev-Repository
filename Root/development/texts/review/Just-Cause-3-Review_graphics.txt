@@ -1,0 +1,3 @@
+The optimization isn't perfect, resulting in continuous graphical and physics bugs, however Just Cause 3 is an utterly beautiful game, showcasing several luscious islands. <br />
+<br />
+Stunts and the various tools at Rico’s disposal are brought to life by some very nice animations and gorgeous explosions. Considering all the physics and explosions, the renderer does an incredible job keeping up, although many have reported graphical bugs much worse than what I’ve experienced.

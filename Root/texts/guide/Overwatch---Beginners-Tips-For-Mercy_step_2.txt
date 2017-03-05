@@ -1,0 +1,4 @@
+<h3>Weakness</h3>- Can only heal one person.
+- Can't damage while healing.
+- Only defense is her blaster.
+- Can't glide without her teammates around.

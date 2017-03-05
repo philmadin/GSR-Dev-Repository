@@ -1,0 +1,10 @@
+[02-Apr-2016 22:30:37 Australia/Brisbane] PHP Fatal error:  Cannot use object of type stdClass as array in /home/gameshar/public_html/api/games.php on line 18
+[03-Apr-2016 02:44:31 CST6CDT] PHP Parse error:  syntax error, unexpected end of file in /home/gameshar/public_html/api/games.php on line 126
+[03-Apr-2016 06:27:48 CST6CDT] PHP Parse error:  syntax error, unexpected 'while' (T_WHILE) in /home/gameshar/public_html/api/games.php on line 50
+[24-Apr-2016 01:09:09 CST6CDT] PHP Parse error:  syntax error, unexpected 'b' (T_STRING) in /home/gameshar/public_html/api/games.php on line 119
+[24-Apr-2016 01:09:35 CST6CDT] PHP Parse error:  syntax error, unexpected 'b' (T_STRING) in /home/gameshar/public_html/api/games.php on line 119
+[24-Apr-2016 01:09:40 CST6CDT] PHP Parse error:  syntax error, unexpected 'b' (T_STRING) in /home/gameshar/public_html/api/games.php on line 119
+[24-Apr-2016 01:09:40 CST6CDT] PHP Parse error:  syntax error, unexpected 'b' (T_STRING) in /home/gameshar/public_html/api/games.php on line 119
+[24-Apr-2016 01:09:48 CST6CDT] PHP Parse error:  syntax error, unexpected 'b' (T_STRING) in /home/gameshar/public_html/api/games.php on line 119
+[24-Apr-2016 01:10:14 CST6CDT] PHP Parse error:  syntax error, unexpected 'b' (T_STRING) in /home/gameshar/public_html/api/games.php on line 119
+[24-Apr-2016 01:10:25 CST6CDT] PHP Parse error:  syntax error, unexpected 'b' (T_STRING) in /home/gameshar/public_html/api/games.php on line 119

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>openXBannerTypes</name>
+    <displayName>Banner Types Plugin</displayName>
+    <creationDate>2015-03-30</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides basic banner types.</description>
+    <version>1.2.5</version>
+    <type>package</type>
+
+    <install>
+
+        <contents>
+            <group name="oxHtml">1</group>
+            <group name="oxText">2</group>
+        </contents>
+
+    </install>
+
+</plugin>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>oxText</name>
+    <displayName>Text Banner Type Plugin</displayName>
+    <creationDate>2015-03-30</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides the text banner type.</description>
+    <version>1.2.5</version>
+    <oxversion>3.2.0-beta-rc3</oxversion>
+    <extends>bannerTypeText</extends>
+
+    <install>
+        <files>
+            <file path="{MODULEPATH}bannerTypeText/oxText/">genericText.class.php</file>
+            <file path="{MODULEPATH}bannerTypeText/oxText/">genericText.delivery.php</file>
+
+        </files>
+
+        <components>
+           <component>
+                <name>genericText</name>
+           </component>
+        </components>
+
+    </install>
+
+</plugin>

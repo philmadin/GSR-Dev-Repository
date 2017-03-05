@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>openXVideoAds</name>
+    <displayName>IAB VAST Plugin</displayName>
+    <creationDate>2015-11-19</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides IAB VAST video ad support.</description>
+    <version>1.11.3</version>
+    <type>extension</type>
+
+    <install>
+
+        <files>
+            <file path="{PLUGINPATH}">openXVideoAds.readme.txt</file>
+            <file path="{PLUGINPATH}">openXVideoAds.uninstall.txt</file>
+        </files>
+
+        <contents>
+            <group name="vastInlineBannerTypeHtml">1</group>
+            <group name="vastOverlayBannerTypeHtml">2</group>
+            <group name="oxLogVast">3</group>
+            <group name="vastServeVideoPlayer">4</group>
+            <group name="videoReport">5</group>
+        </contents>
+
+    </install>
+
+    <readme>
+
+    </readme>
+
+</plugin>

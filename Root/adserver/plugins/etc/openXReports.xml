@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>openXReports</name>
+    <displayName>Reports Plugin</displayName>
+    <creationDate>2015-03-30</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides standard reports.</description>
+    <version>1.5.5</version>
+    <oxversion>3.2.0-beta-rc3</oxversion>
+    <type>package</type>
+
+    <install>
+
+        <files>
+            <file path="{PLUGINPATH}">openXReports.readme.txt</file>
+        </files>
+
+        <!-- list the groups that are contained in this plugin -->
+        <!-- in the order they should be installed -->
+        <contents>
+            <group name="oxReportsStandard">0</group>
+            <group name="oxReportsAdmin">1</group>
+        </contents>
+
+    </install>
+
+</plugin>

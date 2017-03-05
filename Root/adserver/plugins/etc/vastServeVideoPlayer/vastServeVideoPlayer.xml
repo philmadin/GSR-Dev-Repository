@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+<plugin>
+    <name>vastServeVideoPlayer</name>
+    <displayName>IAB VAST Video Player Plugin</displayName>
+    <creationDate>2015-11-19</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides IAB VAST video ad support.</description>
+    <version>1.11.3</version>
+    <oxversion>3.2.0-beta-rc3</oxversion>
+
+    <install>
+        <syscheck>
+        </syscheck>
+
+        <files>
+            <file path="{MODULEPATH}deliveryLog/vastServeVideoPlayer/">player.delivery.php</file>
+
+	    <!-- player files below - these files should be moved to a cdn or different location when cache headers can be configured -->
+            <file path="{MODULEPATH}deliveryLog/vastServeVideoPlayer/flowplayer/3.1.1/">LICENSE.txt</file>
+            <file path="{MODULEPATH}deliveryLog/vastServeVideoPlayer/flowplayer/3.1.1/">README.txt</file>
+            <file path="{MODULEPATH}deliveryLog/vastServeVideoPlayer/flowplayer/3.1.1/">flowplayer-3.1.1.min.js</file>
+            <file path="{MODULEPATH}deliveryLog/vastServeVideoPlayer/flowplayer/3.1.1/">flowplayer.controls-3.1.1.swf</file>
+            <file path="{MODULEPATH}deliveryLog/vastServeVideoPlayer/flowplayer/3.1.1/">flowplayer-3.1.1.swf</file>
+            <file path="{MODULEPATH}deliveryLog/vastServeVideoPlayer/flowplayer/3.1.1/">flowplayer.rtmp-3.1.0.swf</file>
+        </files>
+
+        <configuration>
+            <!-- only administrator has permissions to change settings in config file -->
+            <!-- settings are written to a group section [vastServeVideoPlayer] -->
+            <setting key="isAutoPlayOfVideoInOpenXAdminToolEnabled" type="checkbox" label="Autoplay the video content (only used when viewing video in openX admin tool)" required="0" size="1" visible="1">0</setting>
+        </configuration>
+
+        <components>
+        </components>
+
+    </install>
+
+
+</plugin>

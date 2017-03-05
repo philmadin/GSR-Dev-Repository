@@ -1,0 +1,11 @@
+Set the foundations of your character: 
+
+When initially creating your character, be sure to follow this formula for when spending points in the SPECIAL attribute panel:
+ 
+Strength: 3 
+Perception: 4  
+Endurance: 2 
+Charisma: 6 
+Intelligence: 4 
+Agility: 7 
+Luck: 2

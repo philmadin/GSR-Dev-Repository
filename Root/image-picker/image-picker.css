@@ -1,0 +1,109 @@
+ul.thumbnails.image_picker_selector {
+  overflow: hidden;
+  height:auto;
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom:15px;
+  border: solid 1px #e73030;
+  box-shadow: 0 10px 6px -6px #777;
+}
+  ul.thumbnails.image_picker_selector ul {
+    overflow: auto;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  ul.thumbnails.image_picker_selector li.group_title {
+    float: none; }
+  ul.thumbnails.image_picker_selector li {
+    width:25%;
+    height:auto;
+    margin:0;
+    text-align:center;
+    float: left;
+  }
+ul.thumbnails.image_picker_selector li.add-new {
+  background: #e73030;
+  height:145px;
+  padding:0;
+  width:25%;
+  float:right;
+}
+
+ul.thumbnails.image_picker_selector li.add-new .thumbnail img {
+  -webkit-user-drag: none;
+  margin:auto;
+  max-width:100%;
+  display:block;
+  margin-bottom:10px;
+}
+
+ul.thumbnails.image_picker_selector li.add-new .thumbnail p {
+  font-size:18px;
+  padding:0;
+  margin-bottom:0;
+  height:40px;
+  width:100%;
+  text-align:center;
+  display:block;
+  background-color:rgba(0,0,0,0.5);
+  color:white;
+}
+
+
+ul.thumbnails.image_picker_selector li.add-new:hover {
+  opacity:0.8;
+}
+
+ul.thumbnails.image_picker_selector li.add-new:hover .thumbnail{
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+}
+
+    ul.thumbnails.image_picker_selector li .thumbnail {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    text-align:center;
+      cursor:pointer;
+      padding-top:15px;
+      transition:0.2s all ease;
+    }
+      ul.thumbnails.image_picker_selector li .thumbnail img {
+        -webkit-user-drag: none;
+        margin:auto;
+        height:80px;
+        max-width:80px;
+        display:block;
+      }
+      ul.thumbnails.image_picker_selector li .thumbnail p {
+       font-size:14px;
+        padding:0;
+        margin-bottom:0;
+        padding-bottom:15px;
+        height:50px;
+        padding-top:10px;
+        width:100%;
+        text-align:center;
+        display:block;
+      }
+    ul.thumbnails.image_picker_selector li .thumbnail.selected {
+      background: #E73030;
+    }
+    ul.thumbnails.image_picker_selector li .thumbnail.selected p {
+      color:white;
+    }
+    ul.thumbnails.image_picker_selector li .thumbnail:hover {
+      -moz-box-shadow:    inset 0 0 10px #000000;
+      -webkit-box-shadow: inset 0 0 10px #000000;
+      box-shadow:         inset 0 0 10px #000000;
+    }

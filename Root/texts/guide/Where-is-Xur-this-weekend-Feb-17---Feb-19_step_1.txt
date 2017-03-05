@@ -1,0 +1,5 @@
+<h3>Weapon: Hard Light</h3> Hard Light is a seemingly mediocre weapon. With a high rate of fire and reload speed, we do recommend this in the crucible.
+
+The stability is also noteworthy, with upgrades increasing its potential.
+
+<h3>SPECIAL: Volatile Light - No falloff damage + Over-penetrate + Ricochet from hard surfaces</h3>

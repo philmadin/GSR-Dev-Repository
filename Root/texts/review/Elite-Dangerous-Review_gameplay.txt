@@ -1,0 +1,7 @@
+Elite: Dangerous is a first person space simulator, and the game is viewed from the cockpit of your spacecraft. There are a lot of controls to get used to; every one essential to making the game more immersive and detailed. Your menus don’t pause the game. <br />
+<br />
+Jumping between systems requires you to look at another screen, turning away from the space-view window, and telling your navigation computer to map a route. In this time it is quite possible to be attacked - or if you have left the throttle on full - to fly into a star and destroy yourself.<br />
+<br />
+Combat works as any flight and space simulator does; like a dogfight, flying around and trying not to be shot, while trying to blow your target up. This can be quite difficult as your ship has limited power and has restricted distribution. <br />
+<br />
+In fights you have to choose; give up some engine power to be slower and more shielded, or lower the shield recharge rate and boost your weapons. Your shields are down, where do you take power from? The choices have to be made fast, and the wrong one can mean death.

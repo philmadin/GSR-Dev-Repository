@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>openX3rdPartyServers</name>
+    <displayName>3rd Party Servers Plugin</displayName>
+    <creationDate>2008-08-01</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides 3rd Party Server click tracking.</description>
+    <version>1.2.1</version>
+    <type>package</type>
+
+    <install>
+
+        <contents>
+            <group name="ox3rdPartyServers">1</group>
+        </contents>
+
+    </install>
+
+</plugin>
