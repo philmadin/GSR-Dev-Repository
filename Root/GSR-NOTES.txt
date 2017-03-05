@@ -1,0 +1,9 @@
+Top three images on homepage needs an update button. When editing the article there should be button 1, 2 and 3 to change the links on the homepage. 
+
+Pending article holds the already published ones to edit. Could perhaps make a seperate collumn for editing the already finalised ones.
+
+Slider feed right below the GSR logo isn't linking properly to the article. Clicking on the text feed just refreshes page.
+
+Articles page not updating.
+
+With the 'Latest Articles' on the home page, the 'See more' button isn't linked.
