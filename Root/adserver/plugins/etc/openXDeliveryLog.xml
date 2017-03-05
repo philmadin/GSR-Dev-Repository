@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>openXDeliveryLog</name>
+    <displayName>Banner Delivery Logging Plugin</displayName>
+    <creationDate>2014-03-10</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Standard delivery logging plugin for OpenX</description>
+    <version>1.1.2</version>
+    <type>extension</type>
+
+    <install>
+
+        <!--files>
+            <file path="{PLUGINPATH}">openXDeliveryLog.readme.txt</file>
+        </files-->
+
+        <contents>
+            <group name="oxDeliveryDataPrepare">1</group>
+
+            <group name="oxLogClick"           >2</group>
+            <group name="oxLogConversion"      >3</group>
+            <group name="oxLogImpression"      >4</group>
+            <group name="oxLogRequest"         >5</group>
+        </contents>
+
+    </install>
+
+    <readme>
+
+    </readme>
+
+</plugin>

@@ -1,0 +1,5 @@
+As the developer commentary highlights, the ninja's movement is beautifully fluid, contrasting with the stiffer animation of the guards. These are just two examples of how the animators and artists used the visuals in the game to improve the gameplay and still look incredible.<br />
+<br />
+You wouldn't believe from seeing the levels that they were created on a tile-based system - which was initially created for Shank, as a matter of fact. These levels are brought to life by layers of background detail, and the platforming aspect of the game is well disguised by a focus on making the levels seem like actual structures and environments rather than floating platforms.<br />
+<br />
+Mark Of The Ninja features not only beautiful and reasonable levels, but also arguably some of the most beautiful animation ever seen in video gaming.

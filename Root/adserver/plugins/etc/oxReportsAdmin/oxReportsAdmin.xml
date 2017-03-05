@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>oxReportsAdmin</name>
+    <displayName>Administrator Reports Plugin</displayName>
+    <creationDate>2014-04-08</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides administrator reports.</description>
+    <version>1.5.4</version>
+    <oxversion>3.2.0-beta-rc3</oxversion>
+    <extends>reports</extends>
+
+    <install>
+
+        <files>
+            <file path="{MODULEPATH}reports/oxReportsAdmin/">breakdown.class.php</file>
+
+        </files>
+
+    </install>
+
+</plugin>

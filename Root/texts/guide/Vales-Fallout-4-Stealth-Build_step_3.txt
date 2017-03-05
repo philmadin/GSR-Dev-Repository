@@ -1,0 +1,14 @@
+<h3>Perception</h3>
+In combat, Perception increase weapon accuracy while using VATS. There are a number of important perks within the tree. 
+
+Perk: Pickpocketing 
+Besides increased pickpocket chance, Level 2 in this allows you to place live grenades in a target's inventory. This is important if you want to gain the Prankster's Return achievement. 
+
+Perk: Rifleman 
+This perk increases all based damage with Non-Automatic Rifles. This build allows for the choice between a Non-Automatic Rifle or Pistol focus. 
+
+Perk: Awareness 
+Give details on targets Level, Armour and Resistances. This will help you determine if you attempt to kill your targets and with what weapon, or approach more cautiously. 
+
+Perk: Locksmith 
+Grants access to pick higher level locks. This will open up the world a lot more as well as grant you access to more safes as most locks are above the Novice lock level.

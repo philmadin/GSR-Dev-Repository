@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>oxLogImpression</name>
+    <displayName>Banner Impression Logging Plugin</displayName>
+    <creationDate>2014-03-10</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides logging of banner impressions.</description>
+    <version>1.1.2</version>
+    <oxversion>3.2.0-beta-rc3</oxversion>
+    <extends>deliveryLog</extends>
+
+    <install>
+        <files>
+            <file path="{MODULEPATH}deliveryLog/oxLogImpression/">logImpression.delivery.php</file>
+            <file path="{MODULEPATH}deliveryLog/oxLogImpression/">logImpression.class.php</file>
+        </files>
+
+        <postscript>postscript_install_oxLogImpression.php</postscript>
+
+        <components>
+           <component>
+                <name>logImpression</name>
+                <hook>logImpression</hook>
+           </component>
+        </components>
+
+    </install>
+
+
+</plugin>

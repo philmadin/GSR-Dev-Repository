@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>oxReportsStandard</name>
+    <displayName>Standard Reports Plugin</displayName>
+    <creationDate>2015-03-30</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides standard reports.</description>
+    <version>1.5.5</version>
+    <oxversion>3.2.0-beta-rc3</oxversion>
+    <extends>reports</extends>
+
+    <install>
+
+        <files>
+            <file path="{MODULEPATH}reports/oxReportsStandard/">advertisingAnalysisReport.class.php</file>
+            <file path="{MODULEPATH}reports/oxReportsStandard/">campaignAnalysisReport.class.php</file>
+            <file path="{MODULEPATH}reports/oxReportsStandard/">conversionTrackingReport.class.php</file>
+            <file path="{MODULEPATH}reports/oxReportsStandard/">liveCampaignDeliveryReport.class.php</file>
+
+
+        </files>
+
+    </install>
+
+</plugin>

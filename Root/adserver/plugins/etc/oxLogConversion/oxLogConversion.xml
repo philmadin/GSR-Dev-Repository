@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>oxLogConversion</name>
+    <displayName>Conversion Logging Plugin</displayName>
+    <creationDate>2014-03-10</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides logging of conversion events.</description>
+    <version>1.1.2</version>
+    <oxversion>3.2.0-beta-rc3</oxversion>
+    <extends>deliveryLog</extends>
+
+    <install>
+        <files>
+            <file path="{MODULEPATH}deliveryLog/oxLogConversion/">logConversion.delivery.php</file>
+            <file path="{MODULEPATH}deliveryLog/oxLogConversion/">logConversion.class.php</file>
+            <file path="{MODULEPATH}deliveryLog/oxLogConversion/">logConversionVariable.delivery.php</file>
+            <file path="{MODULEPATH}deliveryLog/oxLogConversion/">logConversionVariable.class.php</file>
+        </files>
+
+        <postscript>postscript_install_oxLogConversion.php</postscript>
+
+        <components>
+           <component>
+                <name>logConversion</name>
+                <hook>logConversion</hook>
+           </component>
+           <component>
+                <name>logConversionVariable</name>
+                <hook>logConversionVariable</hook>
+           </component>
+        </components>
+
+    </install>
+
+
+</plugin>

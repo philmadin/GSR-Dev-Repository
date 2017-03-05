@@ -1,0 +1,72 @@
+<h3>Playing as a Hero:</h3>
+
+
+<h3>Han Solo</h3> 
+
+Han Solo is arguably the most powerful Hero as his abilities inflict some of the highest damage. Since he can’t block or jump high distances, he is best used for attacking enemies from a distance. His abilities are best used for:
+
+Shoulder Charge – When your blaster / other abilities are cooling down or you want to escape a firefight. Though this ability doesn’t create much damage, it’s good at briefly stunning the enemy player.
+
+Rapid Fire – When shooting another Hero or surrounded by multiple enemies. Activate this ability when the round starts or as soon as the cooldown is finished. Don’t worry about activating it when no enemies are around as the ability timer doesn’t start until after the first shot is fired. 
+
+Lucky Shot – When shooting enemies from a distance or when your blaster / other abilities are cooling down. This ability creates an explosive shot that inflicts a ton of damage so it’s best saved for a Hero or Hero Bodyguard. It also tracks enemies when shot in close proximity to them so don’t be waste time aiming directly onto them.
+
+
+
+<h3>Princess Leia Organa</h3>
+
+Leia is more of a support class and is best when she sticks with other Heroes as she will almost always die when confronted by an opposing Hero. Her abilities are best used for:
+
+Trooper Bane - When shooting inside of the Enhanced Squad Shield or stunning Heroes. This is a powerful single blast that kills Soldier enemies in one hit as well as briefly stunning opposing Heroes. It’s has a very slow fire rate so it’s best used from a distance or when an enemy is focused on another teammate.  
+
+Enhanced Squad Shield – When wanting protection from blaster fire. This acts the same as a regular Squad Shield except its only disappears once you activate a new one. Is best used when being fired upon from multiple enemies or wanting a safe place to Heal yourself or other Heroes. The shield protects against firearms but not explosive weapons. 
+
+Supply Drop – When you need to heal yourself or other Heroes. Is best used when away from enemies or in the Enhanced Squad Shield. Be careful not to simply place it anywhere as the opposing Heroes can pick it up and gain health. 
+
+
+
+<h3>Luke Skywalker</h3>
+
+Luke is very fast and powerful but takes a lot of damage from firearms so is best used for taking on one enemy at a time. The best strategy is to run around the outskirts of the map and sneak up on enemy players from behind. His abilities are best used for:
+
+Force Push – When surrounded by multiple enemies or want to briefly stun a Hero. This is a one-hit kill for Soldier enemies and has a fairly wide spread of attack. It can also be used while jumping to damage players from high vantage points such as Bobba Fett.
+
+Heavy Strike – When attacking a Hero or Hero Bodyguard. This causes the most damage out of any other Hero abilities (other than Darth Vader’s heavy strike) and is best used when a Hero is stunned or focused on something else as it can be blocked. 
+
+Saber Rush – When attacking someone running away, moving a large distance or escaping a fight. This ability is a one hit kill for Soldier enemies. 
+
+
+
+<h3>Darth Vader</h3>
+
+Darth Vader is a slow moving Hero but has great abilities for attacking Soldier players. The best strategy for him is sticking with other Heroes or attacking Soldiers when going solo. His abilities are best used for:
+
+Force Choke – When you want to stun a Hero or stop a Soldier / Hero Bodyguard from firing at you. This ability lifts the Solder enemy into the air temporarily, allowing you or another teammate to take them down. After a certain time, the choked player will die so you can walk away without having to finish them off. Is especially useful when they are surrounded by enemies.
+ 
+Heavy Strike – When attacking another Hero or Hero Bodyguard. This has the same effect as Luke Skywalker’s Heavy Strike. Is best used on a Hero when they are stunned or not focused on you as it can be blocked. 
+
+Saber Throw – When attacking an enemy from a medium distance. This ability is best used when an enemy is either running away or when they aren’t close enough to attack with your regular saber attack. It also briefly stuns Heroes. 
+
+
+
+<h3>Bobba Fett</h3>
+
+Bobba Fett is the one of the best Hero because of his jetpack which allows him to gain high vantage points and escape from fights easily. The best strategy for him is to attack from a distance since he will almost always lose when confronted by another Hero on the ground. His abilities are best used for:
+
+Jetpack – When escaping a fight or to reach a high vantage point. This ability is probably the best out of all the Heroes as it allows you to reach areas on the map that others cannot get to. Be sure to only use it when needed as you fall to the ground once the ability runs out, making you incredibly vulnerable.  
+
+Flame Thrower – When attacking enemies that are in close proximity and narrow areas. This ability does a lot of damage but you need to be accurate as it will only damage the enemy if you’re aiming directly at them. Is best used when your blaster is overheated. 
+
+Wrist Rocket – When shooting enemies from a far distance. This ability essentially acts as a powerful grenade and can travel any distance until it hits an enemy / object. It needs to land in very close proximity to the enemy for any damage to happen. 
+
+
+
+<h3>Emperor Palpatine</h3>
+
+The Emperor is arguably the weakest of the Heroes in terms of damage but his abilities have a faster cooldown rate to make up for this. The best strategy for him is to stick with other Heroes or Hero Bodyguards and attack enemies not focused on him. His abilities are best used for:
+
+Chain Lightning – When surrounded by multiple enemies or attacking an enemy from a medium range. This ability is especially useful when attacking Soldier enemies as it kills the surrounding players of the one you hit.
+ 
+Imperial Resources – When you want to heal yourself or other Heroes. This acts the same as Leia’s Supply Drop. Be careful not to place it anywhere as the opposing Heroes can pick it up and gain health. 
+
+Force Dash – When wanting to escape a fight, reach a high vantage point or avoid damage from a Hero. This ability refreshes at a fast rate and is a great ability when attacking another enemy as you can dash behind them and attack without taking as much damage.

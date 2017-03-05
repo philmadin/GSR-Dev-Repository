@@ -1,0 +1,11 @@
+<h3>Agility</h3>
+The most important attribute for all stealth builds. Lowers the chance of being detected while in stealth mode, increases chance to pickpocket and grants more Action Points in VATS. 
+
+Perk: Gunslinger 
+Increases all based damage with Pistols. This build allows for the choice between a Non-Automatic Rifle or Pistol focus. 
+
+Perk: Mister Sandman 
+Besides being able to kill any sleeping person by interacting with them, this increases sneak damage on all silenced weapons up to a maximum of +50%. 
+
+Perk: Ninja 
+If you have not been spotted by the enemy, this will greatly increase your sneak damage up to a x3.5 on range and 10x on melee.

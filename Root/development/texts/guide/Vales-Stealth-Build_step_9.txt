@@ -1,0 +1,18 @@
+Stealth Tips 
+ 
+Now that you have the build, there are a few things to keep in mind 
+ 
+Armour 
+As tempting as it is to have high armour/resistance, this generally comes at the cost of high weight. 
+Weight has an adverse affect on stealth, making you easier to detect. To overcome this, the mods Light and Ultralight reduces the weight of armour. The lighter armours like Leather can be modified with the Shadowed modification to make you virtually invisible at night and in dark places. 
+Get your equipped armour as light as possible for the best stealth. 
+Weapons 
+Every gun MUST have a silencer mod on it. Not only will this keep you hidden for longer, but the damage output will be greatly increased thanks to the Mister Sandman perk. 
+Unlike Armour, weapon weight does not contribute to your stealth, equip the most powerful silenced weapon you can get your hands on. 
+Stealth movement and attacking 
+Below Level 4 in the Stealth perk, your speed is taken into consideration. Move slow until you have maxed out the Stealth perk. 
+Keep to dark areas, or better, only move around at night. The light level has a huge impact on the stealth mechanics, moving next to a raider at night and they will probably not notice you with this build, try the same thing at day time and he will shoot you in an instant. 
+Don’t be afraid to attack things. Detection goes from Hidden to Cautious, then to Danger. Anything before Danger is considered a stealth attack. Most of the time, you can shoot someone's buddy, reload and shoot them before you ever get near Danger. 
+ 
+USE VATS 
+In every build, VATS is your friend. Use it as much as possible. Save Critical Hits for long ranged headshots with minimal chance to hit. Critical Hits will always land, even at 1% chance. 

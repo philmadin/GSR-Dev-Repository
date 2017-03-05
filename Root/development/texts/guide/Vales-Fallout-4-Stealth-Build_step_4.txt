@@ -1,0 +1,2 @@
+<h3>Endurance</h3> 
+Virtually useless for stealth builds. Gives 5 HP per Endurance Point. 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href=""?>
+
+<plugin>
+    <name>oxLogClick</name>
+    <displayName>Banner Click Logging Plugin</displayName>
+    <creationDate>2014-03-10</creationDate>
+    <author>Revive Adserver</author>
+    <authorEmail>revive@revive-adserver.com</authorEmail>
+    <authorUrl>http://www.revive-adserver.com</authorUrl>
+    <license>GNU Gneral Public License v2</license>
+    <description>Plugin that provides logging of clicks on banners.</description>
+    <version>1.1.2</version>
+    <oxversion>3.2.0-beta-rc3</oxversion>
+    <extends>deliveryLog</extends>
+
+    <install>
+        <files>
+            <file path="{MODULEPATH}deliveryLog/oxLogClick/">logClick.delivery.php</file>
+            <file path="{MODULEPATH}deliveryLog/oxLogClick/">logClick.class.php</file>
+        </files>
+
+        <postscript>postscript_install_oxLogClick.php</postscript>
+
+        <components>
+           <component>
+                <name>logClick</name>
+                <hook>logClick</hook>
+           </component>
+        </components>
+
+    </install>
+
+
+</plugin>

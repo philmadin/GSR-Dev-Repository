@@ -1,0 +1,3 @@
+Taking inspiration from Dark Signs, Australian independent developers Matt Trobbiani and Team Fractal Alligator bring you Hacknet.<br />
+<br />
+Hacknet is a text-based hacking simulator, running similar to a LinuxOS or DOS (computer operating systems). With a wonderful techno soundtrack to get you in the hacker feel, this game jumps straight into booting up a computer, literally.

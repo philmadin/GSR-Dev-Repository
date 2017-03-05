@@ -1,0 +1,8 @@
+<h3>Intelligence</h3>
+This is as important as Strength, for the same reasons. Besides granting more Experience Points for all actions, this has a crafting perk to silence your guns. 
+
+Perk: Gun Nut 
+Silences are extremely rare and unique to their type of gun. This build requires a silencer on all guns, not only for the noise reduction, but another perk also greatly increases damage with suppressed weapons. 
+
+Perk: Hacker 
+Terminals and some doors need higher level of hacking to gain access, this will open the world up the last part that the Locksmith perk can't. 

@@ -1,0 +1,5 @@
+Luck 
+Critical Hits recharge faster per Luck Point, also increases loot quality and quantity. 
+
+Scrounger 
+This is one of the most popular perks in any build that includes a gun of any variety. Increases ammo drop from all container sources. 

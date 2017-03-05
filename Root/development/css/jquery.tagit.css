@@ -1,0 +1,96 @@
+ul.tagit {
+    padding: 0 5px;
+    overflow: auto;
+    margin-left: inherit; /* usually we don't want the regular ul margins. */
+    margin-right: inherit;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border:none;
+}
+ul.tagit li {
+    display: block;
+    float: left;
+    margin: 2px 5px 2px 0;
+}
+ul.tagit li.tagit-choice {    
+    position: relative;
+    line-height: inherit;
+}
+input.tagit-hidden-field {
+    display: none;
+}
+ul.tagit li.tagit-choice-read-only { 
+    padding: .2em .5em .2em .5em; 
+} 
+
+ul.tagit li.tagit-choice-editable {
+    padding: 0 5px;
+    background: #E73030;
+    height: 25px;
+    margin-top:8px;
+} 
+
+ul.tagit li.tagit-new {
+    padding: 0;
+}
+
+ul.tagit li.tagit-choice a.tagit-label {
+    cursor: pointer;
+    text-decoration: none;
+    font-size:16px;
+    font-weight:normal;
+    margin-right:8px;
+    color:white;
+}
+ul.tagit li.tagit-choice .tagit-close {
+    cursor: pointer;
+    line-height: 17px;
+    color:white;
+}
+ul.tagit li.tagit-choice .tagit-close .ui-icon-close {
+    display:none !important;
+}
+
+/* used for some custom themes that don't need image icons */
+ul.tagit li.tagit-choice .tagit-close .text-icon {
+    position:static !important;
+    background:none !important;
+    border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    width: auto !important;
+    margin: 0 !important;
+    font-size: 11px;
+    color: #000 !important;
+    padding: 2px !important;
+    height: auto;
+    display: inline-block !important;
+    line-height: initial !important;
+}
+
+ul.tagit li.tagit-choice .tagit-close .text-icon:hover {
+    color:#cfcfcf !important;
+}
+
+ul.tagit li.tagit-choice input {
+    display: block;
+    float: left;
+    margin: 2px 5px 2px 0;
+}
+ul.tagit input[type="text"] {
+    -moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:         border-box;
+
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: inherit;
+    background-color: inherit;
+    outline: none;
+}
