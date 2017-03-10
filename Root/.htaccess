@@ -1,0 +1,21 @@
+RewriteEngine on
+RewriteBase /
+
+<Files magic>
+    ForceType application/x-httpd-php5
+</Files>
+
+<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|js|pdf)$">
+    Header set Cache-Control "max-age=28800"
+</FilesMatch>
+
+Header append Vary User-Agent
+RewriteCond %{HTTP_HOST} ^gamesharkreviews\.edream\.com\.au$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.gamesharkreviews\.edream\.com\.au$
+RewriteRule ^/?$ "http\:\/\/www\.gamesharkreviews\.com" [R=301,L]
+
+RewriteBase /
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+Header set Access-Control-Allow-Origin "*"
