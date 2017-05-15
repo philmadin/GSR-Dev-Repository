@@ -199,8 +199,8 @@ AND timestamp < curdate() - INTERVAL DAYOFWEEK(curdate())-9 DAY AND article_type
 		<?php } ?>
 	</dl>
 	<div id="message">
-		Donate<br><br>
-		Support your favourite game reviewers by <a href="https://www.gofundme.com/tecjc6y4">donating here</a>.
+		Contribute<br><br>
+		Support your favourite game reviewers by <a href="https://www.gofundme.com/tecjc6y4">contributing here</a>.
 	</div>
 <ins data-revive-zoneid="1" data-revive-id="92efd1a11555b4b462d64394af1b51db"></ins>
 <script async src="//gamesharkreviews.com/adserver/www/delivery/asyncjs.php"></script>
