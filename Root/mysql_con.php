@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-$con = mysqli_connect('localhost','gameshar_dev','Fredwarrior123','gameshar_gsr');
+$con = mysqli_connect('127.0.0.1','root','root','gameshark_gsr');
 
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
