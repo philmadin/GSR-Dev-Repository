@@ -69,7 +69,7 @@
 		<article class="blog">
 			<section class="grid_18">
 
-				<h2>Latest Articles</h2>
+				<h1>Latest Articles</h1>
 
 				<ul class="article_list">
 					<?php
