@@ -5,11 +5,12 @@
 ?>
 
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 
 <meta charset="utf-8">
-<meta name="viewport" content="width=960, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index, follow, noarchive">
 <meta name="keywords" content="game, shark, reviews, gsr, games, review">
 <meta name="google-site-verification" content="VZ-6pRoIF35Horq1cgUd-hlE9mAHh8UIqrdZkebtzfw" />
