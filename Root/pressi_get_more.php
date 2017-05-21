@@ -14,7 +14,7 @@
 	$authQRY = mysqli_query($con, "SELECT firstname, lastname, rank, picture FROM tbl_accounts WHERE username = '$userget'");
 	$authROW = mysqli_fetch_assoc($authQRY);
 
-	$posQRY = mysqli_query($con, "SELECT name FROM tbl_ranks WHERE sector = '" . $authROW['rank'] . "'");
+	$posQRY = mysqli_query($con, "SELECT name FROM tbl_ranks WHERE id = '" . $authROW['rank'] . "'");
 	$posROW = mysqli_fetch_assoc($posQRY);
 
 	echo '<p class="pressi-activity">';
