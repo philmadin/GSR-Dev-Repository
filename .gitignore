@@ -1,2 +1,2 @@
 ### Ignore mysql_con.php settings
-Root\mysql_con.php
+/Root/mysql_con.php
