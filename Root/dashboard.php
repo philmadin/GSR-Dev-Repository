@@ -174,7 +174,7 @@ $user_count = formatNum(mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_us
 					<div class="box top-list">
 					<span>Top Searches</span>				
 					<?php
-					$top_searches = mysqli_query($con, "SELECT query, COUNT(*) AS occurrences FROM tbl_search WHERE page_num = 1 GROUP BY query ORDER BY occurrences DESC LIMIT 5");
+					//$top_searches = mysqli_query($con, "SELECT query, COUNT(*) AS occurrences FROM tbl_search WHERE page_num = 1 GROUP BY query ORDER BY occurrences DESC LIMIT 5");
 					while ($search = mysqli_fetch_assoc($top_searches)) {
 					$query = $search['query'];
 					$search_num = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_search WHERE query = '$query' AND page_num = 1"));
