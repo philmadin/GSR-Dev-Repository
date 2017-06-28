@@ -67,7 +67,6 @@ $(function(){
 				vhtml 		+= '<span class="video-title">'+data[0][d].itemDetails.snippet.title+'</span>';
 				vhtml 		+= '</a></li>';
 				$("#video-list").append(vhtml);
-				console.log(vhtml);
 				$("#video-list").fadeIn("fast");
 				
 			}
