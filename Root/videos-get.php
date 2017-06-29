@@ -90,7 +90,7 @@ function channelVideos(){
 	return json_encode(array($videos));
 }
 
-$v = channelVideos();
+//$v = channelVideos();
 
 /**
  * @param $num
