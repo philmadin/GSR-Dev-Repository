@@ -85,6 +85,11 @@ Game Shark Reviews reserves the right at any time and in its sole discretion to 
 </li>
 <li>
 <span>
+<span class="title">Privacy Policy:</span>Please refer to the Game Shark Reviews Privacy Policy located within our Terms &amp; Conditions.
+</span>
+</li>
+<li>
+<span>
 <span class="title">Governing Law:</span> These terms and conditions will be governed by and construed in accordance with the laws of Australia, without regard to any principles of conflicts of law. You agree that any action at law or in equity that arises out of or relates to these terms and conditions will be filed only in the state or federal courts located in Australia. 
 </span>
 </li>
@@ -95,7 +100,7 @@ Game Shark Reviews reserves the right at any time and in its sole discretion to 
 </li>
 <li>
 <span>
-<span class="title">Inquiries:</span> Thank you for visiting gamesharkreviews.com. For questions concerning policies, contact <b>admin@gamesharkreviews.com</b>
+<span class="title">Inquiries:</span> Thank you for visiting gamesharkreviews.com. For questions concerning policies, contact <a href="mailto:gamesharkreviewsceo@gmail.com">gamesharkreviewsceo@gmail.com</a>.
 </span>
 </li>
 </ol>
