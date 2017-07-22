@@ -6,8 +6,6 @@ Opauth enables PHP applications to do *user authentication* with ease.
 
 Try out Opauth for yourself at http://opauth.org
 
-!123
-
 About this bundled package
 ===========================
 This package is bundled with Opauth core and the following strategies to help users getting started quickly:
