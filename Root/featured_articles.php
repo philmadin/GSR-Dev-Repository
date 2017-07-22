@@ -4,7 +4,7 @@
 
 	include "mysql_con.php";
 
-	$featuredSQL = "SELECT * FROM tbl_featured WHERE position > 0";
+	$featuredSQL = "SELECT * FROM tbl_featured WHERE position > 0 ORDER BY position ASC";
 	$ftQuery = mysqli_query($con, $featuredSQL);	
 	$ftIndex = 1;
 	
@@ -31,7 +31,7 @@
 
 			echo '<div class="left_side">'; 
 				if($ftROW['article_type'] == "Guide") {
-					$a_image = unserialize($ftROW['a_image']);
+					$a_image = unserialize($ftROW['images']);
 					echo '<img src="/imgs/guide/' . $a_image[0] . '" class="ftBG">';
 				} else {
 					echo '<img src="/imgs/' . strtolower($ftROW['article_type']) . '/' . $ftROW['a_image'] . '" class="ftBG">';

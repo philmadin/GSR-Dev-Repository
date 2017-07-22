@@ -3,7 +3,6 @@
     	//include_once("videos-get.php");
     	//$v = channelVideos();
 ?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,6 +20,10 @@
 
 <?php 
 	include "links.php"; 
+
+	usort($v['i'], function($a, $b) {
+		return $a['i']['statistics']['viewCount'] - $b['i']['statistics']['viewCount'];
+	});
 ?>
 <script type="text/javascript">
   <!--
@@ -42,10 +45,26 @@
 }
 </script>
 <script>
-	
 	$(document).ready(function($) {
-		$("#video-list").load("videoStatic.html");
-		$("#asideElement").load("asideStatic.html");
+		
+
+		function timeFormat(timeD){
+			return timeD.replace("PT","").replace("H",":").replace("M",":").replace("S","");
+		}
+		$.get("youtube.json", function(data){
+			for (d = 0; d < 3; d++) { 
+				var vhtml 	 = '<li><a data-id="'+data[0][d].id+'" class="video-contain" href="video.php?id='+data[0][d].id+'">';
+				vhtml 		+= '<span style="background-image:url(https://i.ytimg.com/vi/'+data[0][d].id+'/maxresdefault.jpg);" class="video">';
+				vhtml 		+= '<span class="duration">'+timeFormat(data[0][d].itemDetails.contentDetails.duration)+'</span>';
+				vhtml 		+= '<span class="views">'+data[0][d].itemDetails.statistics.viewCount+' views</span>';
+				vhtml 		+= '</span>';
+				vhtml 		+= '<span class="video-title">'+data[0][d].itemDetails.snippet.title+'</span>';
+				vhtml 		+= '</a></li>';
+                $("#video-list").prepend(vhtml);
+				
+				}
+			});
+		//$("#asideElement").load("asideStatic.html");
 		var slider = $('#featured_articles_container').unslider({autoplay: true, animation: "horizontal", delay: 4500, speed: 1000,infinite: true});
 	});
 </script>
@@ -61,91 +80,15 @@
         	<div id="pagination"></div>
     	</div>
 
-				<!--<div id="featured_articles_container">
-					<ul id="featured_articles">
-                        <?php
-                        $featured_ar = mysqli_query($con, "SELECT * FROM tbl_featured WHERE position!=0 AND article_type!='Video' ORDER BY position ASC LIMIT 5");
-
-                        while ($ft_row = mysqli_fetch_assoc($featured_ar)) {
-                            $article_type = $ft_row['article_type'];
-                            $article_id = $ft_row['article_id'];
-                            $video_id = $ft_row['video_id'];
-                            if($article_type=="Video"){
-                                $ft_title = $v[$video_id]['snippet']['title'];
-                                $ft_image = "http://img.youtube.com/vi/".$video_id."/maxresdefault.jpg";
-                                $ft_url   = "video.php?id=".$video_id;
-                                $ft_summary = null;
-                            }
-                            if($article_type=="Guide"){
-                                $guide_ar = mysqli_query($con, "SELECT * FROM tbl_guide WHERE id = $article_id");
-                                while ($guide_row = mysqli_fetch_assoc($guide_ar)) {
-                                    $ft_title = $guide_row['title'];
-                                    $ft_images 	= unserialize($guide_row['images']);
-                                    $ft_image   = "imgs/guide/".urlencode($ft_images[0]);
-                                    $ft_url     = "guide.php?t=" . urlencode(str_replace(" ", "_", $ft_title));
-                                    $ft_summary = null;
-                                }
-                            }
-                            if($article_type=="Opinion"){
-                                $opinion_ar = mysqli_query($con, "SELECT * FROM tbl_opinion WHERE id = $article_id");
-                                while ($op_row = mysqli_fetch_assoc($opinion_ar)) {
-                                    $ft_title = $op_row['title'];
-                                    $ft_image = "imgs/opinion/".urlencode($op_row['a_image']);
-                                    $ft_url     = "opinion.php?t=" . urlencode(str_replace(" ", "_", $ft_title));
-                                    $ft_summary = null;
-                                }
-                            }
-                            if($article_type=="News"){
-                                $news_ar = mysqli_query($con, "SELECT * FROM tbl_news WHERE id = $article_id");
-                                while ($op_row = mysqli_fetch_assoc($news_ar)) {
-                                    $ft_title = $op_row['title'];
-                                    $ft_image = "imgs/news/".urlencode($op_row['a_image']);
-                                    $ft_url     = "news.php?t=" . urlencode(str_replace(" ", "_", $ft_title));
-                                    $ft_summary = null;
-                                }
-                            }
-                            if($article_type=="Review"){
-                                $review_ar = mysqli_query($con, "SELECT * FROM tbl_review WHERE id = $article_id");
-                                while ($rvw_row = mysqli_fetch_assoc($review_ar)) {
-                                    $ft_title = $rvw_row['title'];
-                                    $ft_game	= $rvw_row['gamename'];
-                                    $ft_image = "imgs/review/".urlencode($rvw_row['a_image']);
-                                    $ft_url	= "review.php?t=" . urlencode(str_replace(" ", "_", $ft_title)) . "&g=" . urlencode(str_replace(" ", "_", $ft_game));
-                                    $ft_summary = $rvw_row['summary'];
-                                }
-                            }
-
-
-                        ?>
-			<li class="featured_item">
-				<a href="<?php echo $ft_url; ?>" id="featured_content" style="background-image:url(<?php echo $ft_image; ?>);">
-					<h3 id="featured_title"><?php echo $ft_title; ?></h3>
-                                    	<?php if(isset($ft_summary)){ ?>
-						<p id="featured_summary"><?php echo $ft_summary; ?></p>
-					<?php } ?>
-                                    	<span id="type"><?php echo $article_type;?></span>
-                                    	<span id="overlay"></span>
-				</a>
-			</li>
-                        <?php } ?>
-                     </ul>
-		</div>-->
+			
 
 
 	<div id="page" class="container_24">
 
 		<article class="blog">
 			<section class="grid_18">
-				<h1>EXCLUSIVE</h1>
-				<div id="exclusive" class="owl-carousel owl-theme">
-						<div class="item"><a href="https://www.gofundme.com/tecjc6y4" class="exclusive_item whitegold">
-							<img src="imgs/gsr_exclusives_donate.jpg" alt="The image or icon of Game Shark Review's donate option.">
-							<span class="primary">Love GSR?</span><br>
-							<span class="secondary">Buy us a coffee!</span>
-						</a></div>
-				</div>
 
-				<h2>Latest Articles</h2>
+				<h1>Latest Articles</h1>
 
 				<ul class="article_list">
 					<?php
@@ -225,6 +168,215 @@
 			</section>
 
 			<aside id="asideElement" class="articles grid_6 tall_9">
+
+<!--aside start-->
+
+<div class="sticky">
+	<dl>
+		<dt>Popular Reviews</dt>
+		<?php
+
+        $pop_num = 0;
+        $articleAr = array();
+        $weekly_sql = mysqli_query($con, "SELECT article_id FROM tbl_article_stats WHERE timestamp >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY
+AND timestamp < curdate() - INTERVAL DAYOFWEEK(curdate())-9 DAY AND article_type='Review' GROUP BY article_id DESC LIMIT 3");
+
+
+        while ($weekly = mysqli_fetch_assoc($weekly_sql)) {
+            $weekly['num'] = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_article_stats WHERE timestamp >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY
+AND timestamp < curdate() - INTERVAL DAYOFWEEK(curdate())-9 DAY AND article_type='Review' AND article_id=".$weekly['article_id']));
+
+            array_push($articleAr, $weekly);
+		
+        }
+        usort($articleAr, function($a, $b) {
+            return $b['num'] - $a['num'];
+        });
+
+
+        ?>
+        <?php
+        foreach ($articleAr as $weekly){
+        $popular_reviews = mysqli_query($con, "SELECT * FROM tbl_review WHERE id=".$weekly['article_id']." AND alpha_approved = 'true'");
+
+			while ($poprev = mysqli_fetch_assoc($popular_reviews)) {
+				$pop_title	= $poprev['title'];
+				$pop_rating	= $poprev['main_rating'];
+				$pop_url	= "review.php?t=" . urlencode(str_replace(" ", "_", $poprev['title'])) . "&g=" . urlencode(str_replace(" ", "_", $poprev['gamename']));
+				$pop_num++;
+			?>
+
+			<dd><a href="<?php echo $pop_url; ?>">
+				<span><?php echo $pop_num; ?></span>
+				<?php echo $pop_title; ?>
+				<strong><?php echo $pop_rating; ?></strong>
+			</a></dd>
+
+		<?php } ?>
+		<?php } ?>
+	</dl>
+	<dl>
+		<div class="ad_placeholder">
+		Want to advertise your site on GSR? <a href="#">click here</a> to find out how.
+	</div>
+        </dl>
+        <dl>
+		<dt>Popular Opinion Pieces</dt>
+		<?php
+        $pop_num = 0;
+        $articleAr = array();
+        $weekly_sql = mysqli_query($con, "SELECT article_id FROM tbl_article_stats WHERE timestamp >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY
+AND timestamp < curdate() - INTERVAL DAYOFWEEK(curdate())-9 DAY AND article_type='Opinion' GROUP BY article_id DESC LIMIT 3");
+
+
+        while ($weekly = mysqli_fetch_assoc($weekly_sql)) {
+            $weekly['num'] = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_article_stats WHERE timestamp >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY
+AND timestamp < curdate() - INTERVAL DAYOFWEEK(curdate())-9 DAY AND article_type='Opinion' AND article_id=".$weekly['article_id']));
+
+            array_push($articleAr, $weekly);
+
+        }
+
+        usort($articleAr, function($a, $b) {
+            return $b['num'] - $a['num'];
+        });
+
+
+        ?>
+            <?php
+            foreach ($articleAr as $weekly){
+            $popular_opinions = mysqli_query($con, "SELECT * FROM tbl_opinion WHERE id=".$weekly['article_id']." AND alpha_approved = 'true'");
+
+			while ($popop = mysqli_fetch_assoc($popular_opinions)) {
+				$pop_title	= $popop['title'];
+				$pop_url	= "opinion.php?t=" . urlencode(str_replace(" ", "_", $popop['title']));
+				$pop_num++;
+			?>
+
+			<dd><a href="<?php echo $pop_url; ?>">
+				<span><?php echo $pop_num; ?></span>
+				<?php echo $pop_title; ?>
+			</a></dd>
+
+		<?php } ?>
+		<?php } ?>
+            </dl>
+        <dl>
+		<dt>Popular News Articles</dt>
+		<?php
+        $pop_num = 0;
+        $articleAr = array();
+        $weekly_sql = mysqli_query($con, "SELECT article_id FROM tbl_article_stats WHERE timestamp >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY
+AND timestamp < curdate() - INTERVAL DAYOFWEEK(curdate())-9 DAY AND article_type='News' GROUP BY article_id DESC LIMIT 3");
+
+
+        while ($weekly = mysqli_fetch_assoc($weekly_sql)) {
+            $weekly['num'] = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_article_stats WHERE timestamp >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY
+AND timestamp < curdate() - INTERVAL DAYOFWEEK(curdate())-9 DAY AND article_type='News' AND article_id=".$weekly['article_id']));
+
+            array_push($articleAr, $weekly);
+
+        }
+
+        usort($articleAr, function($a, $b) {
+            return $b['num'] - $a['num'];
+        });
+
+
+        ?>
+            <?php
+            foreach ($articleAr as $weekly){
+            $popular_news = mysqli_query($con, "SELECT * FROM tbl_news WHERE id=".$weekly['article_id']." AND alpha_approved = 'true'");
+
+			while ($popop = mysqli_fetch_assoc($popular_news)) {
+				$pop_title	= $popop['title'];
+				$pop_url	= "news.php?t=" . urlencode(str_replace(" ", "_", $popop['title']));
+				$pop_num++;
+			?>
+
+			<dd><a href="<?php echo $pop_url; ?>">
+				<span><?php echo $pop_num; ?></span>
+				<?php echo $pop_title; ?>
+			</a></dd>
+
+		<?php } ?>
+		<?php } ?>
+            </dl>
+        <dl>
+		<dt>Popular Guides</dt>
+		<?php
+        $pop_num = 0;
+        $articleAr = array();
+        $weekly_sql = mysqli_query($con, "SELECT article_id FROM tbl_article_stats WHERE timestamp >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY
+AND timestamp < curdate() - INTERVAL DAYOFWEEK(curdate())-9 DAY AND article_type='Guide' GROUP BY article_id DESC LIMIT 3");
+
+
+        while ($weekly = mysqli_fetch_assoc($weekly_sql)) {
+            $weekly['num'] = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_article_stats WHERE timestamp >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY
+AND timestamp < curdate() - INTERVAL DAYOFWEEK(curdate())-9 DAY AND article_type='Guide' AND article_id=".$weekly['article_id']));
+
+            array_push($articleAr, $weekly);
+
+        }
+
+        usort($articleAr, function($a, $b) {
+            return $b['num'] - $a['num'];
+        });
+
+
+        ?>
+            <?php
+            foreach ($articleAr as $weekly){
+            $popular_guides = mysqli_query($con, "SELECT * FROM tbl_guide WHERE id=".$weekly['article_id']." AND alpha_approved = 'true'");
+
+			while ($popop = mysqli_fetch_assoc($popular_guides)) {
+				$pop_title	= $popop['title'];
+				$pop_url	= "guide.php?t=" . urlencode(str_replace(" ", "_", $popop['title']));
+				$pop_num++;
+			?>
+
+			<dd><a href="<?php echo $pop_url; ?>">
+				<span><?php echo $pop_num; ?></span>
+				<?php echo $pop_title; ?>
+			</a></dd>
+
+		<?php } ?>
+		<?php } ?>
+            </dl>
+    <dl id="asideVids">
+		<dt>Popular Videos</dt>
+			<script>
+			$.get("youtube.json", function(data){
+				for (d = 0; d < 3; d++) { 
+					var vhtml 	 = '<dd><a href="video.php?id='+data[0][d].id+'">';
+					vhtml 		+= '<span>'+(d+1)+'</span>'+data[0][d].itemDetails.snippet.title;
+					vhtml 		+= '</a></dd>';
+                	$("#asideVids").append(vhtml);
+				
+					}
+				});
+			</script>
+
+	</dl>
+	<div id="message">
+		Contribute<br><br>
+		Support your favourite game reviewers by
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+			<input type="hidden" name="cmd" value="_s-xclick">
+			<input type="hidden" name="hosted_button_id" value="YANHDL9KQMFJL">
+			<input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!">
+			<img alt="" border="0" src="https://www.paypalobjects.com/en_AU/i/scr/pixel.gif" width="1" height="1">
+		</form>
+ <a href="https://www.gofundme.com/tecjc6y4">contributing here</a>.
+	</div>
+<ins data-revive-zoneid="1" data-revive-id="92efd1a11555b4b462d64394af1b51db"></ins>
+<script async src="//gamesharkreviews.com/adserver/www/delivery/asyncjs.php"></script>
+</div>
+
+<!--aside end-->
+
+
+
 			</aside>
 			
 			
