@@ -39,6 +39,8 @@
 <link href="image-picker/image-picker.css" rel="stylesheet" type="text/css" />
 <script src="image-picker/image-picker.js" type="text/javascript"></script>
 
+<link href="https://fonts.googleapis.com/css?family=Jaldi" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
 <meta property="fb:pages" content="1610060492568280" />
 
 <!-- JS file -->

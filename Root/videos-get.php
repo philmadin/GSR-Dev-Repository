@@ -2,7 +2,7 @@
 
 header('Content-Type: application/json');
 include 'mysql_con.php';
-set_time_limit(10000);
+set_time_limit(0);
 
 function channelVideos(){
     global $con;
@@ -121,11 +121,6 @@ function totalViews()
 
 }
 
-if(isset($_GET['video-list'])){
-echo channelVideos();
-}
 
-if(isset($_GET['suggested-videos'])){
-echo json_encode(relatedVideos(intval($_GET['num']), $_GET['exclude']));
-}
+echo channelVideos();
 ?>

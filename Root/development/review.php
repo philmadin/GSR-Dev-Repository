@@ -20,8 +20,9 @@
 		$check_posb			= $infoQRY['posb'];
 		$check_position		= $check_posa . " " . $check_posb;
 	}
-
-	$tQUERY = mysqli_query($con, "SELECT * FROM tbl_review WHERE title = '$review_title' AND gamename = '$review_game'");
+	$tQUERY = mysqli_query($con, "SELECT tbl_article.id,tbl_article.article_type,tbl_article.title,tbl_article.authorUserFK,tbl_article.createdate,tbl_article.tags,tbl_article.views,tbl_article.bites, tbl_review.gamename, tbl_review.summary, tbl_review.Overview, tbl_review.Storyline, tbl_review.Gameplay, tbl_review.Audio, tbl_review.Graphics, tbl_review.Verdict, tbl_review.trailer, tbl_review.testedplatforms, tbl_review.genre, tbl_review.createdate, tbl_review.developers, tbl_review.publishers, tbl_review.platforms, tbl_review.release_date, tbl_review.officialsite, tbl_review.developersites, tbl_review.publishersites, tbl_review.main_rating, tbl_review.storyline_rating, tbl_review.gameplay_rating, tbl_review.graphics_rating, tbl_review.audio_rating, tbl_review.a_image, tbl_review.b_image, tbl_review.c_image, tbl_review.d_image, tbl_review.e_image, CONCAT(tbl_accounts.firstname, ' ', tbl_accounts.lastname) as fullname FROM tbl_article inner join tbl_review on tbl_article.id=tbl_review.articleIDFK inner join tbl_accounts on tbl_article.authorUserFK=tbl_accounts.id WHERE tbl_article.title = '$review_title' AND tbl_review.gamename = '$review_game'");
+	
+	//$tQUERY = mysqli_query($con, "SELECT * FROM tbl_review WHERE title = '$review_title' AND gamename = '$review_game'");
 	if(mysqli_num_rows($tQUERY)==0){ $articleSet = false; }
 	while ($tROW = mysqli_fetch_array($tQUERY)) {
 		$articleid 			= $tROW['id'];
@@ -44,7 +45,7 @@
 		$trailer		 	= $tROW['trailer'];
 		$testedplatforms 	= $tROW['testedplatforms'];
 		$genre			 	= $tROW['genre'];
-		$author			 	= $tROW['author'];
+		$author			 	= $tROW['fullname'];
 		$authuser			= $tROW['authuser'];
 		$createdate		 	= $tROW['createdate'];
 		$developers		 	= $tROW['developers'];
@@ -65,6 +66,7 @@
 		$cimage				= urlencode($tROW['c_image']);
 		$dimage				= urlencode($tROW['d_image']);
 		$eimage				= urlencode($tROW['e_image']);
+		$articleviews = $tROW['views'];
 		$url = "http://gamesharkreviews.com/review.php?t=" . urlencode(str_replace(" ", "_", $title)) . "&g=" . urlencode(str_replace(" ", "_", $gamename));
 		$related = relatedArticles($tags, $articletype, 5, $title);
 	}
@@ -80,7 +82,7 @@
 	if($bitecount==1){$bitecounttext="bite";}
 	else{$bitecounttext = "bites";}
 	
-	$articleviews = (mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_article_stats WHERE article_id = '$articleid' AND type = 'view' AND article_type = '$articletype'"))+1);
+	//$articleviews = (mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_article_stats WHERE article_id = '$articleid' AND type = 'view' AND article_type = '$articletype'"))+1);
 	if($articleviews==1){$articleviewtext="view";}
 	else{$articleviewtext = "views";}
 	
@@ -176,7 +178,7 @@
 			<section class="grid_24" id="review_feature_image">
 				<img src="imgs/review/<?php echo $aimage; ?>">
 				<div id="gradient"></div>	
-				<h1><?php echo $title; ?><span><?php echo $articletype; ?></span></h1>
+				<h1><?php echo $title; ?><span>Review</span></h1>
 				<ul id="tagmenu">
 					<li class="tagmenu_button" id="overview_button">OVERVIEW</li>
 					<li class="tagmenu_button" id="storyline_button">STORYLINE</li>
@@ -199,7 +201,7 @@
 				<h2><?php echo $summary; ?></h2>
 				<p class="content" id="overview_section">
 					<span>OVERVIEW</span>
-					<?php echo html_entity_decode($overview); ?>
+					<?php echo strip_tags(html_entity_decode($overview), $exclude_html); ?>
 				</p>
 				<p class="content" id="storyline_section">
 					<span>STORYLINE</span>

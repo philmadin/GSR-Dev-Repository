@@ -20,7 +20,8 @@
 		$check_posb			= $infoQRY['posb'];
 		$check_position		= $check_posa . " " . $check_posb;
 	}
-
+	//$tQUERY = mysqli_query($con, "SELECT tbl_article.id,tbl_article.article_type,tbl_article.title,tbl_article.authorUserFK,tbl_article.createdate,tbl_article.tags,tbl_article.views,tbl_article.bites, tbl_review.gamename, tbl_review.summary, tbl_review.Overview, tbl_review.Storyline, tbl_review.Audio, tbl_review.Graphics, tbl_review.Verdict, tbl_review.trailer, tbl_review.testedplatforms, tbl_review.genre, tbl_review.createdate, tbl_review.developers, tbl_review.publishers, tbl_review.platforms, tbl_review.release_date, tbl_review.officialsite, tbl_review.developersites, tbl_review.publishersites, tbl_review.main_rating, tbl_review.storyline_rating, tbl_review.gameplay_rating, tbl_review.graphics_rating, tbl_review.audio_rating, tbl_review.a_image, tbl_review.b_image, tbl_review.c_image, tbl_review.d_image, tbl_review.e_image FROM tbl_article inner join tbl_review on tbl_article.id=tbl_review.articleIDFK WHERE tbl_article.title = '$review_title' AND tbl_review.gamename = '$review_game'");
+	
 	$tQUERY = mysqli_query($con, "SELECT * FROM tbl_review WHERE title = '$review_title' AND gamename = '$review_game'");
 	if(mysqli_num_rows($tQUERY)==0){ $articleSet = false; }
 	while ($tROW = mysqli_fetch_array($tQUERY)) {
