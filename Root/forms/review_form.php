@@ -1,3 +1,28 @@
+<script>
+function changeTo(event){
+	switch(event){
+		case "G":
+			$('#storyline_header label').text("Storyline");
+			$('#gameplay_header label').text("Gameplay");
+			$('#graphics_header label').text("Graphics");
+			$('#audio_header label').text("Audio");
+			break;
+		case "T":
+			$('#storyline_header label').text("Intuitive");
+			$('#gameplay_header label').text("Ergonomic");
+			$('#graphics_header label').text("Design");
+			$('#audio_header label').text("Value");
+			break;
+		case "M":
+			$('#storyline_header>label').text("Storyline");
+			$('#gameplay_header label').text("Cinematography");
+			$('#graphics_header label').text("Audio");
+			$('#audio_header label').text("Direction");
+			break;
+	}
+}
+</script>
+
 <form class="grid_18 grid_0 submitform" id="submitreview" method="get" action="" enctype="multipart/form-data">
 	<h6>Article Submission</h6>
 	<div class='article_form_group'>
@@ -36,11 +61,18 @@
 		</select>
 	</p>
 
+	<p class="scroll_section" id="classification_section">
+		<label for="classification">Article Type</label>
+		<select id="classification" name="classification" onchange="changeTo(this.value);">
+  			<option value="G">Game review</option>
+  			<option value="M">Movie review</option>
+  			<option value="T">Tech review</option>
+		</select>
+	
 	<p class="scroll_section" id="gamename_section">
-		<label for="gamename">Game Title</label>
+		<label for="gamename">Subject Title</label>
 		<?php include 'gamename_input.php'; ?>
 	</p>
-
 	<p class="scroll_section" id="articletitle_section">
 		<label for="articletitle">Title</label>
 		<input name="articletitle" id="articletitle" style="margin-right: 241px;width: 345px;" type="text" value="" placeholder="Enter your article's title here..." required="" aria-required="true" class="form_box_right">
