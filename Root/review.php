@@ -32,13 +32,13 @@
 		$file_overview		= $tROW['content_1'];
 		$overview		= $tROW['Overview'];
 		$file_storyline	 	= $tROW['content_2'];
-		$storyline		= $tROW['Storyline'];
+		$Content1		= $tROW['HTMLContent_1'];
 		$file_gameplay		= $tROW['content_3'];		
-		$gameplay		= $tROW['Gameplay'];
+		$Content2		= $tROW['HTMLContent_2'];
 		$file_audio		 	= $tROW['content_4'];
-		$audio			= $tROW['Audio'];
+		$Content4			= $tROW['HTMLContent_4'];
 		$file_graphics	 	= $tROW['content_5'];
-		$graphics		= $tROW['Graphics'];
+		$Content3		= $tROW['HTMLContent_3'];
 		$file_verdict	 	= $tROW['content_6'];
 		$verdict		= $tROW['Verdict'];
 		$trailer		 	= $tROW['trailer'];
@@ -54,10 +54,10 @@
 		$officialsite	 	= $tROW['officialsite'];
 		$developersites	 	= $tROW['developersites'];
 		$publishersites	 	= $tROW['publishersites'];
-		$storyline_rating	= $tROW['storyline_rating'];
-		$gameplay_rating	= $tROW['gameplay_rating'];
-		$audio_rating		= $tROW['audio_rating'];
-		$graphics_rating	= $tROW['graphics_rating'];
+		$Rating_1			= $tROW['Rating_1'];
+		$Rating_2			= $tROW['Rating_2'];
+		$Rating_3			= $tROW['Rating_3'];
+		$Rating_4			= $tROW['Rating_4'];
 		$main_rating		= $tROW['main_rating'];
 		$tags 				= $tROW['tags'];
 		$aimage				= urlencode($tROW['a_image']);
@@ -67,8 +67,31 @@
 		$eimage				= urlencode($tROW['e_image']);
 		$url = "http://gamesharkreviews.com/review.php?t=" . urlencode(str_replace(" ", "_", $title)) . "&g=" . urlencode(str_replace(" ", "_", $gamename));
 		$related = relatedArticles($tags, $articletype, 5, $title);
+		$classification		= $tROW['classification'];
 	}
-	
+	switch($classification){
+	case "G":
+		$generallabel="Game";
+		$label1="STORYLINE";
+		$label2="GAMEPLAY";
+		$label3="GRAPHICS";
+		$label4="AUDIO";
+		break;
+	case "T":
+		$generallabel="Tech";
+		$label1="INTUITIVE";
+		$label2="ERGONOMIC";
+		$label3="DESIGN";
+		$label4="VALUE";
+		break;
+	case "M":
+		$generallabel="Movie";
+		$label1="STORYLINE";
+		$label2="CINEMATOGRAPHY";
+		$label3="AUDIO";
+		$label4="DIRECTION";
+		break;
+	}
 	$viewer_ip = $_SERVER['REMOTE_ADDR'];
 	
 	$biteQUERY = mysqli_query($con, "SELECT * FROM tbl_article_stats WHERE article_id = '$articleid' AND type = 'bite' AND ip = '$viewer_ip' AND article_type = '$articletype'");
@@ -179,10 +202,10 @@
 				<h1><?php echo $title; ?><span><?php echo $articletype; ?></span></h1>
 				<ul id="tagmenu">
 					<li class="tagmenu_button" id="overview_button">OVERVIEW</li>
-					<li class="tagmenu_button" id="storyline_button">STORYLINE</li>
-					<li class="tagmenu_button" id="gameplay_button">GAMEPLAY</li>
-					<li class="tagmenu_button" id="audio_button">AUDIO</li>
-					<li class="tagmenu_button" id="graphics_button">GRAPHICS</li>
+					<li class="tagmenu_button" id="storyline_button"><?php echo $label1; ?></li>
+					<li class="tagmenu_button" id="gameplay_button"><?php echo $label2; ?></li>
+					<li class="tagmenu_button" id="audio_button"><?php echo $label3; ?></li>
+					<li class="tagmenu_button" id="graphics_button"><?php echo $label4; ?></li>
 					<li class="tagmenu_button" id="verdict_button">VERDICT</li>
 					<li class="tagmenu_button" id="trailer_button">TRAILER</li>
 					<li class="tagmenu_button" id="author_button">AUTHOR</li>
@@ -192,7 +215,13 @@
 			<section id="review_page" class="grid_16">
 				<p id="small_details">
 					<big><?php echo $gamename; ?></big><br>
-					Reviewed on <?php echo $testedplatforms; ?><br>
+					<?php 
+					echo $generallabel. " review";
+					if($generallabel=="Game"){
+						echo " on " . $testedplatforms;
+					}
+					 ?>
+					 <br>
 					<small><b><?php echo $author . " / </b>" . date("D jS M Y", strtotime($createdate)); ?></small><br >
 					<small><span id="displayviews"><?php echo $articleviews." ".$articleviewtext; ?></span><?php echo " <b> / </b> ".$bitecount. " " . $bitecounttext;?></small>
 				</p>
@@ -202,21 +231,21 @@
 					<?php echo strip_tags(html_entity_decode($overview), $exclude_html); ?>
 				</p>
 				<p class="content" id="storyline_section">
-					<span>STORYLINE</span>
-					<?php echo strip_tags(html_entity_decode($storyline), $exclude_html); ?>
+					<span><?php echo $label1; ?></span>
+					<?php echo strip_tags(html_entity_decode($Content1), $exclude_html); ?>
 				</p>
 				<p class="content" id="gameplay_section">
-					<span>GAMEPLAY</span>
-					<?php echo strip_tags(html_entity_decode($gameplay), $exclude_html); ?>
+					<span><?php echo $label2; ?></span>
+					<?php echo strip_tags(html_entity_decode($Content2), $exclude_html); ?>
 				</p>
 
 				<p class="content" id="gameplay_section">
-					<span>GRAPHICS</span>
-					<?php echo strip_tags(html_entity_decode($graphics), $exclude_html); ?>
+					<span><?php echo $label3; ?></span>
+					<?php echo strip_tags(html_entity_decode($Content3), $exclude_html); ?>
 				</p>
 				<p class="content" id="gameplay_section">
-					<span>AUDIO</span>
-					<?php echo strip_tags(html_entity_decode($audio), $exclude_html); ?>
+					<span><?php echo $label4; ?></span>
+					<?php echo strip_tags(html_entity_decode($Content4), $exclude_html); ?>
 				</p>
 				<p class="content" id="verdict_section">
 					<span>VERDICT</span>
@@ -292,10 +321,10 @@
 			<aside id="review_details" class="grid_8 grid_0">
 				<h4>RATING</h4>
 				<div id="allratings">
-					<div class="smallrating" id="graphics_rating"><?php echo $graphics_rating; ?> <span>GRAPHICS</span></div>
-					<div class="smallrating" id="gameplay_rating"><?php echo $gameplay_rating; ?> <span>GAMEPLAY</span></div>
-					<div class="smallrating" id="storyline_rating"><?php echo $storyline_rating; ?> <span>STORYLINE</span></div>
-					<div class="smallrating" id="audio_rating"><?php echo $audio_rating; ?> <span>AUDIO</span></div>
+					<div class="smallrating" id="graphics_rating"><?php echo $Rating_1; ?> <span><?php echo $label1?></span></div>
+					<div class="smallrating" id="gameplay_rating"><?php echo $Rating_2; ?> <span><?php echo $label2?></span></div>
+					<div class="smallrating" id="storyline_rating"><?php echo $Rating_3; ?> <span><?php echo $label3?></span></div>
+					<div class="smallrating" id="audio_rating"><?php echo $Rating_4; ?> <span><?php echo $label4?></span></div>
 					<div id="main_rating"><?php echo $main_rating; ?></div>
 				</div>
 				<p>
