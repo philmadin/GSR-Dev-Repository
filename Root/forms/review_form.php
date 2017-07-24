@@ -3,21 +3,33 @@ function changeTo(event){
 	switch(event){
 		case "G":
 			$('#storyline_header label').text("Storyline");
+			$('#firstContentRating').text("Storyline");
 			$('#gameplay_header label').text("Gameplay");
+			$('#secondContentRating').text("Gameplay");
 			$('#graphics_header label').text("Graphics");
+			$('#thirdContentRating').text("Graphics");
 			$('#audio_header label').text("Audio");
+			$('#fourthContentRating').text("Audio");
 			break;
 		case "T":
 			$('#storyline_header label').text("Intuitive");
+			$('#firstContentRating').text("Intuitive");
 			$('#gameplay_header label').text("Ergonomic");
+			$('#secondContentRating').text("Ergonomic");
 			$('#graphics_header label').text("Design");
+			$('#thirdContentRating').text("Design");
 			$('#audio_header label').text("Value");
+			$('#fourthContentRating').text("Value");
 			break;
 		case "M":
-			$('#storyline_header>label').text("Storyline");
+			$('#storyline_header label').text("Storyline");
+			$('#firstContentRating').text("Storyline");
 			$('#gameplay_header label').text("Cinematography");
+			$('#secondContentRating').text("Cinematography");
 			$('#graphics_header label').text("Audio");
+			$('#thirdContentRating').text("Audio");
 			$('#audio_header label').text("Direction");
+			$('#fourthContentRating').text("Direction");
 			break;
 	}
 }
@@ -26,9 +38,13 @@ function changeTo(event){
 <form class="grid_18 grid_0 submitform" id="submitreview" method="get" action="" enctype="multipart/form-data">
 	<h6>Article Submission</h6>
 	<div class='article_form_group'>
+	<table>	
 	<?php if(has_perms("articlelist-finalise")){?>
-		<p class="scroll_section" id="submitas_section">
+	<tr>
+		<td>
 			<label for="articlesubmitas">Submit As</label>
+		</td>
+		<td>
 			<select id="articlesubmitas" name="articlesubmitas">
 				<?php
 				$sasQRY = mysqli_query($con, "SELECT * FROM tbl_accounts WHERE rank!=0 ORDER BY id");
@@ -51,32 +67,55 @@ function changeTo(event){
 				}
 				?>
 			</select>
-		</p>
+		</td>
+	</tr>
 	<?php } ?>
-
-	<p class="scroll_section" id="type_section">
-		<label for="articletype">Article Type</label>
-		<select id="articletype" name="articletype">
-			<?php	echo $new_article_types;	?>
-		</select>
-	</p>
+	<tr>
+		<td>
+			<label for="articletype">Article Type</label>
+		</td>
+		<td>
+			<select id="articletype" name="articletype">
+				<?php	echo $new_article_types;	?>
+			</select>
+		</td>
+	</tr>
+	<tr>		
+		<td>
+			<label for="classification">Subject Classification</label>
+		</td>
+		<td>
+			<select id="classification" name="classification" onchange="changeTo(this.value);">
+				<option value="G">Game review</option>
+				<option value="M">Movie review</option>
+				<option value="T">Tech review</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="gamename">Subject Title</label>
+		</td>
+		<td>
+			<?php include 'gamename_input.php'; ?>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="articletitle">Title</label>
+		</td>
+		<td>
+			<input name="articletitle" id="articletitle" type="text" value="" placeholder="Enter your article's title here..." required="" aria-required="true">
+		</td>
+	</tr>
+	</table>
 
 	<p class="scroll_section" id="classification_section">
-		<label for="classification">Article Type</label>
-		<select id="classification" name="classification" onchange="changeTo(this.value);">
-  			<option value="G">Game review</option>
-  			<option value="M">Movie review</option>
-  			<option value="T">Tech review</option>
-		</select>
 	
 	<p class="scroll_section" id="gamename_section">
-		<label for="gamename">Subject Title</label>
-		<?php include 'gamename_input.php'; ?>
 	</p>
 	<p class="scroll_section" id="articletitle_section">
-		<label for="articletitle">Title</label>
-		<input name="articletitle" id="articletitle" style="margin-right: 241px;width: 345px;" type="text" value="" placeholder="Enter your article's title here..." required="" aria-required="true" class="form_box_right">
-	</p>
+		</p>
 	</div>
 	<div class='article_form_group'>
 		<div class='reviewSectionHeader' id="summary_header" onclick='expandReviewSection(this.id)'>
@@ -201,28 +240,28 @@ function changeTo(event){
 	</div>
 	<div class='article_form_group'>
 	<p class="scroll_section" id="storylinerating_section">
-		<label for="storylinerating">Storyline Rating <i>(one decimal point)</i></label>
+		<label for="storylinerating"><span id="firstContentRating">Storyline</span> Rating <i>(one decimal point)</i></label>
 		<input class="ratingcheck" name="storylinecheck" id="ratingcheck1" type="checkbox"  style="display: none;" checked></input>
 		<label id="ratinglabel1" for="ratingcheck1" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
 		<input name="storylinerating" class="form_box_right" id="storylinerating" type="text" value="" placeholder="0.0" required maxlength="4" minlength="3" />
 	</p>
 
 	<p class="scroll_section" id="gameplayrating_section">
-		<label for="gameplayrating">Gameplay Rating <i>(one decimal point)</i></label>
+		<label for="gameplayrating"><span id="secondContentRating">Gameplay</span> Rating <i>(one decimal point)</i></label>
 		<input class="ratingcheck" name="gameplaycheck" id="ratingcheck2" type="checkbox" style="display: none;" checked></input>
 		<label id="ratinglabel2" for="ratingcheck2" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
 		<input name="gameplayrating" class="form_box_right" id="gameplayrating" type="text" value="" placeholder="0.0" required maxlength="4" minlength="3" />
 	</p>
 
 	<p class="scroll_section" id="graphicsrating_section">
-		<label for="graphicsrating">Graphics Rating <i>(one decimal point)</i></label>
+		<label for="graphicsrating"><span id="thirdContentRating">Graphics</span> Rating <i>(one decimal point)</i></label>
 		<input class="ratingcheck" name="graphicscheck" id="ratingcheck4" type="checkbox"  style="display: none;" checked></input>
 		<label id="ratinglabel4" for="ratingcheck4" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
 		<input name="graphicsrating" class="form_box_right" id="graphicsrating" type="text" value="" placeholder="0.0" required maxlength="4" minlength="3" />
 	</p>
 
 	<p class="scroll_section" id="audiorating_section">
-		<label for="audiorating">Audio Rating <i>(one decimal point)</i></label>
+		<label for="audiorating"><span id="fourthContentRating">Audio</span> Rating <i>(one decimal point)</i></label>
 		<input class="ratingcheck" name="audiocheck" id="ratingcheck3" type="checkbox"  style="display: none;" checked></input>
 		<label id="ratinglabel3" for="ratingcheck3" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
 		<input name="audiorating" class="form_box_right" id="audiorating" type="text" value="" placeholder="0.0" required maxlength="4" minlength="3" />
