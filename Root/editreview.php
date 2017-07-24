@@ -30,12 +30,13 @@
 		$file_graphics	 	= $artROW['content_5'];
 		$file_verdict	 	= $artROW['content_6'];
 		
-		$overview 		= $artROW['Overview'];
-		$storyline		= $artROW['Storyline'];
-		$gameplay 		= $artROW['Gameplay'];
-		$audio 			= $artROW['Audio'];
-		$graphics 		= $artROW['Graphics'];
-		$verdict 		= $artROW['Verdict'];
+		$overview 			= $artROW['Overview'];
+		$Content1			= $artROW['HTMLContent_1'];
+		$Content2	 		= $artROW['HTMLContent_2'];
+		$Content4			= $artROW['HTMLContent_4'];
+		$Content3 			= $artROW['HTMLContent_3'];
+		$verdict 			= $artROW['Verdict'];
+
 		$trailer		 	= $artROW['trailer'];
 		$testedplatforms 	= $artROW['testedplatforms'];
 		$genre			 	= $artROW['genre'];
@@ -48,10 +49,10 @@
 		$officialsite	 	= $artROW['officialsite'];
 		$developersites	 	= $artROW['developersites'];
 		$publishersites	 	= $artROW['publishersites'];
-		$storyline_rating	= $artROW['storyline_rating'];
-		$gameplay_rating	= $artROW['gameplay_rating'];
-		$audio_rating		= $artROW['audio_rating'];
-		$graphics_rating	= $artROW['graphics_rating'];
+		$storyline_rating	= $artROW['Rating_1'];
+		$gameplay_rating	= $artROW['Rating_2'];
+		$audio_rating		= $artROW['Rating_4'];
+		$graphics_rating	= $artROW['Rating_3'];
 		$main_rating		= $artROW['main_rating'];
 		$file_beta_notes	= $artROW['beta_notes'];
 		$file_alpha_notes	= $artROW['alpha_notes'];
@@ -60,8 +61,32 @@
 		$pending			= $artROW['pending'];
 		$beta_approval		= $artROW['beta_approval'];
 		$alpha_approval		= $artROW['alpha_approval'];
+		$classification		= $artROW['classification'];
 	}
 
+	switch($classification){
+	case "G":
+		$generallabel="Game";
+		$label1="Storyline";
+		$label2="Gameplay";
+		$label3="Graphics";
+		$label4="Audio";
+		break;
+	case "T":
+		$generallabel="Tech";
+		$label1="Intuitive";
+		$label2="Ergonomic";
+		$label3="Design";
+		$label4="Value";
+		break;
+	case "M":
+		$generallabel="Movie";
+		$label1="Storyline";
+		$label2="Cinematography";
+		$label3="Audio";
+		$label4="Direction";
+		break;
+	}
 global $authuser;
 if (!has_perms("edit-article-override")) {
 	if($user!=$authuser) {
@@ -92,7 +117,42 @@ if (!has_perms("edit-article-override")) {
 </head>
 
 <body>
-
+	<script>
+	function changeTo(event){
+		switch(event){
+			case "G":
+				$('#content_1_section label').text("Storyline");
+				$('#firstContentRating').text("Storyline");
+				$('#content_2_section label').text("Gameplay");
+				$('#secondContentRating').text("Gameplay");
+				$('#content_3_section label').text("Graphics");
+				$('#thirdContentRating').text("Graphics");
+				$('#content_4_section label').text("Audio");
+				$('#fourthContentRating').text("Audio");
+				break;
+			case "T":
+				$('#content_1_section label').text("Intuitive");
+				$('#firstContentRating').text("Intuitive");
+				$('#content_2_section label').text("Ergonomic");
+				$('#secondContentRating').text("Ergonomic");
+				$('#content_3_section label').text("Design");
+				$('#thirdContentRating').text("Design");
+				$('#content_4_section label').text("Value");
+				$('#fourthContentRating').text("Value");
+				break;
+			case "M":
+				$('#content_1_section label').text("Storyline");
+				$('#firstContentRating').text("Storyline");
+				$('#content_2_section label').text("Cinematography");
+				$('#secondContentRating').text("Cinematography");
+				$('#content_3_section label').text("Audio");
+				$('#thirdContentRating').text("Audio");
+				$('#content_4_section label').text("Direction");
+				$('#fourthContentRating').text("Direction");
+				break;
+		}
+	}
+	</script>
 	<?php include "header.php"; ?>
 
 	<div id="page" class="container_24">
@@ -110,16 +170,36 @@ if (!has_perms("edit-article-override")) {
 				            <option value="Review" selected>Review</option>
 				        </select>
 				    </p>
-
-				    <p class="scroll_section" id="title_section">
-				    	<label for="articletitle">Title</label>
-				        <input name="articletitle" id="articletitle" type="text" value="<?php echo $title; ?>" placeholder="<?php echo $title; ?>" required />
-				    </p>
-
-				    <p class="scroll_section" id="gamename_section">
-				    	<label for="gamename">Game Title</label>
-				        <input name="gamename" id="gamename" type="text" value="<?php echo $gamename; ?>" placeholder="<?php echo $gamename; ?>" required />
-				    </p>
+					<table>
+						<tr>		
+							<td>
+								<label for="classification">Subject Classification</label>
+							</td>
+							<td>
+								<select id="classification" name="classification" onchange="changeTo(this.value);">
+									<option value="G">Game review</option>
+									<option value="M">Movie review</option>
+									<option value="T">Tech review</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="gamename">Subject Title</label>
+							</td>
+							<td>
+				       			<input name="gamename" id="gamename" type="text" value="<?php echo $gamename; ?>" placeholder="<?php echo $gamename; ?>" required />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="articletitle">Title</label>
+							</td>
+							<td>
+								<input name="articletitle" id="articletitle" type="text" value="<?php echo $title; ?>" placeholder="<?php echo $title; ?>" required />
+							</td>
+						</tr>
+					</table>
 
 				    <p class="scroll_section" id="summary_section">
 				    	<label for="summary">Summary <i>(MAX 100 CHARACTERS)</i></label>
@@ -132,24 +212,24 @@ if (!has_perms("edit-article-override")) {
 				        <textarea name="overview" id="overview" required><?php echo $overview; ?></textarea>
 				    </p>
 
-				    <p class="scroll_section" id="storyline_section">
-				    	<label for="storyline">Storyline</label>
-				        <textarea name="storyline" id="storyline" required><?php echo $storyline; ?></textarea>
+				    <p class="scroll_section" id="content_1_section">
+				    	<label for="storyline"><?php echo $label1; ?></label>
+				        <textarea name="storyline" id="storyline" required><?php echo $Content1; ?></textarea>
 				    </p>
 
-				    <p class="scroll_section" id="gameplay_section">
-				    	<label for="gameplay">Gameplay</label>
-				        <textarea name="gameplay" id="gameplay" required><?php echo $gameplay; ?></textarea>
+				    <p class="scroll_section" id="content_2_section">
+				    	<label for="gameplay"><?php echo $label2; ?></label>
+				        <textarea name="gameplay" id="gameplay" required><?php echo $Content2; ?></textarea>
 				    </p>
 					
-				    <p class="scroll_section" id="graphics_section">
-				    	<label for="graphics">Graphics</label>
-				        <textarea name="graphics" id="graphics" required><?php echo $graphics; ?></textarea>
+				    <p class="scroll_section" id="content_3_section">
+				    	<label for="graphics"><?php echo $label3; ?></label>
+				        <textarea name="graphics" id="graphics" required><?php echo $Content3; ?></textarea>
 				    </p>
 
-				    <p class="scroll_section" id="audio_section">
-				    	<label for="audio">Audio</label>
-				        <textarea name="audio" id="audio" required><?php echo $audio; ?></textarea>
+				    <p class="scroll_section" id="content_4_section">
+				    	<label for="audio"><?php echo $label4; ?></label>
+				        <textarea name="audio" id="audio" required><?php echo $Content4; ?></textarea>
 				    </p>
 
 				    <p class="scroll_section" id="verdict_section">
@@ -220,22 +300,22 @@ if (!has_perms("edit-article-override")) {
 				    </p>
 
 				    <p class="scroll_section" id="storylinerating_section">
-				    	<label for="storylinerating">Storyline Rating <i>(one decimal point)</i></label>
+				    	<label for="storylinerating"><span id="firstContentRating"><?php echo $label1; ?></span> Rating <i>(one decimal point)</i></label>
 				        <input name="storylinerating" id="storylinerating" type="text" value="<?php echo $storyline_rating; ?>" placeholder="<?php echo $storyline_rating; ?>" required maxlength="4" minlength="3" />
 				    </p>
 
 				    <p class="scroll_section" id="gameplayrating_section">
-				    	<label for="gameplayrating">Gameplay Rating <i>(one decimal point)</i></label>
+				    	<label for="gameplayrating"><span id="secondContentRating"><?php echo $label2; ?></span> Rating <i>(one decimal point)</i></label>
 				        <input name="gameplayrating" id="gameplayrating" type="text" value="<?php echo $gameplay_rating; ?>" placeholder="<?php echo $gameplay_button; ?>" required maxlength="4" minlength="3" />
 				    </p>
 					
 				    <p class="scroll_section" id="graphicsrating_section">
-				    	<label for="graphicsrating">Graphics Rating <i>(one decimal point)</i></label>
+				    	<label for="graphicsrating"><span id="thirdContentRating"><?php echo $label3; ?></span> Rating <i>(one decimal point)</i></label>
 				        <input name="graphicsrating" id="graphicsrating" type="text" value="<?php echo $graphics_rating; ?>" placeholder="<?php echo $graphics_rating; ?>" required maxlength="4" minlength="3" />
 				    </p>
 
 				    <p class="scroll_section" id="audiorating_section">
-				    	<label for="audiorating">Audio Rating <i>(one decimal point)</i></label>
+				    	<label for="audiorating"><span id="fourthContentRating"><?php echo $label4; ?></span> Rating <i>(one decimal point)</i></label>
 				        <input name="audiorating" id="audiorating" type="text" value="<?php echo $audio_rating; ?>" placeholder="<?php echo $audio_rating; ?>" required maxlength="4" minlength="3" />
 				    </p>
 
