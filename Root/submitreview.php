@@ -14,11 +14,8 @@ function average($numbers) {
 }
 
 function clean($string) {
-	
-   error_log("This: ".$string , 0);
    $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
    $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
-   error_log("Becomes: ".$string , 0);
 
    return $string; // Removes special chars.
 }
@@ -38,6 +35,7 @@ function implode_multi($arr, $join, $key){
     if(isset($_POST['submit'])) {
         $SUBMIT_articletype     = $_POST['articletype'];
         $SUBMIT_articletitle    = $_POST['articletitle'];
+        $SUBMIT_classification	= $_POST['classification'];
         $SUBMIT_game            = mysqli_real_escape_string($con, $_POST['gamename']);
         $SUBMIT_gameid          = mysqli_real_escape_string($con, $_POST['gameid']); //ADDED THIS
         $SUBMIT_summary         = mysqli_real_escape_string($con, $_POST['summary']);
@@ -191,13 +189,12 @@ function implode_multi($arr, $join, $key){
 		$SUBMIT_articletitle    = mysqli_real_escape_string($con, strip_tags($_POST['articletitle']));
 		$SUBMIT_game            = mysqli_real_escape_string($con, strip_tags($_POST['gamename']));
 		
-        mysqli_query($con, "INSERT INTO tbl_review (article_type, title, gamename, game_id, summary, content_1, content_2, content_3, content_4, content_5, content_6, Overview, Storyline, Gameplay, Audio, Graphics, Verdict, trailer, testedplatforms, genre, author, authuser, createdate, month, year, developers, publishers, platforms, release_date, officialsite, developersites, publishersites, main_rating, storyline_rating, gameplay_rating, graphics_rating, audio_rating, pending, beta_approved, alpha_approved, beta_notes, alpha_notes, editors_choice, tags) VALUES ('$SUBMIT_articletype', '$SUBMIT_articletitle', '$SUBMIT_game', '$SUBMIT_gameid', '$SUBMIT_summary', '$overview_file', '$storyline_file', '$gameplay_file', '$audio_file', '$graphics_file', '$verdict_file', '$SUBMIT_overview', '$SUBMIT_storyline', '$SUBMIT_gameplay', '$SUBMIT_audio', '$SUBMIT_graphics', '$SUBMIT_verdict', '$SUBMIT_trailer', '$SUBMIT_testedplatforms', '$SUBMIT_genre', '$SUBMIT_author', '$SUBMIT_username', '$SUBMIT_date', '$SUBMIT_month', '$SUBMIT_year', '$SUBMIT_developers', '$SUBMIT_publishers', '$SUBMIT_platforms', '$SUBMIT_releasedate', '$SUBMIT_officialsite', '$SUBMIT_developersites', '$SUBMIT_publishersites', '$SUBMIT_mainrating', '$SUBMIT_storylinerating', '$SUBMIT_gameplayrating', '$SUBMIT_graphicsrating', '$SUBMIT_audiorating', '$ifbossa', '$ifbossb', 'false', '$beta_notes_file', '$alpha_notes_file', '0', '$SUBMIT_tags')");
-    
-		
+        mysqli_query($con, "INSERT INTO tbl_review (classification, article_type, title, gamename, game_id, summary, content_1, content_2, content_3, content_4, content_5, content_6, Overview, HTMLContent_1, HTMLContent_2, HTMLContent_4, HTMLContent_3, Verdict, trailer, testedplatforms, genre, author, authuser, createdate, month, year, developers, publishers, platforms, release_date, officialsite, developersites, publishersites, main_rating, Rating_1, Rating_2, Rating_3, Rating_4, pending, beta_approved, alpha_approved, beta_notes, alpha_notes, editors_choice, tags) VALUES ('$SUBMIT_classification','$SUBMIT_articletype', '$SUBMIT_articletitle', '$SUBMIT_game', '$SUBMIT_gameid', '$SUBMIT_summary', '$overview_file', '$storyline_file', '$gameplay_file', '$audio_file', '$graphics_file', '$verdict_file', '$SUBMIT_overview', '$SUBMIT_storyline', '$SUBMIT_gameplay', '$SUBMIT_audio', '$SUBMIT_graphics', '$SUBMIT_verdict', '$SUBMIT_trailer', '$SUBMIT_testedplatforms', '$SUBMIT_genre', '$SUBMIT_author', '$SUBMIT_username', '$SUBMIT_date', '$SUBMIT_month', '$SUBMIT_year', '$SUBMIT_developers', '$SUBMIT_publishers', '$SUBMIT_platforms', '$SUBMIT_releasedate', '$SUBMIT_officialsite', '$SUBMIT_developersites', '$SUBMIT_publishersites', '$SUBMIT_mainrating', '$SUBMIT_storylinerating', '$SUBMIT_gameplayrating', '$SUBMIT_graphicsrating', '$SUBMIT_audiorating', '$ifbossa', '$ifbossb', 'false', '$beta_notes_file', '$alpha_notes_file', '0', '$SUBMIT_tags')");
 	}
 
     if(isset($_POST['save'])) {
-        $SUBMIT_type            = $_POST['articletype'];
+        $SUBMIT_type            = $_POST['articletype'];        
+        $SUBMIT_classification	= $_POST['classification'];
         $SUBMIT_articletitle    = $_POST['articletitle'];
         $SUBMIT_game            = $_POST['gamename'];
         $SUBMIT_summary         = mysqli_real_escape_string($con, $_POST['summary']);
@@ -292,7 +289,9 @@ function implode_multi($arr, $join, $key){
 		$SUBMIT_game            = mysqli_real_escape_string($con, $_POST['gamename']);
 
         
-        mysqli_query($con, "UPDATE tbl_review SET article_type = '$SUBMIT_type', title = '$SUBMIT_articletitle', gamename = '$SUBMIT_game', summary = '$SUBMIT_summary', trailer = '$SUBMIT_trailer', testedplatforms = '$SUBMIT_testedplatforms', genre = '$SUBMIT_genre', developers = '$SUBMIT_developers', publishers = '$SUBMIT_publishers', platforms = '$SUBMIT_platforms', release_date = '$SUBMIT_releasedate', officialsite = '$SUBMIT_officialsite', developersites = '$SUBMIT_developersites', publishersites = '$SUBMIT_publishersites', main_rating = '$SUBMIT_mainrating', storyline_rating = '$SUBMIT_storylinerating', gameplay_rating = '$SUBMIT_gameplayrating', graphics_rating = '$SUBMIT_graphicsrating', audio_rating = '$SUBMIT_audiorating', tags = '$SUBMIT_tags', Overview = '$SUBMIT_overview', Storyline= '$SUBMIT_storyline', Gameplay= '$SUBMIT_gameplay', Audio= '$SUBMIT_audio', Graphics= '$SUBMIT_graphics', Verdict= '$SUBMIT_verdict' WHERE id = '$SUBMIT_id'");
+        mysqli_query($con, "UPDATE tbl_review SET classification = '$SUBMIT_classification', article_type = '$SUBMIT_type', title = '$SUBMIT_articletitle', gamename = '$SUBMIT_game', summary = '$SUBMIT_summary', trailer = '$SUBMIT_trailer', testedplatforms = '$SUBMIT_testedplatforms', genre = '$SUBMIT_genre', developers = '$SUBMIT_developers', publishers = '$SUBMIT_publishers', platforms = '$SUBMIT_platforms', release_date = '$SUBMIT_releasedate', officialsite = '$SUBMIT_officialsite', developersites = '$SUBMIT_developersites', publishersites = '$SUBMIT_publishersites', main_rating = '$SUBMIT_mainrating', Rating_1 = '$SUBMIT_storylinerating', Rating_2 = '$SUBMIT_gameplayrating', Rating_3 = '$SUBMIT_graphicsrating', Rating_4 = '$SUBMIT_audiorating', tags = '$SUBMIT_tags', Overview = '$SUBMIT_overview', HTMLContent_1= '$SUBMIT_storyline', HTMLContent_2= '$SUBMIT_gameplay', HTMLContent_4= '$SUBMIT_audio', HTMLContent_3= '$SUBMIT_graphics', Verdict= '$SUBMIT_verdict' WHERE id = '$SUBMIT_id'");
+		
+
     }
 
     if(isset($_POST['upload_images'])) {

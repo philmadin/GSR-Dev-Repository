@@ -63,29 +63,28 @@
 		$alpha_approval		= $artROW['alpha_approval'];
 		$classification		= $artROW['classification'];
 	}
-
 	switch($classification){
-	case "G":
-		$generallabel="Game";
-		$label1="Storyline";
-		$label2="Gameplay";
-		$label3="Graphics";
-		$label4="Audio";
-		break;
-	case "T":
-		$generallabel="Tech";
-		$label1="Intuitive";
-		$label2="Ergonomic";
-		$label3="Design";
-		$label4="Value";
-		break;
-	case "M":
-		$generallabel="Movie";
-		$label1="Storyline";
-		$label2="Cinematography";
-		$label3="Audio";
-		$label4="Direction";
-		break;
+		case "G":
+			$generallabel="Game";
+			$label1="Storyline";
+			$label2="Gameplay";
+			$label3="Graphics";
+			$label4="Audio";
+			break;
+		case "T":
+			$generallabel="Tech";
+			$label1="Intuitive";
+			$label2="Ergonomic";
+			$label3="Design";
+			$label4="Value";
+			break;
+		case "M":
+			$generallabel="Movie";
+			$label1="Storyline";
+			$label2="Cinematography";
+			$label3="Audio";
+			$label4="Direction";
+			break;
 	}
 global $authuser;
 if (!has_perms("edit-article-override")) {
@@ -177,9 +176,26 @@ if (!has_perms("edit-article-override")) {
 							</td>
 							<td>
 								<select id="classification" name="classification" onchange="changeTo(this.value);">
-									<option value="G">Game review</option>
-									<option value="M">Movie review</option>
-									<option value="T">Tech review</option>
+								<?php
+									switch($classification){
+										case "G":
+											
+											echo "<option value='G'>Game review</option>";
+											echo "<option value='M'>Movie review</option>";
+											echo "<option value='T'>Tech review</option>";
+											break;
+										case "T":					
+											echo "<option value='T'>Tech review</option>";					
+											echo "<option value='G'>Game review</option>";
+											echo "<option value='M'>Movie review</option>";
+											break;
+										case "M":
+											echo "<option value='M'>Movie review</option>";
+											echo "<option value='G'>Game review</option>";
+											echo "<option value='T'>Tech review</option>";
+											break;
+										}
+								?>
 								</select>
 							</td>
 						</tr>
@@ -299,25 +315,60 @@ if (!has_perms("edit-article-override")) {
 				        <span>If none exists please enter &lsquo;NA&rsquo;</span>
 				    </p>
 
-				    <p class="scroll_section" id="storylinerating_section">
-				    	<label for="storylinerating"><span id="firstContentRating"><?php echo $label1; ?></span> Rating <i>(one decimal point)</i></label>
-				        <input name="storylinerating" id="storylinerating" type="text" value="<?php echo $storyline_rating; ?>" placeholder="<?php echo $storyline_rating; ?>" required maxlength="4" minlength="3" />
-				    </p>
 
-				    <p class="scroll_section" id="gameplayrating_section">
-				    	<label for="gameplayrating"><span id="secondContentRating"><?php echo $label2; ?></span> Rating <i>(one decimal point)</i></label>
-				        <input name="gameplayrating" id="gameplayrating" type="text" value="<?php echo $gameplay_rating; ?>" placeholder="<?php echo $gameplay_button; ?>" required maxlength="4" minlength="3" />
-				    </p>
-					
-				    <p class="scroll_section" id="graphicsrating_section">
-				    	<label for="graphicsrating"><span id="thirdContentRating"><?php echo $label3; ?></span> Rating <i>(one decimal point)</i></label>
-				        <input name="graphicsrating" id="graphicsrating" type="text" value="<?php echo $graphics_rating; ?>" placeholder="<?php echo $graphics_rating; ?>" required maxlength="4" minlength="3" />
-				    </p>
+					<p class="scroll_section" id="storylinerating_section">
+						<label for="storylinerating"><span id="firstContentRating">Storyline</span> Rating</label>
+						<input class="ratingcheck" name="storylinecheck" id="ratingcheck1" type="checkbox"  style="display: none;" checked></input>
+						<label id="ratinglabel1" for="ratingcheck1" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
+						<select name="storylinerating"  id="storylinerating">
+							<option>2.5</option>
+							<option>5.0</option>
+							<option>7.5</option>
+							<option>10</option>
+						</select>
+					</p>
 
-				    <p class="scroll_section" id="audiorating_section">
-				    	<label for="audiorating"><span id="fourthContentRating"><?php echo $label4; ?></span> Rating <i>(one decimal point)</i></label>
-				        <input name="audiorating" id="audiorating" type="text" value="<?php echo $audio_rating; ?>" placeholder="<?php echo $audio_rating; ?>" required maxlength="4" minlength="3" />
-				    </p>
+					<p class="scroll_section" id="gameplayrating_section">
+						<label for="gameplayrating"><span id="secondContentRating">Gameplay</span> Rating</label>
+						<input class="ratingcheck" name="gameplaycheck" id="ratingcheck2" type="checkbox" style="display: none;" checked></input>
+						<label id="ratinglabel2" for="ratingcheck2" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
+						<select name="gameplayrating" id="gameplayrating">
+							<option>2.5</option>
+							<option>5.0</option>
+							<option>7.5</option>
+							<option>10</option>
+						</select>
+					</p>
+
+					<p class="scroll_section" id="graphicsrating_section">
+						<label for="graphicsrating"><span id="thirdContentRating">Graphics</span> Rating</label>
+						<input class="ratingcheck" name="graphicscheck" id="ratingcheck4" type="checkbox"  style="display: none;" checked></input>
+						<label id="ratinglabel4" for="ratingcheck4" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
+						<select name="graphicsrating" id="graphicsrating">
+							<option>2.5</option>
+							<option>5.0</option>
+							<option>7.5</option>
+							<option>10</option>
+						</select>
+					</p>
+
+					<p class="scroll_section" id="audiorating_section">
+						<label for="audiorating"><span id="fourthContentRating">Audio</span> Rating</label>
+						<input class="ratingcheck" name="audiocheck" id="ratingcheck3" type="checkbox"  style="display: none;" checked></input>
+						<label id="ratinglabel3" for="ratingcheck3" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
+						<select name="audiorating" id="audiorating">
+							<option>2.5</option>
+							<option>5.0</option>
+							<option>7.5</option>
+							<option>10</option>
+						</select>
+					</p>
+					<script>
+						$('#storylinerating')[0].selectedIndex=<?php echo ($storyline_rating/2.5)-1 ?>;
+						$('#gameplayrating')[0].selectedIndex=<?php echo ($gameplay_rating/2.5)-1 ?>;
+						$('#graphicsrating')[0].selectedIndex=<?php echo ($graphics_rating/2.5)-1 ?>;
+						$('#audiorating')[0].selectedIndex=<?php echo ($audio_rating/2.5)-1 ?>;
+					</script>
 
 				    <p class="scroll_section" id="mainrating_section">
 				    	<label for="mainrating">Main Rating <i>(AUTO)</i></label>
