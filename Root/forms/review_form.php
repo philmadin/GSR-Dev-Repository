@@ -240,31 +240,51 @@ function changeTo(event){
 	</div>
 	<div class='article_form_group'>
 	<p class="scroll_section" id="storylinerating_section">
-		<label for="storylinerating"><span id="firstContentRating">Storyline</span> Rating <i>(one decimal point)</i></label>
+		<label for="storylinerating"><span id="firstContentRating">Storyline</span> Rating</label>
 		<input class="ratingcheck" name="storylinecheck" id="ratingcheck1" type="checkbox"  style="display: none;" checked></input>
 		<label id="ratinglabel1" for="ratingcheck1" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
-		<input name="storylinerating" class="form_box_right" id="storylinerating" type="text" value="" placeholder="0.0" required maxlength="4" minlength="3" />
+		<select name="storylinerating"  id="storylinerating">
+			<option>2.5</option>
+			<option>5.0</option>
+			<option>7.5</option>
+			<option>10</option>
+		</select>
 	</p>
 
 	<p class="scroll_section" id="gameplayrating_section">
-		<label for="gameplayrating"><span id="secondContentRating">Gameplay</span> Rating <i>(one decimal point)</i></label>
+		<label for="gameplayrating"><span id="secondContentRating">Gameplay</span> Rating</label>
 		<input class="ratingcheck" name="gameplaycheck" id="ratingcheck2" type="checkbox" style="display: none;" checked></input>
 		<label id="ratinglabel2" for="ratingcheck2" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
-		<input name="gameplayrating" class="form_box_right" id="gameplayrating" type="text" value="" placeholder="0.0" required maxlength="4" minlength="3" />
+		<select name="gameplayrating" id="gameplayrating">
+			<option>2.5</option>
+			<option>5.0</option>
+			<option>7.5</option>
+			<option>10</option>
+		</select>
 	</p>
 
 	<p class="scroll_section" id="graphicsrating_section">
-		<label for="graphicsrating"><span id="thirdContentRating">Graphics</span> Rating <i>(one decimal point)</i></label>
+		<label for="graphicsrating"><span id="thirdContentRating">Graphics</span> Rating</label>
 		<input class="ratingcheck" name="graphicscheck" id="ratingcheck4" type="checkbox"  style="display: none;" checked></input>
 		<label id="ratinglabel4" for="ratingcheck4" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
-		<input name="graphicsrating" class="form_box_right" id="graphicsrating" type="text" value="" placeholder="0.0" required maxlength="4" minlength="3" />
+		<select name="graphicsrating" id="graphicsrating">
+			<option>2.5</option>
+			<option>5.0</option>
+			<option>7.5</option>
+			<option>10</option>
+		</select>
 	</p>
 
 	<p class="scroll_section" id="audiorating_section">
-		<label for="audiorating"><span id="fourthContentRating">Audio</span> Rating <i>(one decimal point)</i></label>
+		<label for="audiorating"><span id="fourthContentRating">Audio</span> Rating</label>
 		<input class="ratingcheck" name="audiocheck" id="ratingcheck3" type="checkbox"  style="display: none;" checked></input>
 		<label id="ratinglabel3" for="ratingcheck3" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
-		<input name="audiorating" class="form_box_right" id="audiorating" type="text" value="" placeholder="0.0" required maxlength="4" minlength="3" />
+		<select name="audiorating" id="audiorating">
+			<option>2.5</option>
+			<option>5.0</option>
+			<option>7.5</option>
+			<option>10</option>
+		</select>
 	</p>
 
 	<p class="scroll_section" id="mainrating_section">
