@@ -1,38 +1,94 @@
 <script>
 function changeTo(event){
-	switch(event){
-		case "G":
-			$('#storyline_header label').text("Storyline");
-			$('#firstContentRating').text("Storyline");
-			$('#gameplay_header label').text("Gameplay");
-			$('#secondContentRating').text("Gameplay");
-			$('#graphics_header label').text("Graphics");
-			$('#thirdContentRating').text("Graphics");
-			$('#audio_header label').text("Audio");
-			$('#fourthContentRating').text("Audio");
-			break;
-		case "T":
-			$('#storyline_header label').text("Intuitive");
-			$('#firstContentRating').text("Intuitive");
-			$('#gameplay_header label').text("Ergonomic");
-			$('#secondContentRating').text("Ergonomic");
-			$('#graphics_header label').text("Design");
-			$('#thirdContentRating').text("Design");
-			$('#audio_header label').text("Value");
-			$('#fourthContentRating').text("Value");
-			break;
-		case "M":
-			$('#storyline_header label').text("Storyline");
-			$('#firstContentRating').text("Storyline");
-			$('#gameplay_header label').text("Cinematography");
-			$('#secondContentRating').text("Cinematography");
-			$('#graphics_header label').text("Audio");
-			$('#thirdContentRating').text("Audio");
-			$('#audio_header label').text("Direction");
-			$('#fourthContentRating').text("Direction");
-			break;
+		switch(event){
+			case "G":
+				$('#storyline_header label').text("Storyline");
+				$('#firstContentRating').text("Storyline");
+				$('#gameplay_header label').text("Gameplay");
+				$('#secondContentRating').text("Gameplay");
+				$('#graphics_header label').text("Graphics");
+				$('#thirdContentRating').text("Graphics");
+				$('#audio_header label').text("Audio");
+				$('#fourthContentRating').text("Audio");
+				$('#storylinerating option')[0].innerHTML="2.5 - Very basic storyline or ambiguous storyline.";
+				$('#storylinerating option')[1].innerHTML="5.0 - Mediocre storyline or not original, lacks creativity.";
+				$('#storylinerating option')[2].innerHTML="7.5 - Great storyline or better than average.";
+				$('#storylinerating option')[3].innerHTML="10 - Incredible storyline, very creative or immersive.";
+				$('#gameplayrating option')[0].innerHTML="2.5 - Hard to play or not intuitive at all.";
+				$('#gameplayrating option')[1].innerHTML="5.0 - Mediocre gameplay or lacks creativity, average.";
+				$('#gameplayrating option')[2].innerHTML="7.5 - Great gameplay or better than average.";
+				$('#gameplayrating option')[3].innerHTML="10 - Incredible gameplay, very creative or immersive.";
+				$('#graphicsrating option')[0].innerHTML="2.5 - Poor quality graphics or graphics are very basic.";
+				$('#graphicsrating option')[1].innerHTML="5.0 - Standard graphics; nothing new; mediocre.";
+				$('#graphicsrating option')[2].innerHTML="7.5 - Great graphics; fluid; better than average.";
+				$('#graphicsrating option')[3].innerHTML="10 - Incredible graphics, very creative or high quality.";
+				$('#audiorating option')[0].innerHTML="2.5 - Very basic sounds; not a huge variety; poor.";
+				$('#audiorating option')[1].innerHTML="5.0 - Standard sound effects or not really immersive.";
+				$('#audiorating option')[2].innerHTML="7.5 - Great audio effects; slightly immersive.";
+				$('#audiorating option')[3].innerHTML="10 - Incredible sound effects, very immersive/creative.";
+
+
+				break;
+			case "T":
+				$('#storyline_header label').text("Intuitive");
+				$('#firstContentRating').text("Intuitive");
+				$('#gameplay_header label').text("Ergonomic");
+				$('#secondContentRating').text("Ergonomic");
+				$('#graphics_header label').text("Design");
+				$('#thirdContentRating').text("Design");
+				$('#audio_header label').text("Value");
+				$('#fourthContentRating').text("Value");
+				$('#storylinerating option')[0].innerHTML="2.5 - Was difficult to learn or not easy to learn.";
+				$('#storylinerating option')[1].innerHTML="5.0 - Was neither easy or difficult to learn.";
+				$('#storylinerating option')[2].innerHTML="7.5 - Was easy to learn and engaging.";
+				$('#storylinerating option')[3].innerHTML="10 - Incredibly easy to learn, extremely natural.";
+				$('#gameplayrating option')[0].innerHTML="2.5 - Not comfortable or feels uncomfortable.";
+				$('#gameplayrating option')[1].innerHTML="5.0 - Doesn’t feel bad and doesn’t feel good.";
+				$('#gameplayrating option')[2].innerHTML="7.5 - Feels great, not too shabby at all.";
+				$('#gameplayrating option')[3].innerHTML="10 - Feels incredible! This can’t get any better!.";
+				$('#graphicsrating option')[0].innerHTML="2.5 - Very poor design for the intended purpose of use.";
+				$('#graphicsrating option')[1].innerHTML="5.0 - Mediocre design, designed for the intended purpose.";
+				$('#graphicsrating option')[2].innerHTML="7.5 - Excellent design, above and beyond.";
+				$('#graphicsrating option')[3].innerHTML="10 - Incredible design, sets the benchmark!.";
+				$('#audiorating option')[0].innerHTML="2.5 - Not worth the money; poor value for money.";
+				$('#audiorating option')[1].innerHTML="5.0 - Was a just cost, though I wouldn’t pay a cent more.";
+				$('#audiorating option')[2].innerHTML="7.5 - Was definitely worth the investment.";
+				$('#audiorating option')[3].innerHTML="10 - Great value for money, I’d buy this again!";
+				break;
+			case "M":
+				$('#storyline_header label').text("Storyline");
+				$('#firstContentRating').text("Storyline");
+				$('#gameplay_header label').text("Cinematography");
+				$('#secondContentRating').text("Cinematography");
+				$('#graphics_header label').text("Audio");
+				$('#thirdContentRating').text("Audio");
+				$('#audio_header label').text("Direction");
+				$('#fourthContentRating').text("Direction");
+				$('#storylinerating option')[0].innerHTML="2.5 - The storyline was very cookie-cutter, not original.";
+				$('#storylinerating option')[1].innerHTML="5.0 - Basic storyline, not boring, but not exciting either.";
+				$('#storylinerating option')[2].innerHTML="7.5 - Great story! But I wouldn’t see it again anytime soon.";
+				$('#storylinerating option')[3].innerHTML="10 - Wow! Can we watch that again?.";
+				$('#gameplayrating option')[0].innerHTML="2.5 - Awkward angles; poor scenery; bad camera work.";
+				$('#gameplayrating option')[1].innerHTML="5.0 - Average camera work, not bad.";
+				$('#gameplayrating option')[2].innerHTML="7.5 - Great placement, good locations and shots.";
+				$('#gameplayrating option')[3].innerHTML="10 - Incredible camera work, couldn’t have been better!";
+				$('#graphicsrating option')[0].innerHTML="2.5 - Very poor quality; not creative.";
+				$('#graphicsrating option')[1].innerHTML="5.0 - Average quality, nothing noteworthy.";
+				$('#graphicsrating option')[2].innerHTML="7.5 - Terrific quality, creative and slightly immersive.";
+				$('#graphicsrating option')[3].innerHTML="10 - Incredible graphics, very creative or high quality.";
+				$('#audiorating option')[0].innerHTML="2.5 - Poor cast; no chemistry; rushed film; uncreative.";
+				$('#audiorating option')[1].innerHTML="5.0 - Standard chemistry; cast weren’t special; average.";
+				$('#audiorating option')[2].innerHTML="7.5 - Great cast; good direction; very creative; good pace.";
+				$('#audiorating option')[3].innerHTML="10 - Incredible cast, great pace; great chemistry; terrific!";
+				break;
+			}
 	}
-}
+$(document).ready(function(){
+	
+	changeTo("G");
+})
+
+
 </script>
 
 <form class="grid_18 grid_0 submitform" id="submitreview" method="get" action="" enctype="multipart/form-data">

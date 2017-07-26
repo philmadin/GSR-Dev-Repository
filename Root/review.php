@@ -321,9 +321,9 @@
 			<aside id="review_details" class="grid_8 grid_0">
 				<h4>RATING</h4>
 				<div id="allratings">
-					<div class="smallrating" id="graphics_rating"><?php echo $Rating_1; ?> <span><?php echo $label1?></span></div>
+					<div class="smallrating" id="graphics_rating"><?php echo $Rating_3; ?> <span><?php echo $label3?></span></div>
 					<div class="smallrating" id="gameplay_rating"><?php echo $Rating_2; ?> <span><?php echo $label2?></span></div>
-					<div class="smallrating" id="storyline_rating"><?php echo $Rating_3; ?> <span><?php echo $label3?></span></div>
+					<div class="smallrating" id="storyline_rating"><?php echo $Rating_1; ?> <span><?php echo $label1?></span></div>
 					<div class="smallrating" id="audio_rating"><?php echo $Rating_4; ?> <span><?php echo $label4?></span></div>
 					<div id="main_rating"><?php echo $main_rating; ?></div>
 				</div>

@@ -403,20 +403,16 @@ updateAverage();
 						required: "Please provide all publisher companies website URL's."
 					},
 					storylinerating: {
-						required: "You must provide a storyline quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a storyline quality rating."
 					},
 					gameplayrating: {
-						required: "You must provide a gameplay quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a gameplay quality rating."
 					},
 					audiorating: {
-						required: "You must provide a audio quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a audio quality rating."
 					},
 					graphicsrating: {
-						required: "You must provide a graphics quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a graphics quality rating."
 					},
 					tags: {
 						required: "You must provide tags (relavent keywords) for your article."

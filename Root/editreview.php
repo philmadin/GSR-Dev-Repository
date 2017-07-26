@@ -49,10 +49,7 @@
 		$officialsite	 	= $artROW['officialsite'];
 		$developersites	 	= $artROW['developersites'];
 		$publishersites	 	= $artROW['publishersites'];
-		$storyline_rating	= $artROW['Rating_1'];
-		$gameplay_rating	= $artROW['Rating_2'];
-		$audio_rating		= $artROW['Rating_4'];
-		$graphics_rating	= $artROW['Rating_3'];
+		$temp				= array($artROW['Rating_1'],$artROW['Rating_2'],$artROW['Rating_3'],$artROW['Rating_4']);
 		$main_rating		= $artROW['main_rating'];
 		$file_beta_notes	= $artROW['beta_notes'];
 		$file_alpha_notes	= $artROW['alpha_notes'];
@@ -62,6 +59,19 @@
 		$beta_approval		= $artROW['beta_approval'];
 		$alpha_approval		= $artROW['alpha_approval'];
 		$classification		= $artROW['classification'];
+	}
+	$rating=array();
+	foreach($temp as $string){
+		$number = (float)$string;
+		if($number<3.75){
+			array_push($rating,2.5);
+		}else if($number>=3.75&&$number<6.25){			
+			array_push($rating,5);
+		}else if($number>=6.25&&$number<8.75){
+			array_push($rating,7.5);
+		}else if($number>=8.75){
+			array_push($rating,10);
+		}
 	}
 	switch($classification){
 		case "G":
@@ -117,6 +127,7 @@ if (!has_perms("edit-article-override")) {
 
 <body>
 	<script>
+
 	function changeTo(event){
 		switch(event){
 			case "G":
@@ -128,6 +139,22 @@ if (!has_perms("edit-article-override")) {
 				$('#thirdContentRating').text("Graphics");
 				$('#content_4_section label').text("Audio");
 				$('#fourthContentRating').text("Audio");
+				$('#storylinerating option')[0].innerHTML="2.5 - Very basic storyline or ambiguous storyline.";
+				$('#storylinerating option')[1].innerHTML="5.0 - Mediocre storyline or not original, lacks creativity.";
+				$('#storylinerating option')[2].innerHTML="7.5 - Great storyline or better than average.";
+				$('#storylinerating option')[3].innerHTML="10 - Incredible storyline, very creative or immersive.";
+				$('#gameplayrating option')[0].innerHTML="2.5 - Hard to play or not intuitive at all.";
+				$('#gameplayrating option')[1].innerHTML="5.0 - Mediocre gameplay or lacks creativity, average.";
+				$('#gameplayrating option')[2].innerHTML="7.5 - Great gameplay or better than average.";
+				$('#gameplayrating option')[3].innerHTML="10 - Incredible gameplay, very creative or immersive.";
+				$('#graphicsrating option')[0].innerHTML="2.5 - Poor quality graphics or graphics are very basic.";
+				$('#graphicsrating option')[1].innerHTML="5.0 - Standard graphics; nothing new; mediocre.";
+				$('#graphicsrating option')[2].innerHTML="7.5 - Great graphics; fluid; better than average.";
+				$('#graphicsrating option')[3].innerHTML="10 - Incredible graphics, very creative or high quality.";
+				$('#audiorating option')[0].innerHTML="2.5 - Very basic sounds; not a huge variety; poor.";
+				$('#audiorating option')[1].innerHTML="5.0 - Standard sound effects or not really immersive.";
+				$('#audiorating option')[2].innerHTML="7.5 - Great audio effects; slightly immersive.";
+				$('#audiorating option')[3].innerHTML="10 - Incredible sound effects, very immersive/creative.";
 				break;
 			case "T":
 				$('#content_1_section label').text("Intuitive");
@@ -138,6 +165,22 @@ if (!has_perms("edit-article-override")) {
 				$('#thirdContentRating').text("Design");
 				$('#content_4_section label').text("Value");
 				$('#fourthContentRating').text("Value");
+				$('#storylinerating option')[0].innerHTML="2.5 - Was difficult to learn or not easy to learn.";
+				$('#storylinerating option')[1].innerHTML="5.0 - Was neither easy or difficult to learn.";
+				$('#storylinerating option')[2].innerHTML="7.5 - Was easy to learn and engaging.";
+				$('#storylinerating option')[3].innerHTML="10 - Incredibly easy to learn, extremely natural.";
+				$('#gameplayrating option')[0].innerHTML="2.5 - Not comfortable or feels uncomfortable.";
+				$('#gameplayrating option')[1].innerHTML="5.0 - Doesn’t feel bad and doesn’t feel good.";
+				$('#gameplayrating option')[2].innerHTML="7.5 - Feels great, not too shabby at all.";
+				$('#gameplayrating option')[3].innerHTML="10 - Feels incredible! This can’t get any better!.";
+				$('#graphicsrating option')[0].innerHTML="2.5 - Very poor design for the intended purpose of use.";
+				$('#graphicsrating option')[1].innerHTML="5.0 - Mediocre design, designed for the intended purpose.";
+				$('#graphicsrating option')[2].innerHTML="7.5 - Excellent design, above and beyond.";
+				$('#graphicsrating option')[3].innerHTML="10 - Incredible design, sets the benchmark!.";
+				$('#audiorating option')[0].innerHTML="2.5 - Not worth the money; poor value for money.";
+				$('#audiorating option')[1].innerHTML="5.0 - Was a just cost, though I wouldn’t pay a cent more.";
+				$('#audiorating option')[2].innerHTML="7.5 - Was definitely worth the investment.";
+				$('#audiorating option')[3].innerHTML="10 - Great value for money, I’d buy this again!";
 				break;
 			case "M":
 				$('#content_1_section label').text("Storyline");
@@ -148,9 +191,30 @@ if (!has_perms("edit-article-override")) {
 				$('#thirdContentRating').text("Audio");
 				$('#content_4_section label').text("Direction");
 				$('#fourthContentRating').text("Direction");
+				$('#storylinerating option')[0].innerHTML="2.5 - The storyline was very cookie-cutter, not original.";
+				$('#storylinerating option')[1].innerHTML="5.0 - Basic storyline, not boring, but not exciting either.";
+				$('#storylinerating option')[2].innerHTML="7.5 - Great story! But I wouldn’t see it again anytime soon.";
+				$('#storylinerating option')[3].innerHTML="10 - Wow! Can we watch that again?.";
+				$('#gameplayrating option')[0].innerHTML="2.5 - Awkward angles; poor scenery; bad camera work.";
+				$('#gameplayrating option')[1].innerHTML="5.0 - Average camera work, not bad.";
+				$('#gameplayrating option')[2].innerHTML="7.5 - Great placement, good locations and shots.";
+				$('#gameplayrating option')[3].innerHTML="10 - Incredible camera work, couldn’t have been better!";
+				$('#graphicsrating option')[0].innerHTML="2.5 - Very poor quality; not creative.";
+				$('#graphicsrating option')[1].innerHTML="5.0 - Average quality, nothing noteworthy.";
+				$('#graphicsrating option')[2].innerHTML="7.5 - Terrific quality, creative and slightly immersive.";
+				$('#graphicsrating option')[3].innerHTML="10 - Incredible graphics, very creative or high quality.";
+				$('#audiorating option')[0].innerHTML="2.5 - Poor cast; no chemistry; rushed film; uncreative.";
+				$('#audiorating option')[1].innerHTML="5.0 - Standard chemistry; cast weren’t special; average.";
+				$('#audiorating option')[2].innerHTML="7.5 - Great cast; good direction; very creative; good pace.";
+				$('#audiorating option')[3].innerHTML="10 - Incredible cast, great pace; great chemistry; terrific!";
 				break;
 		}
 	}
+
+	$(document).ready(function(){
+
+		changeTo("G");
+	})
 	</script>
 	<?php include "header.php"; ?>
 
@@ -363,11 +427,14 @@ if (!has_perms("edit-article-override")) {
 							<option>10</option>
 						</select>
 					</p>
+					<?php
+						echo "Story" . $rating[1];
+					?>
 					<script>
-						$('#storylinerating')[0].selectedIndex=<?php echo ($storyline_rating/2.5)-1 ?>;
-						$('#gameplayrating')[0].selectedIndex=<?php echo ($gameplay_rating/2.5)-1 ?>;
-						$('#graphicsrating')[0].selectedIndex=<?php echo ($graphics_rating/2.5)-1 ?>;
-						$('#audiorating')[0].selectedIndex=<?php echo ($audio_rating/2.5)-1 ?>;
+						$('#storylinerating')[0].selectedIndex=<?php echo ($rating[0]/2.5)-1 ?>;
+						$('#gameplayrating')[0].selectedIndex=<?php echo ($rating[1]/2.5)-1 ?>;
+						$('#graphicsrating')[0].selectedIndex=<?php echo ($rating[2]/2.5)-1 ?>;
+						$('#audiorating')[0].selectedIndex=<?php echo ($rating[3]/2.5)-1 ?>;
 					</script>
 
 				    <p class="scroll_section" id="mainrating_section">
@@ -631,20 +698,16 @@ if (!has_perms("edit-article-override")) {
 						required: true
 					},
 					storylinerating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					gameplayrating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					audiorating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					graphicsrating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					tags: {
 						required: true
@@ -709,36 +772,28 @@ if (!has_perms("edit-article-override")) {
 						required: "Please provide all publisher companies website URL's."
 					},
 					storylinerating: {
-						required: "You must give a rating.",
-						hasletters: "No letters can be used for a rating."
+						required: "You must give a rating."
 					},
 					gameplayrating: {
-						required: "You must give a rating.",
-						hasletters: "No letters can be used for a rating."
+						required: "You must give a rating."
 					},
 					audiorating: {
-						required: "You must give a rating.",
-						hasletters: "No letters can be used for a rating."
+						required: "You must give a rating."
 					},
 					graphicsrating: {
-						required: "You must give a rating.",
-						hasletters: "No letters can be used for a rating."
+						required: "You must give a rating."
 					},
 					storylinerating: {
-						required: "You must provide a storyline quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a storyline quality rating."
 					},
 					gameplayrating: {
-						required: "You must provide a gameplay quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a gameplay quality rating."
 					},
 					audiorating: {
-						required: "You must provide a audio quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a audio quality rating."
 					},
 					graphicsrating: {
-						required: "You must provide a graphics quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a graphics quality rating."
 					},
 					tags: {
 						required: "You must provide tags (relavent keywords) for your article."
