@@ -66,10 +66,10 @@ function implode_multi($arr, $join, $key){
         $SUBMIT_officialsite    = mysqli_real_escape_string($con, $_POST['officialsite']);
         $SUBMIT_developersites  = mysqli_real_escape_string($con, $_POST['developersites']);
         $SUBMIT_publishersites  = mysqli_real_escape_string($con, $_POST['publishersites']);
-        $SUBMIT_storylinerating = $_POST['storylinerating'];
-        $SUBMIT_gameplayrating  = $_POST['gameplayrating'];
-        $SUBMIT_audiorating     = $_POST['audiorating'];
-        $SUBMIT_graphicsrating  = $_POST['graphicsrating'];
+        $SUBMIT_storylinerating = floatval($_POST['storylinerating']);
+        $SUBMIT_gameplayrating  = floatval($_POST['gameplayrating']);
+        $SUBMIT_audiorating     = floatval($_POST['audiorating']);
+        $SUBMIT_graphicsrating  = floatval($_POST['graphicsrating']);
         $SUBMIT_mainrating      = $_POST['mainrating'];
         $SUBMIT_tags            = mysqli_real_escape_string($con, $_POST['tags']);
 
@@ -226,10 +226,10 @@ function implode_multi($arr, $join, $key){
         $SUBMIT_officialsite    = mysqli_real_escape_string($con, $_POST['officialsite']);
         $SUBMIT_developersites  = mysqli_real_escape_string($con, $_POST['developersites']);
         $SUBMIT_publishersites  = mysqli_real_escape_string($con, $_POST['publishersites']);
-        $SUBMIT_storylinerating = $_POST['storylinerating'];
-        $SUBMIT_gameplayrating  = $_POST['gameplayrating'];
-        $SUBMIT_audiorating     = $_POST['audiorating'];
-        $SUBMIT_graphicsrating  = $_POST['graphicsrating'];
+        $SUBMIT_storylinerating = floatval($_POST['storylinerating']);
+        $SUBMIT_gameplayrating  = floatval($_POST['gameplayrating']);
+        $SUBMIT_audiorating     = floatval($_POST['audiorating']);
+        $SUBMIT_graphicsrating  = floatval($_POST['graphicsrating']);
         $SUBMIT_mainrating      = $_POST['mainrating'];
         $SUBMIT_betanotes       = $_POST['beta_notes'];
         $SUBMIT_alphanotes      = $_POST['alpha_notes'];
