@@ -75,7 +75,7 @@ function changeTo(event){
 				$('#graphicsrating option')[0].innerHTML="2.5 - Very poor quality; not creative.";
 				$('#graphicsrating option')[1].innerHTML="5.0 - Average quality, nothing noteworthy.";
 				$('#graphicsrating option')[2].innerHTML="7.5 - Terrific quality, creative and slightly immersive.";
-				$('#graphicsrating option')[3].innerHTML="10 - Incredible graphics, very creative or high quality.";
+				$('#graphicsrating option')[3].innerHTML="10 - Incredible audio, it felt like I was there! Wow! Terrific Dialogue.";
 				$('#audiorating option')[0].innerHTML="2.5 - Poor cast; no chemistry; rushed film; uncreative.";
 				$('#audiorating option')[1].innerHTML="5.0 - Standard chemistry; cast weren’t special; average.";
 				$('#audiorating option')[2].innerHTML="7.5 - Great cast; good direction; very creative; good pace.";
@@ -245,7 +245,7 @@ $(document).ready(function(){
 	</p>
 
 	<p class="scroll_section" id="releasedate_section">
-		<label for="releasedate">Game Release Date <i>(FORMAT: YYYY-MM-DD)</i></label>
+		<label for="releasedate">Release Date <i>(FORMAT: YYYY-MM-DD)</i></label>
 		<input name="releasedate" class="form_box_right" id="releasedate" type="text" value="" placeholder="2000-01-01" maxlength="10" minlength="10" required />
 	</p>
 
@@ -260,7 +260,7 @@ $(document).ready(function(){
 	</p>
 
 	<p class="scroll_section" id="genre_section">
-		<label for="genre">Game Genre</label>
+		<label for="genre">Genre</label>
 		<input name="genre" class="form_box_right" id="genre" type="text" value="" placeholder="Type the game genre here..." required />
 	</p>
 

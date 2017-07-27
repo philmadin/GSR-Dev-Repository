@@ -321,20 +321,16 @@ updateAverage();
 						required: true
 					},
 					storylinerating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					gameplayrating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					audiorating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					graphicsrating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					tags: {
 						required: true
