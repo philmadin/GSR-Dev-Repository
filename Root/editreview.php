@@ -212,8 +212,7 @@ if (!has_perms("edit-article-override")) {
 	}
 
 	$(document).ready(function(){
-
-		changeTo("G");
+		changeTo("<?php echo $classification?>");
 	})
 	</script>
 	<?php include "header.php"; ?>
