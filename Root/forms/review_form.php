@@ -83,10 +83,6 @@ function changeTo(event){
 				break;
 			}
 	}
-$(document).ready(function(){
-	
-	changeTo("G");
-})
 
 
 </script>
@@ -143,7 +139,7 @@ $(document).ready(function(){
 		<td>
 			<select id="classification" name="classification" onchange="changeTo(this.value);">
 				<option value="G">Game review</option>
-				<option value="M">Movie review</option>
+				<option value="M">Movie/Show review</option>
 				<option value="T">Tech review</option>
 			</select>
 		</td>
@@ -175,7 +171,7 @@ $(document).ready(function(){
 	</div>
 	<div class='article_form_group'>
 		<div class='reviewSectionHeader' id="summary_header" onclick='expandReviewSection(this.id)'>
-		<label for="summary">Summary <i>(MAX 100 CHARACTERS)</i></label>
+		<label for="summary">Caption <i>(MAX 100 CHARACTERS)</i></label>
 		<div class='toggle_section_header' id="summary_toggle">+</div>
 		</div>
 	<p class="scroll_section toggle_text" id="summary_section">
