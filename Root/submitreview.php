@@ -55,17 +55,11 @@ function implode_multi($arr, $join, $key){
 	$SUBMIT_graphics = iconv('UTF-8', 'ASCII//TRANSLIT', $SUBMIT_graphics); 
 	$SUBMIT_graphics = htmlentities($SUBMIT_graphics, ENT_QUOTES); 
         $SUBMIT_verdict         = $_POST['verdict'];
+        $SUBMIT_trailer         = $_POST['trailer'];
 	$SUBMIT_verdict = iconv('UTF-8', 'ASCII//TRANSLIT', $SUBMIT_verdict); 
 	$SUBMIT_verdict = htmlentities($SUBMIT_verdict, ENT_QUOTES); 
-        $SUBMIT_testedplatforms = mysqli_real_escape_string($con, $_POST['testedplatforms']);
         $SUBMIT_releasedate     = mysqli_real_escape_string($con, $_POST['releasedate'] . " 00:00:00");
-        $SUBMIT_platforms       = mysqli_real_escape_string($con, $_POST['platforms']);
-        $SUBMIT_genre           = mysqli_real_escape_string($con, $_POST['genre']);
-        $SUBMIT_developers      = mysqli_real_escape_string($con, $_POST['developers']);
-        $SUBMIT_publishers      = mysqli_real_escape_string($con, $_POST['publishers']);
-        $SUBMIT_officialsite    = mysqli_real_escape_string($con, $_POST['officialsite']);
-        $SUBMIT_developersites  = mysqli_real_escape_string($con, $_POST['developersites']);
-        $SUBMIT_publishersites  = mysqli_real_escape_string($con, $_POST['publishersites']);
+		$SUBMIT_officialsite    = mysqli_real_escape_string($con, $_POST['officialsite']);
         $SUBMIT_storylinerating = floatval($_POST['storylinerating']);
         $SUBMIT_gameplayrating  = floatval($_POST['gameplayrating']);
         $SUBMIT_audiorating     = floatval($_POST['audiorating']);
@@ -188,8 +182,41 @@ function implode_multi($arr, $join, $key){
 		
 		$SUBMIT_articletitle    = mysqli_real_escape_string($con, strip_tags($_POST['articletitle']));
 		$SUBMIT_game            = mysqli_real_escape_string($con, strip_tags($_POST['gamename']));
-		
-        mysqli_query($con, "INSERT INTO tbl_review (classification, article_type, title, gamename, game_id, summary, content_1, content_2, content_3, content_4, content_5, content_6, Overview, HTMLContent_1, HTMLContent_2, HTMLContent_4, HTMLContent_3, Verdict, trailer, testedplatforms, genre, author, authuser, createdate, month, year, developers, publishers, platforms, release_date, officialsite, developersites, publishersites, main_rating, Rating_1, Rating_2, Rating_3, Rating_4, pending, beta_approved, alpha_approved, beta_notes, alpha_notes, editors_choice, tags) VALUES ('$SUBMIT_classification','$SUBMIT_articletype', '$SUBMIT_articletitle', '$SUBMIT_game', '$SUBMIT_gameid', '$SUBMIT_summary', '$overview_file', '$storyline_file', '$gameplay_file', '$audio_file', '$graphics_file', '$verdict_file', '$SUBMIT_overview', '$SUBMIT_storyline', '$SUBMIT_gameplay', '$SUBMIT_audio', '$SUBMIT_graphics', '$SUBMIT_verdict', '$SUBMIT_trailer', '$SUBMIT_testedplatforms', '$SUBMIT_genre', '$SUBMIT_author', '$SUBMIT_username', '$SUBMIT_date', '$SUBMIT_month', '$SUBMIT_year', '$SUBMIT_developers', '$SUBMIT_publishers', '$SUBMIT_platforms', '$SUBMIT_releasedate', '$SUBMIT_officialsite', '$SUBMIT_developersites', '$SUBMIT_publishersites', '$SUBMIT_mainrating', '$SUBMIT_storylinerating', '$SUBMIT_gameplayrating', '$SUBMIT_graphicsrating', '$SUBMIT_audiorating', '$ifbossa', '$ifbossb', 'false', '$beta_notes_file', '$alpha_notes_file', '0', '$SUBMIT_tags')");
+        mysqli_query($con, "INSERT INTO tbl_review (classification, article_type, title, gamename, game_id, summary, content_1, content_2, content_3, content_4, content_5, content_6, Overview, HTMLContent_1, HTMLContent_2, HTMLContent_4, HTMLContent_3, Verdict, trailer, author, authuser, createdate, month, year, release_date, officialsite, main_rating, Rating_1, Rating_2, Rating_3, Rating_4, pending, beta_approved, alpha_approved, beta_notes, alpha_notes, editors_choice, tags) VALUES ('$SUBMIT_classification','$SUBMIT_articletype', '$SUBMIT_articletitle', '$SUBMIT_game', '$SUBMIT_gameid', '$SUBMIT_summary', '$overview_file', '$storyline_file', '$gameplay_file', '$audio_file', '$graphics_file', '$verdict_file', '$SUBMIT_overview', '$SUBMIT_storyline', '$SUBMIT_gameplay', '$SUBMIT_audio', '$SUBMIT_graphics', '$SUBMIT_verdict', '$SUBMIT_trailer', '$SUBMIT_author', '$SUBMIT_username', '$SUBMIT_date', '$SUBMIT_month', '$SUBMIT_year', '$SUBMIT_releasedate', '$SUBMIT_officialsite', '$SUBMIT_mainrating', '$SUBMIT_storylinerating', '$SUBMIT_gameplayrating', '$SUBMIT_graphicsrating', '$SUBMIT_audiorating', '$ifbossa', '$ifbossb', 'false', '$beta_notes_file', '$alpha_notes_file', '0', '$SUBMIT_tags')");
+        $last_id = mysqli_insert_id($con);
+		switch($SUBMIT_classification){
+			case "G":
+				$SUBMIT_genre           = mysqli_real_escape_string($con, $_POST['genre']);
+				$SUBMIT_platforms       = mysqli_real_escape_string($con, $_POST['platforms']);
+       			$SUBMIT_testedplatforms = mysqli_real_escape_string($con, $_POST['testedplatforms']);
+				$SUBMIT_developers      = mysqli_real_escape_string($con, $_POST['developers']);
+				$SUBMIT_developersites  = mysqli_real_escape_string($con, $_POST['developersites']);
+				$SUBMIT_publishers      = mysqli_real_escape_string($con, $_POST['publishers']);
+        		$SUBMIT_publishersites  = mysqli_real_escape_string($con, $_POST['publishersites']);
+        		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_game_review VALUES (?,?,?,?,?,?,?,?)") or die(mysqli_error($con));
+				mysqli_stmt_bind_param($sqlero, 'isssssss', $last_id, $SUBMIT_genre, $SUBMIT_platforms,$SUBMIT_testedplatforms,$SUBMIT_developers,$SUBMIT_developersites,$SUBMIT_publishers,$SUBMIT_publishersites) or die(mysqli_error($con));
+    			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
+			break;
+
+			case "M":
+				$SUBMIT_moviegenre      = mysqli_real_escape_string($con, $_POST['moviegenre']);
+				$SUBMIT_duration       	= mysqli_real_escape_string($con, $_POST['duration']);
+       			$SUBMIT_directors 		= mysqli_real_escape_string($con, $_POST['directors']);
+				$SUBMIT_cast      		= mysqli_real_escape_string($con, $_POST['cast']);
+				$SUBMIT_publishers      = mysqli_real_escape_string($con, $_POST['moviepublishers']);
+				$SUBMIT_publisherssites = mysqli_real_escape_string($con, $_POST['moviepublisherssites']);
+        		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_movie_review VALUES (?,?,?,?,?,?)") or die(mysqli_error($con));
+				mysqli_stmt_bind_param($sqlero, 'isssssss', $last_id, $SUBMIT_genre, $SUBMIT_platforms,$SUBMIT_testedplatforms,$SUBMIT_developers,$SUBMIT_developersites,$SUBMIT_publishers,$SUBMIT_publishersites) or die(mysqli_error($con));
+    			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
+			break;
+
+			case "T":
+				$SUBMIT_category      		= mysqli_real_escape_string($con, $_POST['category']);
+				$SUBMIT_rrp       			= mysqli_real_escape_string($con, $_POST['rrp']);
+       			$SUBMIT_manu 				= mysqli_real_escape_string($con, $_POST['manufacturers']);
+				$SUBMIT_manusites      		= mysqli_real_escape_string($con, $_POST['manufacturerssites']);
+			break;
+		}
 	}
 
     if(isset($_POST['save'])) {

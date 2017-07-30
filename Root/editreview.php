@@ -62,16 +62,8 @@
 	}
 	$rating=array();
 	foreach($temp as $string){
-		$number = (float)$string;
-		if($number<3.75){
-			array_push($rating,2.5);
-		}else if($number>=3.75&&$number<6.25){			
-			array_push($rating,5);
-		}else if($number>=6.25&&$number<8.75){
-			array_push($rating,7.5);
-		}else if($number>=8.75){
-			array_push($rating,10);
-		}
+		$number = round((float)$string*2);
+		array_push($rating,$number);
 	}
 	switch($classification){
 		case "G":
@@ -139,22 +131,22 @@ if (!has_perms("edit-article-override")) {
 				$('#thirdContentRating').text("Graphics");
 				$('#content_4_section label').text("Audio");
 				$('#fourthContentRating').text("Audio");
-				$('#storylinerating option')[0].innerHTML="2.5 - Very basic storyline or ambiguous storyline.";
-				$('#storylinerating option')[1].innerHTML="5.0 - Mediocre storyline or not original, lacks creativity.";
-				$('#storylinerating option')[2].innerHTML="7.5 - Great storyline or better than average.";
-				$('#storylinerating option')[3].innerHTML="10 - Incredible storyline, very creative or immersive.";
-				$('#gameplayrating option')[0].innerHTML="2.5 - Hard to play or not intuitive at all.";
-				$('#gameplayrating option')[1].innerHTML="5.0 - Mediocre gameplay or lacks creativity, average.";
-				$('#gameplayrating option')[2].innerHTML="7.5 - Great gameplay or better than average.";
-				$('#gameplayrating option')[3].innerHTML="10 - Incredible gameplay, very creative or immersive.";
-				$('#graphicsrating option')[0].innerHTML="2.5 - Poor quality graphics or graphics are very basic.";
-				$('#graphicsrating option')[1].innerHTML="5.0 - Standard graphics; nothing new; mediocre.";
-				$('#graphicsrating option')[2].innerHTML="7.5 - Great graphics; fluid; better than average.";
-				$('#graphicsrating option')[3].innerHTML="10 - Incredible graphics, very creative or high quality.";
-				$('#audiorating option')[0].innerHTML="2.5 - Very basic sounds; not a huge variety; poor.";
-				$('#audiorating option')[1].innerHTML="5.0 - Standard sound effects or not really immersive.";
-				$('#audiorating option')[2].innerHTML="7.5 - Great audio effects; slightly immersive.";
-				$('#audiorating option')[3].innerHTML="10 - Incredible sound effects, very immersive/creative.";
+				$('#storylinerating option')[4].innerHTML="2.5 - Very basic storyline or ambiguous storyline.";
+				$('#storylinerating option')[9].innerHTML="5.0 - Mediocre storyline or not original, lacks creativity.";
+				$('#storylinerating option')[14].innerHTML="7.5 - Great storyline or better than average.";
+				$('#storylinerating option')[19].innerHTML="10 - Incredible storyline, very creative or immersive.";
+				$('#gameplayrating option')[4].innerHTML="2.5 - Hard to play or not intuitive at all.";
+				$('#gameplayrating option')[9].innerHTML="5.0 - Mediocre gameplay or lacks creativity, average.";
+				$('#gameplayrating option')[14].innerHTML="7.5 - Great gameplay or better than average.";
+				$('#gameplayrating option')[19].innerHTML="10 - Incredible gameplay, very creative or immersive.";
+				$('#graphicsrating option')[4].innerHTML="2.5 - Poor quality graphics or graphics are very basic.";
+				$('#graphicsrating option')[9].innerHTML="5.0 - Standard graphics; nothing new; mediocre.";
+				$('#graphicsrating option')[14].innerHTML="7.5 - Great graphics; fluid; better than average.";
+				$('#graphicsrating option')[19].innerHTML="10 - Incredible graphics, very creative or high quality.";
+				$('#audiorating option')[4].innerHTML="2.5 - Very basic sounds; not a huge variety; poor.";
+				$('#audiorating option')[9].innerHTML="5.0 - Standard sound effects or not really immersive.";
+				$('#audiorating option')[14].innerHTML="7.5 - Great audio effects; slightly immersive.";
+				$('#audiorating option')[19].innerHTML="10 - Incredible sound effects, very immersive/creative.";
 				break;
 			case "T":
 				$('#content_1_section label').text("Intuitive");
@@ -165,48 +157,48 @@ if (!has_perms("edit-article-override")) {
 				$('#thirdContentRating').text("Design");
 				$('#content_4_section label').text("Value");
 				$('#fourthContentRating').text("Value");
-				$('#storylinerating option')[0].innerHTML="2.5 - Was difficult to learn or not easy to learn.";
-				$('#storylinerating option')[1].innerHTML="5.0 - Was neither easy or difficult to learn.";
-				$('#storylinerating option')[2].innerHTML="7.5 - Was easy to learn and engaging.";
-				$('#storylinerating option')[3].innerHTML="10 - Incredibly easy to learn, extremely natural.";
-				$('#gameplayrating option')[0].innerHTML="2.5 - Not comfortable or feels uncomfortable.";
-				$('#gameplayrating option')[1].innerHTML="5.0 - Doesn’t feel bad and doesn’t feel good.";
-				$('#gameplayrating option')[2].innerHTML="7.5 - Feels great, not too shabby at all.";
-				$('#gameplayrating option')[3].innerHTML="10 - Feels incredible! This can’t get any better!.";
-				$('#graphicsrating option')[0].innerHTML="2.5 - Very poor design for the intended purpose of use.";
-				$('#graphicsrating option')[1].innerHTML="5.0 - Mediocre design, designed for the intended purpose.";
-				$('#graphicsrating option')[2].innerHTML="7.5 - Excellent design, above and beyond.";
-				$('#graphicsrating option')[3].innerHTML="10 - Incredible design, sets the benchmark!.";
-				$('#audiorating option')[0].innerHTML="2.5 - Not worth the money; poor value for money.";
-				$('#audiorating option')[1].innerHTML="5.0 - Was a just cost, though I wouldn’t pay a cent more.";
-				$('#audiorating option')[2].innerHTML="7.5 - Was definitely worth the investment.";
-				$('#audiorating option')[3].innerHTML="10 - Great value for money, I’d buy this again!";
+				$('#storylinerating option')[4].innerHTML="2.5 - Was difficult to learn or not easy to learn.";
+				$('#storylinerating option')[9].innerHTML="5.0 - Was neither easy or difficult to learn.";
+				$('#storylinerating option')[14].innerHTML="7.5 - Was easy to learn and engaging.";
+				$('#storylinerating option')[19].innerHTML="10 - Incredibly easy to learn, extremely natural.";
+				$('#gameplayrating option')[4].innerHTML="2.5 - Not comfortable or feels uncomfortable.";
+				$('#gameplayrating option')[9].innerHTML="5.0 - Doesn’t feel bad and doesn’t feel good.";
+				$('#gameplayrating option')[14].innerHTML="7.5 - Feels great, not too shabby at all.";
+				$('#gameplayrating option')[19].innerHTML="10 - Feels incredible! This can’t get any better!.";
+				$('#graphicsrating option')[4].innerHTML="2.5 - Very poor design for the intended purpose of use.";
+				$('#graphicsrating option')[9].innerHTML="5.0 - Mediocre design, designed for the intended purpose.";
+				$('#graphicsrating option')[14].innerHTML="7.5 - Excellent design, above and beyond.";
+				$('#graphicsrating option')[19].innerHTML="10 - Incredible design, sets the benchmark!.";
+				$('#audiorating option')[4].innerHTML="2.5 - Not worth the money; poor value for money.";
+				$('#audiorating option')[9].innerHTML="5.0 - Was a just cost, though I wouldn’t pay a cent more.";
+				$('#audiorating option')[14].innerHTML="7.5 - Was definitely worth the investment.";
+				$('#audiorating option')[19].innerHTML="10 - Great value for money, I’d buy this again!";
 				break;
 			case "M":
 				$('#content_1_section label').text("Storyline");
 				$('#firstContentRating').text("Storyline");
 				$('#content_2_section label').text("Cinematography");
 				$('#secondContentRating').text("Cinematography");
-				$('#content_3_section label').text("Audio");
-				$('#thirdContentRating').text("Audio");
+				$('#content_3_section label').text("Script");
+				$('#thirdContentRating').text("Script");
 				$('#content_4_section label').text("Direction");
 				$('#fourthContentRating').text("Direction");
-				$('#storylinerating option')[0].innerHTML="2.5 - The storyline was very cookie-cutter, not original.";
-				$('#storylinerating option')[1].innerHTML="5.0 - Basic storyline, not boring, but not exciting either.";
-				$('#storylinerating option')[2].innerHTML="7.5 - Great story! But I wouldn’t see it again anytime soon.";
-				$('#storylinerating option')[3].innerHTML="10 - Wow! Can we watch that again?.";
-				$('#gameplayrating option')[0].innerHTML="2.5 - Awkward angles; poor scenery; bad camera work.";
-				$('#gameplayrating option')[1].innerHTML="5.0 - Average camera work, not bad.";
-				$('#gameplayrating option')[2].innerHTML="7.5 - Great placement, good locations and shots.";
-				$('#gameplayrating option')[3].innerHTML="10 - Incredible camera work, couldn’t have been better!";
-				$('#graphicsrating option')[0].innerHTML="2.5 - Very poor quality; not creative.";
-				$('#graphicsrating option')[1].innerHTML="5.0 - Average quality, nothing noteworthy.";
-				$('#graphicsrating option')[2].innerHTML="7.5 - Terrific quality, creative and slightly immersive.";
-				$('#graphicsrating option')[3].innerHTML="10 - Incredible graphics, very creative or high quality.";
-				$('#audiorating option')[0].innerHTML="2.5 - Poor cast; no chemistry; rushed film; uncreative.";
-				$('#audiorating option')[1].innerHTML="5.0 - Standard chemistry; cast weren’t special; average.";
-				$('#audiorating option')[2].innerHTML="7.5 - Great cast; good direction; very creative; good pace.";
-				$('#audiorating option')[3].innerHTML="10 - Incredible cast, great pace; great chemistry; terrific!";
+				$('#storylinerating option')[4].innerHTML="2.5 - The storyline was very cookie-cutter, not original.";
+				$('#storylinerating option')[9].innerHTML="5.0 - Basic storyline, not boring, but not exciting either.";
+				$('#storylinerating option')[14].innerHTML="7.5 - Great story! But I wouldn’t see it again anytime soon.";
+				$('#storylinerating option')[19].innerHTML="10 - Wow! Can we watch that again?.";
+				$('#gameplayrating option')[4].innerHTML="2.5 - Awkward angles; poor scenery; bad camera work.";
+				$('#gameplayrating option')[9].innerHTML="5.0 - Average camera work, not bad.";
+				$('#gameplayrating option')[14].innerHTML="7.5 - Great placement, good locations and shots.";
+				$('#gameplayrating option')[19].innerHTML="10 - Incredible camera work, couldn’t have been better!";
+				$('#graphicsrating option')[4].innerHTML="2.5 - Poor script; predictable, not entertaining.";
+				$('#graphicsrating option')[9].innerHTML="5.0 - Average story and characters, predictable.";
+				$('#graphicsrating option')[14].innerHTML="7.5 - Fresh concept, gripping and entertaining.";
+				$('#graphicsrating option')[19].innerHTML="10 - Incredible script, unique, perfect story and characters.";
+				$('#audiorating option')[4].innerHTML="2.5 - Poor cast; no chemistry; rushed film; uncreative.";
+				$('#audiorating option')[9].innerHTML="5.0 - Standard chemistry; cast weren’t special; average.";
+				$('#audiorating option')[14].innerHTML="7.5 - Great cast; good direction; very creative; good pace.";
+				$('#audiorating option')[19].innerHTML="10 - Incredible cast, great pace; great chemistry; terrific!";
 				break;
 		}
 	}
@@ -280,6 +272,69 @@ if (!has_perms("edit-article-override")) {
 						</tr>
 					</table>
 
+				    <p class="scroll_section" id="trailer_section">
+				    	<label for="trailer">Official Trailer - YOUTUBE URL <i>(prefered if more than one)</i></label>
+				        <input name="trailer" id="trailer" type="url" value="<?php echo $trailer; ?>" placeholder="<?php echo $trailer; ?>"/>
+				        <span>
+				        	<b>1. &nbsp; </b> Find your trailer video on YouTube<br>
+				        	<b>2. &nbsp; </b> Click on &lsquo;Share&rsquo; found under the video<br>
+				        	<b>3. &nbsp; </b> Click on the &lsquo;Embed&rsquo; tab<br>
+				        	<b>4. &nbsp; </b> Copy the URL found in the &lsquo;src=&rsquo; attribute of the given code<br>
+				        	<b>5. &nbsp; </b> Paste the URL here.
+				        </span>
+				    </p>
+
+				    <p class="scroll_section" id="releasedate_section">
+				    	<label for="releasedate">Initial Release Date <i>(FORMAT: YYYY-MM-DD)</i></label>
+				        <input name="releasedate" id="releasedate" type="text" value="<?php echo date('Y-m-d', strtotime($release_date)); ?>" placeholder="<?php echo $releasedate; ?>" maxlength="10" minlength="10" required />
+				    </p>
+
+				    <p class="scroll_section" id="officialsite_section">
+				    	<label for="officialsite">Official Site</label>
+				        <input name="officialsite" id="officialsite" type="url" value="<?php echo $officialsite; ?>" placeholder="<?php echo $officialsite; ?>" required />
+				        <span>If none exists please enter &lsquo;http://none.co&rsquo;</span>
+				    </p>
+
+				    <p class="scroll_section" id="platforms_section">
+				    	<label for="platforms">Available Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        <input name="platforms" id="platforms" type="text" value="<?php echo $platforms; ?>" placeholder="<?php echo $platforms; ?>" required />
+				    </p>
+
+				    <p class="scroll_section" id="testedplatforms_section">
+				    	<label for="testedplatforms">Tested Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        <input name="testedplatforms" id="testedplatforms" type="text" value="<?php echo $testedplatforms; ?>" placeholder="<?php echo $testedplatforms; ?>" required />
+				    </p>
+
+				    <p class="scroll_section" id="genre_section">
+				    	<label for="genre">Game Genre</label>
+				        <input name="genre" id="genre" type="text" value="<?php echo $genre; ?>" placeholder="<?php echo $genre; ?>" required />
+				    </p>
+
+				    <p class="scroll_section" id="developers_section">
+				    	<label for="developers">List of Developers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        <input name="developers" id="developers" type="text" value="<?php echo $developers; ?>" placeholder="<?php echo $developers; ?>" required />
+				        <span>If the same as publisher please enter in both fields.</span>
+				    </p>
+
+				    <p class="scroll_section" id="developersites_section">
+				    	<label for="developersites">List of Developers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        <input name="developersites" id="developersites" type="text" value="<?php echo $developersites; ?>" placeholder="<?php echo $developersites; ?>" required />
+				        <span>If none exists please enter &lsquo;NA&rsquo;</span>
+				    </p>
+
+
+				    <p class="scroll_section" id="publishers_section">
+				    	<label for="publishers">List of Publishers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        <input name="publishers" id="publishers" type="text" value="<?php echo $publishers; ?>" placeholder="<?php echo $publishers; ?>" required />
+				        <span>If the same as developer please enter in both fields.</span>
+				    </p>
+				    <p class="scroll_section" id="publishersites_section">
+				    	<label for="publishersites">List of Publishers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        <input name="publishersites" id="publishersites" type="text" value="<?php echo $publishersites; ?>" placeholder="<?php echo $publishersites; ?>" required />
+				        <span>If none exists please enter &lsquo;NA&rsquo;</span>
+				    </p>
+
+
 				    <p class="scroll_section" id="summary_section">
 				    	<label for="summary">Summary <i>(MAX 100 CHARACTERS)</i></label>
 				        <textarea name="summary" id="summary" required maxlength="100"><?php echo $summary; ?></textarea>
@@ -316,77 +371,30 @@ if (!has_perms("edit-article-override")) {
 				        <textarea name="verdict" id="verdict" required><?php echo $verdict; ?></textarea>
 				    </p>
 
-				    <p class="scroll_section" id="trailer_section">
-				    	<label for="trailer">Official Trailer - YOUTUBE URL <i>(prefered if more than one)</i></label>
-				        <input name="trailer" id="trailer" type="url" value="<?php echo $trailer; ?>" placeholder="<?php echo $trailer; ?>"/>
-				        <span>
-				        	<b>1. &nbsp; </b> Find your trailer video on YouTube<br>
-				        	<b>2. &nbsp; </b> Click on &lsquo;Share&rsquo; found under the video<br>
-				        	<b>3. &nbsp; </b> Click on the &lsquo;Embed&rsquo; tab<br>
-				        	<b>4. &nbsp; </b> Copy the URL found in the &lsquo;src=&rsquo; attribute of the given code<br>
-				        	<b>5. &nbsp; </b> Paste the URL here.
-				        </span>
-				    </p>
-
-				    <p class="scroll_section" id="releasedate_section">
-				    	<label for="releasedate">Game Release Date <i>(FORMAT: YYYY-MM-DD)</i></label>
-				        <input name="releasedate" id="releasedate" type="text" value="<?php echo date('Y-m-d', strtotime($release_date)); ?>" placeholder="<?php echo $releasedate; ?>" maxlength="10" minlength="10" required />
-				    </p>
-
-				    <p class="scroll_section" id="platforms_section">
-				    	<label for="platforms">Available Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="platforms" id="platforms" type="text" value="<?php echo $platforms; ?>" placeholder="<?php echo $platforms; ?>" required />
-				    </p>
-
-				    <p class="scroll_section" id="testedplatforms_section">
-				    	<label for="testedplatforms">Tested Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="testedplatforms" id="testedplatforms" type="text" value="<?php echo $testedplatforms; ?>" placeholder="<?php echo $testedplatforms; ?>" required />
-				    </p>
-
-				    <p class="scroll_section" id="genre_section">
-				    	<label for="genre">Game Genre</label>
-				        <input name="genre" id="genre" type="text" value="<?php echo $genre; ?>" placeholder="<?php echo $genre; ?>" required />
-				    </p>
-
-				    <p class="scroll_section" id="developers_section">
-				    	<label for="developers">List of Developers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="developers" id="developers" type="text" value="<?php echo $developers; ?>" placeholder="<?php echo $developers; ?>" required />
-				        <span>If the same as publisher please enter in both fields.</span>
-				    </p>
-
-				    <p class="scroll_section" id="publishers_section">
-				    	<label for="publishers">List of Publishers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="publishers" id="publishers" type="text" value="<?php echo $publishers; ?>" placeholder="<?php echo $publishers; ?>" required />
-				        <span>If the same as developer please enter in both fields.</span>
-				    </p>
-
-				    <p class="scroll_section" id="officialsite_section">
-				    	<label for="officialsite">Official Site</label>
-				        <input name="officialsite" id="officialsite" type="url" value="<?php echo $officialsite; ?>" placeholder="<?php echo $officialsite; ?>" required />
-				        <span>If none exists please enter &lsquo;http://none.co&rsquo;</span>
-				    </p>
-
-				    <p class="scroll_section" id="developersites_section">
-				    	<label for="developersites">List of Developers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="developersites" id="developersites" type="text" value="<?php echo $developersites; ?>" placeholder="<?php echo $developersites; ?>" required />
-				        <span>If none exists please enter &lsquo;NA&rsquo;</span>
-				    </p>
-
-				    <p class="scroll_section" id="publishersites_section">
-				    	<label for="publishersites">List of Publishers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="publishersites" id="publishersites" type="text" value="<?php echo $publishersites; ?>" placeholder="<?php echo $publishersites; ?>" required />
-				        <span>If none exists please enter &lsquo;NA&rsquo;</span>
-				    </p>
-
-
 					<p class="scroll_section" id="storylinerating_section">
 						<label for="storylinerating"><span id="firstContentRating">Storyline</span> Rating</label>
 						<input class="ratingcheck" name="storylinecheck" id="ratingcheck1" type="checkbox"  style="display: none;" checked></input>
 						<label id="ratinglabel1" for="ratingcheck1" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
 						<select name="storylinerating"  id="storylinerating">
+							<option>0.5</option>
+							<option>1.0</option>
+							<option>1.5</option>
+							<option>2.0</option>
 							<option>2.5</option>
+							<option>3.0</option>
+							<option>3.5</option>
+							<option>4.0</option>
+							<option>4.5</option>
 							<option>5.0</option>
+							<option>5.5</option>
+							<option>6.0</option>
+							<option>6.5</option>
+							<option>7.0</option>
 							<option>7.5</option>
+							<option>8.0</option>
+							<option>8.5</option>
+							<option>9.0</option>
+							<option>9.5</option>
 							<option>10</option>
 						</select>
 					</p>
@@ -396,9 +404,25 @@ if (!has_perms("edit-article-override")) {
 						<input class="ratingcheck" name="gameplaycheck" id="ratingcheck2" type="checkbox" style="display: none;" checked></input>
 						<label id="ratinglabel2" for="ratingcheck2" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
 						<select name="gameplayrating" id="gameplayrating">
+							<option>0.5</option>
+							<option>1.0</option>
+							<option>1.5</option>
+							<option>2.0</option>
 							<option>2.5</option>
+							<option>3.0</option>
+							<option>3.5</option>
+							<option>4.0</option>
+							<option>4.5</option>
 							<option>5.0</option>
+							<option>5.5</option>
+							<option>6.0</option>
+							<option>6.5</option>
+							<option>7.0</option>
 							<option>7.5</option>
+							<option>8.0</option>
+							<option>8.5</option>
+							<option>9.0</option>
+							<option>9.5</option>
 							<option>10</option>
 						</select>
 					</p>
@@ -408,9 +432,25 @@ if (!has_perms("edit-article-override")) {
 						<input class="ratingcheck" name="graphicscheck" id="ratingcheck4" type="checkbox"  style="display: none;" checked></input>
 						<label id="ratinglabel4" for="ratingcheck4" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
 						<select name="graphicsrating" id="graphicsrating">
+							<option>0.5</option>
+							<option>1.0</option>
+							<option>1.5</option>
+							<option>2.0</option>
 							<option>2.5</option>
+							<option>3.0</option>
+							<option>3.5</option>
+							<option>4.0</option>
+							<option>4.5</option>
 							<option>5.0</option>
+							<option>5.5</option>
+							<option>6.0</option>
+							<option>6.5</option>
+							<option>7.0</option>
 							<option>7.5</option>
+							<option>8.0</option>
+							<option>8.5</option>
+							<option>9.0</option>
+							<option>9.5</option>
 							<option>10</option>
 						</select>
 					</p>
@@ -420,9 +460,25 @@ if (!has_perms("edit-article-override")) {
 						<input class="ratingcheck" name="audiocheck" id="ratingcheck3" type="checkbox"  style="display: none;" checked></input>
 						<label id="ratinglabel3" for="ratingcheck3" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
 						<select name="audiorating" id="audiorating">
+							<option>0.5</option>
+							<option>1.0</option>
+							<option>1.5</option>
+							<option>2.0</option>
 							<option>2.5</option>
+							<option>3.0</option>
+							<option>3.5</option>
+							<option>4.0</option>
+							<option>4.5</option>
 							<option>5.0</option>
+							<option>5.5</option>
+							<option>6.0</option>
+							<option>6.5</option>
+							<option>7.0</option>
 							<option>7.5</option>
+							<option>8.0</option>
+							<option>8.5</option>
+							<option>9.0</option>
+							<option>9.5</option>
 							<option>10</option>
 						</select>
 					</p>
@@ -430,10 +486,10 @@ if (!has_perms("edit-article-override")) {
 						echo "Story" . $rating[1];
 					?>
 					<script>
-						$('#storylinerating')[0].selectedIndex=<?php echo ($rating[0]/2.5)-1 ?>;
-						$('#gameplayrating')[0].selectedIndex=<?php echo ($rating[1]/2.5)-1 ?>;
-						$('#graphicsrating')[0].selectedIndex=<?php echo ($rating[2]/2.5)-1 ?>;
-						$('#audiorating')[0].selectedIndex=<?php echo ($rating[3]/2.5)-1 ?>;
+						$('#storylinerating')[0].selectedIndex=<?php echo ($rating[0])-1 ?>;
+						$('#gameplayrating')[0].selectedIndex=<?php echo ($rating[1])-1 ?>;
+						$('#graphicsrating')[0].selectedIndex=<?php echo ($rating[2])-1 ?>;
+						$('#audiorating')[0].selectedIndex=<?php echo ($rating[3])-1 ?>;
 					</script>
 
 				    <p class="scroll_section" id="mainrating_section">

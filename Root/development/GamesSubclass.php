@@ -34,7 +34,10 @@ echo "<HTML><BODY>";
 	echo "<td>";
 	echo $row["publishersites"]."<br />";
 	echo "</td>";
-	echo "</tr>";
+	echo "</tr>";	
+	//$sqlero = mysqli_prepare($con,"INSERT INTO tbl_game_review VALUES (?,?,?,?,?,?,?,?)") or die(mysqli_error($con));
+	//mysqli_stmt_bind_param($sqlero, 'isssssss', $row["id"], $row["genre"],$row["platforms"],$row["testedplatforms"],$row["developers"],$row["developersites"],$row["publishers"],$row["publishersites"]) or die(mysqli_error($con));
+    //mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
     }
 	
 

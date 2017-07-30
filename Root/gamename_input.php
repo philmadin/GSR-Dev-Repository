@@ -15,7 +15,7 @@
 </script>
 
 
-<input name="gamename" class="valid" id="gamename" type="text" value="" placeholder="Enter the name of the game here..." required="" autocomplete="off" aria-required="true" aria-invalid="false">
+<input name="gamename" class="valid" id="gamename" type="text" value="" placeholder="Enter the name of the subject here..." required="" autocomplete="off" aria-required="true" aria-invalid="false">
 
 <input id="gameid" style="display:none;" name="gameid"/>
 
