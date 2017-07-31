@@ -44,7 +44,7 @@
 		$createdate		 	= $artROW['createdate'];
 		$developers		 	= $artROW['developers'];
 		$publishers			= $artROW['publishers'];
-		$platforms			= $artROW['platforms'];
+		//$platforms			= $artROW['platforms'];
 		$release_date	 	= $artROW['release_date'];
 		$officialsite	 	= $artROW['officialsite'];
 		$developersites	 	= $artROW['developersites'];
@@ -67,6 +67,11 @@
 	}
 	switch($classification){
 		case "G":
+			$stmt = mysqli_prepare($con, "SELECT * FROM tbl_game_review WHERE reviewIDFK=?");
+			mysqli_stmt_bind_param($stmt, "i", $getArticle);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt, $articleID, $game_genre, $platforms, $test_platforms, $devs, $devs_sites, $pubs, $pubs_sites);
+			mysqli_stmt_fetch($stmt);
 			$generallabel="Game";
 			$label1="Storyline";
 			$label2="Gameplay";
@@ -74,6 +79,11 @@
 			$label4="Audio";
 			break;
 		case "T":
+			$stmt = mysqli_prepare($con, "SELECT * FROM tbl_tech_review WHERE reviewIDFK=?");
+			mysqli_stmt_bind_param($stmt, "i", $getArticle);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt, $articleID, $category, $RRP, $manu, $manu_site);
+			mysqli_stmt_fetch($stmt);
 			$generallabel="Tech";
 			$label1="Intuitive";
 			$label2="Ergonomic";
@@ -81,6 +91,11 @@
 			$label4="Value";
 			break;
 		case "M":
+			$stmt = mysqli_prepare($con, "SELECT * FROM tbl_movie_review WHERE reviewIDFK=?");
+			mysqli_stmt_bind_param($stmt, "i", $getArticle);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt, $articleID, $movie_genre, $runtime, $directors, $cast, $studios_publishers, $studios_publishers_sites);
+			mysqli_stmt_fetch($stmt);
 			$generallabel="Movie";
 			$label1="Storyline";
 			$label2="Cinematography";
@@ -123,6 +138,10 @@ if (!has_perms("edit-article-override")) {
 	function changeTo(event){
 		switch(event){
 			case "G":
+				
+				$('#gameSpecifics').css('display','');
+				$('#movieSpecifics').css('display','none');
+				$('#techSpecifics').css('display','none');
 				$('#content_1_section label').text("Storyline");
 				$('#firstContentRating').text("Storyline");
 				$('#content_2_section label').text("Gameplay");
@@ -149,6 +168,9 @@ if (!has_perms("edit-article-override")) {
 				$('#audiorating option')[19].innerHTML="10 - Incredible sound effects, very immersive/creative.";
 				break;
 			case "T":
+				$('#gameSpecifics').css('display','none');
+				$('#movieSpecifics').css('display','none');
+				$('#techSpecifics').css('display','');
 				$('#content_1_section label').text("Intuitive");
 				$('#firstContentRating').text("Intuitive");
 				$('#content_2_section label').text("Ergonomic");
@@ -175,6 +197,9 @@ if (!has_perms("edit-article-override")) {
 				$('#audiorating option')[19].innerHTML="10 - Great value for money, I’d buy this again!";
 				break;
 			case "M":
+				$('#gameSpecifics').css('display','none');
+				$('#techSpecifics').css('display','none');
+				$('#movieSpecifics').css('display','');
 				$('#content_1_section label').text("Storyline");
 				$('#firstContentRating').text("Storyline");
 				$('#content_2_section label').text("Cinematography");
@@ -284,60 +309,116 @@ if (!has_perms("edit-article-override")) {
 				        </span>
 				    </p>
 
-				    <p class="scroll_section" id="releasedate_section">
-				    	<label for="releasedate">Initial Release Date <i>(FORMAT: YYYY-MM-DD)</i></label>
-				        <input name="releasedate" id="releasedate" type="text" value="<?php echo date('Y-m-d', strtotime($release_date)); ?>" placeholder="<?php echo $releasedate; ?>" maxlength="10" minlength="10" required />
-				    </p>
-
 				    <p class="scroll_section" id="officialsite_section">
 				    	<label for="officialsite">Official Site</label>
 				        <input name="officialsite" id="officialsite" type="url" value="<?php echo $officialsite; ?>" placeholder="<?php echo $officialsite; ?>" required />
 				        <span>If none exists please enter &lsquo;http://none.co&rsquo;</span>
 				    </p>
 
-				    <p class="scroll_section" id="platforms_section">
-				    	<label for="platforms">Available Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="platforms" id="platforms" type="text" value="<?php echo $platforms; ?>" placeholder="<?php echo $platforms; ?>" required />
+				    <p class="scroll_section" id="releasedate_section">
+				    	<label for="releasedate">Initial Release Date <i>(FORMAT: YYYY-MM-DD)</i></label>
+				        <input name="releasedate" id="releasedate" type="text" value="<?php echo date('Y-m-d', strtotime($release_date)); ?>" placeholder="<?php echo $releasedate; ?>" maxlength="10" minlength="10" required />
 				    </p>
+					<div id="techSpecifics">
+						<h2>Tech specific details</h2>
+						<p class="scroll_section" id="category_section">
+							<label for="category">Category</label>
+							<input name="category" id="category" type="text" value="<?php echo $category; ?>" placeholder="<?php echo $category; ?>" required />
+						</p>
+						<p class="scroll_section" id="rrp_section">
+							<label for="rrp">Recomended Retail Price (RRP) at time of review</label>
+							<input name="rrp" id="rrp" type="text" value="<?php echo $RRP; ?>" placeholder="<?php echo $RRP; ?>" required />
+						</p>
+						<p class="scroll_section" id="manufacturers_section">
+							<label for="manufacturers">List of Manufacturers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="manufacturers" id="manufacturers" type="text" value="<?php echo $manu; ?>" placeholder="<?php echo $manu; ?>" required />
+						</p>
 
-				    <p class="scroll_section" id="testedplatforms_section">
-				    	<label for="testedplatforms">Tested Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="testedplatforms" id="testedplatforms" type="text" value="<?php echo $testedplatforms; ?>" placeholder="<?php echo $testedplatforms; ?>" required />
-				    </p>
+						<p class="scroll_section" id="manufacturerssites_section">
+							<label for="manufacturerssites">List of Manufacturers sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="manufacturerssites" id="manufacturerssites" type="text" value="<?php echo $manu_sites; ?>" placeholder="<?php echo $manu_sites; ?>" required />
+						</p>
+					</div>
+					<div id="movieSpecifics">
+						<h2>Movie / show specific details</h2>
+						<p class="scroll_section" id="genre_section">
+							<label for="moviegenre">Genre</label>
+							<input name="moviegenre" id="moviegenre" type="text" value="<?php echo $movie_genre;?>" placeholder="<?php echo $movie_genre;?>" required />
+						</p>
 
-				    <p class="scroll_section" id="genre_section">
-				    	<label for="genre">Game Genre</label>
-				        <input name="genre" id="genre" type="text" value="<?php echo $genre; ?>" placeholder="<?php echo $genre; ?>" required />
-				    </p>
+						<p class="scroll_section" id="duration_section">
+							<label for="duration">Duration <i>(minutes)</i></label>
+							<input name="duration" id="duration" type="text" value="<?php echo $runtime;?>" placeholder="<?php echo $runtime;?>" required />
+						</p>
 
-				    <p class="scroll_section" id="developers_section">
-				    	<label for="developers">List of Developers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="developers" id="developers" type="text" value="<?php echo $developers; ?>" placeholder="<?php echo $developers; ?>" required />
-				        <span>If the same as publisher please enter in both fields.</span>
-				    </p>
+						<p class="scroll_section" id="directors_section">
+							<label for="directors">List of Directors <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="directors" id="directors" type="text" value="<?php echo $directors;?>" placeholder="<?php echo $directors;?>" required />
+						</p>
 
-				    <p class="scroll_section" id="developersites_section">
-				    	<label for="developersites">List of Developers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="developersites" id="developersites" type="text" value="<?php echo $developersites; ?>" placeholder="<?php echo $developersites; ?>" required />
-				        <span>If none exists please enter &lsquo;NA&rsquo;</span>
-				    </p>
+						<p class="scroll_section" id="cast_section">
+							<label for="cast">List of main cast <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="cast" id="cast" type="text" value="<?php echo $cast;?>" placeholder="<?php echo $cast;?>" required />
+						</p>
+
+						<p class="scroll_section" id="moviepublishers_section">
+							<label for="moviepublishers">List of Studios / Publishers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="moviepublishers" id="moviepublishers" type="text" value="<?php echo $studios_publishers;?>" placeholder="<?php echo $studios_publishers;?>" required />
+						</p>
+
+						<p class="scroll_section" id="moviepublisherssites_section">
+							<label for="moviepublisherssites">List of Studios / Publishers sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="moviepublisherssites" id="moviepublisherssites" type="text" value="<?php echo $studios_publishers_sites;?>" placeholder="<?php echo $studios_publishers_sites;?>" required />
+						</p>
+					</div>
+
+					<div id="gameSpecifics">
+						<h2>Game specific details</h2>
+				    	<p class="scroll_section" id="genre_section">
+				    		<label for="genre">Game Genre</label>
+				        	<input name="genre" id="genre" type="text" value="<?php echo $game_genre; ?>" placeholder="<?php echo $game_genre; ?>" required />
+				    	</p>
+
+				    	<p class="scroll_section" id="platforms_section">
+				    		<label for="platforms">Available Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="platforms" id="platforms" type="text" value="<?php echo $platforms; ?>" placeholder="<?php echo $platforms; ?>" required />
+				    	</p>
+
+				    	<p class="scroll_section" id="testedplatforms_section">
+				    		<label for="testedplatforms">Tested Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="testedplatforms" id="testedplatforms" type="text" value="<?php echo $test_platforms; ?>" placeholder="<?php echo $test_platforms; ?>" required />
+				    	</p>
+
+				    	<p class="scroll_section" id="developers_section">
+				    		<label for="developers">List of Developers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="developers" id="developers" type="text" value="<?php echo $devs; ?>" placeholder="<?php echo $devs; ?>" required />
+				        	<span>If the same as publisher please enter in both fields.</span>
+				    	</p>
+
+				    	<p class="scroll_section" id="developersites_section">
+				    		<label for="developersites">List of Developers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="developersites" id="developersites" type="text" value="<?php echo $devs_sites; ?>" placeholder="<?php echo $devs_sites; ?>" required />
+				        	<span>If none exists please enter &lsquo;NA&rsquo;</span>
+				    	</p>
 
 
-				    <p class="scroll_section" id="publishers_section">
-				    	<label for="publishers">List of Publishers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="publishers" id="publishers" type="text" value="<?php echo $publishers; ?>" placeholder="<?php echo $publishers; ?>" required />
-				        <span>If the same as developer please enter in both fields.</span>
-				    </p>
-				    <p class="scroll_section" id="publishersites_section">
-				    	<label for="publishersites">List of Publishers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="publishersites" id="publishersites" type="text" value="<?php echo $publishersites; ?>" placeholder="<?php echo $publishersites; ?>" required />
-				        <span>If none exists please enter &lsquo;NA&rsquo;</span>
-				    </p>
-
-
-				    <p class="scroll_section" id="summary_section">
+				    	<p class="scroll_section" id="publishers_section">
+				    		<label for="publishers">List of Publishers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="publishers" id="publishers" type="text" value="<?php echo $pubs; ?>" placeholder="<?php echo $pubs; ?>" required />
+				        	<span>If the same as developer please enter in both fields.</span>
+				    	</p>
+				    	<p class="scroll_section" id="publishersites_section">
+				    		<label for="publishersites">List of Publishers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="publishersites" id="publishersites" type="text" value="<?php echo $pubs_sites; ?>" placeholder="<?php echo $pubs_sites; ?>" required />
+				        	<span>If none exists please enter &lsquo;NA&rsquo;</span>
+				    	</p>
+					</div>
+					
+					
+					<h2>Review content</h2>
+					<p class="scroll_section" id="summary_section">
 				    	<label for="summary">Summary <i>(MAX 100 CHARACTERS)</i></label>
-				        <textarea name="summary" id="summary" required maxlength="100"><?php echo $summary; ?></textarea>
+				       	<textarea name="summary" id="summary" required maxlength="100"><?php echo $summary; ?></textarea>
 				        <span id="charCount">100 Characters left.</span>
 				    </p>
 
@@ -349,26 +430,6 @@ if (!has_perms("edit-article-override")) {
 				    <p class="scroll_section" id="content_1_section">
 				    	<label for="storyline"><?php echo $label1; ?></label>
 				        <textarea name="storyline" id="storyline" required><?php echo $Content1; ?></textarea>
-				    </p>
-
-				    <p class="scroll_section" id="content_2_section">
-				    	<label for="gameplay"><?php echo $label2; ?></label>
-				        <textarea name="gameplay" id="gameplay" required><?php echo $Content2; ?></textarea>
-				    </p>
-					
-				    <p class="scroll_section" id="content_3_section">
-				    	<label for="graphics"><?php echo $label3; ?></label>
-				        <textarea name="graphics" id="graphics" required><?php echo $Content3; ?></textarea>
-				    </p>
-
-				    <p class="scroll_section" id="content_4_section">
-				    	<label for="audio"><?php echo $label4; ?></label>
-				        <textarea name="audio" id="audio" required><?php echo $Content4; ?></textarea>
-				    </p>
-
-				    <p class="scroll_section" id="verdict_section">
-				    	<label for="verdict">Verdict</label>
-				        <textarea name="verdict" id="verdict" required><?php echo $verdict; ?></textarea>
 				    </p>
 
 					<p class="scroll_section" id="storylinerating_section">
@@ -398,7 +459,11 @@ if (!has_perms("edit-article-override")) {
 							<option>10</option>
 						</select>
 					</p>
-
+				    <p class="scroll_section" id="content_2_section">
+				    	<label for="gameplay"><?php echo $label2; ?></label>
+				        <textarea name="gameplay" id="gameplay" required><?php echo $Content2; ?></textarea>
+				    </p>
+					
 					<p class="scroll_section" id="gameplayrating_section">
 						<label for="gameplayrating"><span id="secondContentRating">Gameplay</span> Rating</label>
 						<input class="ratingcheck" name="gameplaycheck" id="ratingcheck2" type="checkbox" style="display: none;" checked></input>
@@ -426,6 +491,11 @@ if (!has_perms("edit-article-override")) {
 							<option>10</option>
 						</select>
 					</p>
+
+				    <p class="scroll_section" id="content_3_section">
+				    	<label for="graphics"><?php echo $label3; ?></label>
+				        <textarea name="graphics" id="graphics" required><?php echo $Content3; ?></textarea>
+				    </p>
 
 					<p class="scroll_section" id="graphicsrating_section">
 						<label for="graphicsrating"><span id="thirdContentRating">Graphics</span> Rating</label>
@@ -455,6 +525,11 @@ if (!has_perms("edit-article-override")) {
 						</select>
 					</p>
 
+				    <p class="scroll_section" id="content_4_section">
+				    	<label for="audio"><?php echo $label4; ?></label>
+				        <textarea name="audio" id="audio" required><?php echo $Content4; ?></textarea>
+				    </p>
+
 					<p class="scroll_section" id="audiorating_section">
 						<label for="audiorating"><span id="fourthContentRating">Audio</span> Rating</label>
 						<input class="ratingcheck" name="audiocheck" id="ratingcheck3" type="checkbox"  style="display: none;" checked></input>
@@ -482,6 +557,13 @@ if (!has_perms("edit-article-override")) {
 							<option>10</option>
 						</select>
 					</p>
+
+				    <p class="scroll_section" id="verdict_section">
+				    	<label for="verdict">Verdict</label>
+				        <textarea name="verdict" id="verdict" required><?php echo $verdict; ?></textarea>
+				    </p>
+
+
 					<?php
 						echo "Story" . $rating[1];
 					?>

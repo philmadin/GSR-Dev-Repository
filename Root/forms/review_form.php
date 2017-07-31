@@ -189,7 +189,7 @@ function changeTo(event){
 		<span>If none exists please enter &lsquo;http://none.co&rsquo;</span>
 	</p>
 	<p class="scroll_section" id="releasedate_section">
-		<label for="releasedate">Release Date <i>(FORMAT: YYYY-MM-DD)</i></label>
+		<label for="releasedate">Initial Release Date <i>(FORMAT: YYYY-MM-DD)</i></label>
 		<input name="releasedate" class="form_box_right" id="releasedate" type="text" value="" placeholder="2000-01-01" maxlength="10" minlength="10" required />
 	</p>
 
