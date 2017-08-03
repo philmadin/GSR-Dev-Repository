@@ -71,6 +71,11 @@
 	}
 	switch($classification){
 	case "G":
+		$stmt = mysqli_prepare($con, "SELECT * FROM tbl_game_review WHERE reviewIDFK=?");
+		mysqli_stmt_bind_param($stmt, "i", $articleid);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_bind_result($stmt, $articleID, $game_genre, $platforms, $test_platforms, $devs, $devs_sites, $pubs, $pubs_sites);
+		mysqli_stmt_fetch($stmt);
 		$generallabel="Game";
 		$label1="STORYLINE";
 		$label2="GAMEPLAY";
@@ -78,6 +83,11 @@
 		$label4="AUDIO";
 		break;
 	case "T":
+		$stmt = mysqli_prepare($con, "SELECT * FROM tbl_tech_review WHERE reviewIDFK=?");
+		mysqli_stmt_bind_param($stmt, "i", $articleid);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_bind_result($stmt, $articleID, $category, $RRP, $manu, $manu_site);
+		mysqli_stmt_fetch($stmt);
 		$generallabel="Tech";
 		$label1="INTUITIVE";
 		$label2="ERGONOMIC";
@@ -85,6 +95,11 @@
 		$label4="VALUE";
 		break;
 	case "M":
+		$stmt = mysqli_prepare($con, "SELECT * FROM tbl_movie_review WHERE reviewIDFK=?");
+		mysqli_stmt_bind_param($stmt, "i", $articleid);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_bind_result($stmt, $articleID, $movie_genre, $runtime, $directors, $cast, $studios_publishers, $studios_publishers_sites);
+		mysqli_stmt_fetch($stmt);
 		$generallabel="Movie";
 		$label1="STORYLINE";
 		$label2="CINEMATOGRAPHY";
@@ -332,46 +347,62 @@
 					<?php echo date("D jS M Y", strtotime($release_date)); ?>
 				</p>
 				<p>
-					<b>AVAILABLE PLATFORM(S)</b><br>
-					<?php echo str_replace(",","<br>", $platforms); ?>
-				</p>
-				<p>
-					<b>GENRE</b><br>
-					<?php echo $genre; ?>
-				</p>
-				<p>
-					<b>DEVELOPER(S)</b><br>
-					<?php echo str_replace(",","<br>", $developers); ?>
-				</p>
-				<p>
-					<b>PUBLISHER(S)</b><br>
-					<?php echo str_replace(",","<br>", $publishers); ?>
-				</p>
-				<p>
 					<b>OFFICIAL WEBSITE</b><br>
 					<?php
 						$offpreg = preg_replace("(^https?://|^www.?)", "", $officialsite);
 						echo "<a href='". $officialsite . "'>" . $offpreg . "</a>";
 					?>
 				</p>
-				<p>
-					<b>DEVELOPER WEBSITE(S)</b><br>
-					<?php
-						$explode_devsites = explode(", ", $developersites);
-						foreach ($explode_devsites as $devsitesvalue) {
-							echo "<a href='". $devsitesvalue . "'>" . preg_replace("(^https?://www.)", "", $devsitesvalue) . "</a><br>";
-						}
-					?>
-				</p>
-				<p>
-					<b>PUBLISHER WEBSITE(S)</b><br>
-					<?php
-						$explode_pubsites = explode(", ", $publishersites);
-						foreach ($explode_pubsites as $pubsitesvalue) {
-							echo "<a href='". $pubsitesvalue . "'>" . preg_replace("(^https?://www.)", "", $pubsitesvalue) . "</a><br>";
-						}
-					?>
-				</p>
+				<?php
+
+
+	switch($classification){
+	case "G":
+		echo "<p><b>AVAILABLE PLATFORM(S)</b><br>".str_replace(',','<br>', $platforms)."</p>";
+		echo "<p><b>GENRE(S)</b><br>".$game_genre."</p>";
+		echo "<p><b>DEVELOPERS(S)</b><br>".str_replace(",","<br>", $devs)."</p>";
+		$stringo="";
+		$explode_devsites = explode(", ", $devs_sites);
+		foreach ($explode_devsites as $devsitesvalue) {
+			$stringo= $stringo."<a href='". $devsitesvalue . "'>" . preg_replace("(^https?://www.)", "", $devsitesvalue) . "</a><br>";
+		}
+		echo "<p><b>DEVELOPER WEBSITES(S)</b><br>".str_replace(",","<br>", $stringo)."</p>";
+		echo "<p><b>PUBLISHERS(S)</b><br>".str_replace(",","<br>", $pubs)."</p>";
+		$stringo="";
+		$explode_devsites = explode(", ", $pubs_sites);
+		foreach ($explode_devsites as $devsitesvalue) {
+			$stringo= $stringo."<a href='". $devsitesvalue . "'>" . preg_replace("(^https?://www.)", "", $devsitesvalue) . "</a><br>";
+		}
+		echo "<p><b>DEVELOPER WEBSITES(S)</b><br>".str_replace(",","<br>", $stringo)."</p>";
+		break;
+	case "T":
+		echo "<p><b>CATEGORY</b><br>".$category."</p>";
+		echo "<p><b>RRP</b><br>".$RRP."</p>";
+		echo "<p><b>MANFACTURER(S)</b><br>".$manu."</p>";
+		$stringo="";
+		$explode_devsites = explode(", ", $manu_site);
+		foreach ($explode_devsites as $devsitesvalue) {
+			$stringo= $stringo."<a href='". $devsitesvalue . "'>" . preg_replace("(^https?://www.)", "", $devsitesvalue) . "</a><br>";
+		}
+		echo "<p><b>MANFACTURER WEBSITES(S)</b><br>".str_replace(",","<br>", $stringo)."</p>";
+		break;
+	case "M":
+		echo "<p><b>GENRE</b><br>".$movie_genre."</p>";
+		echo "<p><b>RUNTIME</b><br>".$runtime." minutes</p>";
+		echo "<p><b>DIRECTORS(S)</b><br>".str_replace(",","<br>", $directors)."</p>";
+		echo "<p><b>MAIN CAST</b><br>".str_replace(",","<br>", $cast)."</p>";
+		echo "<p><b>STUDIO / PUBLISHER(S)</b><br>".str_replace(",","<br>", $studios_publishers)."</p>";
+		$stringo="";
+		$explode_devsites = explode(", ", $studios_publishers_sites);
+		foreach ($explode_devsites as $devsitesvalue) {
+			$stringo= $stringo."<a href='". $devsitesvalue . "'>" . preg_replace("(^https?://www.)", "", $devsitesvalue) . "</a><br>";
+		}
+		echo "<p><b>STUDIO / PUBLISHER WEBSITE(S)</b><br>".str_replace(",","<br>", $stringo)."</p>";
+		break;
+	}
+
+
+				?>
 				<p class="social_share_side">
 				<a class="social_fb" title="Share on Facebook" href="<?php echo $fb_url;?>" href="#"></a>
 				<a class="social_twitter" title="Share on Twitter" href="<?php echo $twitter_url;?>" href="#"></a>

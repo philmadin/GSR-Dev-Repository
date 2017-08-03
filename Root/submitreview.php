@@ -193,6 +193,7 @@ function implode_multi($arr, $join, $key){
 				$SUBMIT_developersites  = mysqli_real_escape_string($con, $_POST['developersites']);
 				$SUBMIT_publishers      = mysqli_real_escape_string($con, $_POST['publishers']);
         		$SUBMIT_publishersites  = mysqli_real_escape_string($con, $_POST['publishersites']);
+
         		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_game_review VALUES (?,?,?,?,?,?,?,?)") or die(mysqli_error($con));
 				mysqli_stmt_bind_param($sqlero, 'isssssss', $last_id, $SUBMIT_genre, $SUBMIT_platforms,$SUBMIT_testedplatforms,$SUBMIT_developers,$SUBMIT_developersites,$SUBMIT_publishers,$SUBMIT_publishersites) or die(mysqli_error($con));
     			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
@@ -208,7 +209,7 @@ function implode_multi($arr, $join, $key){
         		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_movie_review VALUES (?,?,?,?,?,?,?)") or die(mysqli_error($con));
 				mysqli_stmt_bind_param($sqlero, 'isissss', $last_id, $SUBMIT_moviegenre, $SUBMIT_duration,$SUBMIT_directors,$SUBMIT_cast,$SUBMIT_moviepublishers,$SUBMIT_moviepublisherssites) or die(mysqli_error($con));
     			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
-			break;
+    		break;
 
 			case "T":
 				$SUBMIT_category      		= mysqli_real_escape_string($con, $_POST['category']);
@@ -218,7 +219,7 @@ function implode_multi($arr, $join, $key){
         		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_tech_review VALUES (?,?,?,?,?)") or die(mysqli_error($con));
 				mysqli_stmt_bind_param($sqlero, 'isdss', $last_id, $SUBMIT_category, $SUBMIT_rrp, $SUBMIT_manu, $SUBMIT_manusites) or die(mysqli_error($con));
     			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
-			break;
+    		break;
 		}
 	}
 
@@ -321,6 +322,16 @@ function implode_multi($arr, $join, $key){
         
         mysqli_query($con, "UPDATE tbl_review SET classification = '$SUBMIT_classification', article_type = '$SUBMIT_type', title = '$SUBMIT_articletitle', gamename = '$SUBMIT_game', summary = '$SUBMIT_summary', trailer = '$SUBMIT_trailer', release_date = '$SUBMIT_releasedate', officialsite = '$SUBMIT_officialsite', main_rating = '$SUBMIT_mainrating', Rating_1 = '$SUBMIT_storylinerating', Rating_2 = '$SUBMIT_gameplayrating', Rating_3 = '$SUBMIT_graphicsrating', Rating_4 = '$SUBMIT_audiorating', tags = '$SUBMIT_tags', Overview = '$SUBMIT_overview', HTMLContent_1= '$SUBMIT_storyline', HTMLContent_2= '$SUBMIT_gameplay', HTMLContent_4= '$SUBMIT_audio', HTMLContent_3= '$SUBMIT_graphics', Verdict= '$SUBMIT_verdict' WHERE id = '$SUBMIT_id'");
 		
+        		
+        $delM = mysqli_prepare($con,"DELETE FROM tbl_movie_review WHERE reviewIDFK=?") or die(mysqli_error($con));
+        $delT = mysqli_prepare($con,"DELETE FROM tbl_tech_review WHERE reviewIDFK=?") or die(mysqli_error($con));
+        $delG = mysqli_prepare($con,"DELETE FROM tbl_game_review WHERE reviewIDFK=?") or die(mysqli_error($con));
+        mysqli_stmt_bind_param($delM, 'i', $SUBMIT_id) or die(mysqli_error($con));
+		mysqli_stmt_bind_param($delT, 'i', $SUBMIT_id) or die(mysqli_error($con));	
+		mysqli_stmt_bind_param($delG, 'i', $SUBMIT_id) or die(mysqli_error($con));
+    	mysqli_stmt_execute($delM) or die(mysqli_error($con));
+    	mysqli_stmt_execute($delT) or die(mysqli_error($con));
+    	mysqli_stmt_execute($delG) or die(mysqli_error($con));
 		switch($SUBMIT_classification){
 			case "G":
 				$SUBMIT_genre           = mysqli_real_escape_string($con, $_POST['genre']);
@@ -330,9 +341,8 @@ function implode_multi($arr, $join, $key){
 				$SUBMIT_developersites  = mysqli_real_escape_string($con, $_POST['developersites']);
 				$SUBMIT_publishers      = mysqli_real_escape_string($con, $_POST['publishers']);
         		$SUBMIT_publishersites  = mysqli_real_escape_string($con, $_POST['publishersites']);
-        		
-        		$sqlero = mysqli_prepare($con,"UPDATE tbl_game_review SET genre=?, platforms=?, testedplatforms=?, developers=?, developersites=?, publishers=?, publishersites=? WHERE reviewIDFK=?") or die(mysqli_error($con));
-				mysqli_stmt_bind_param($sqlero, 'sssssssi', $SUBMIT_genre, $SUBMIT_platforms,$SUBMIT_testedplatforms,$SUBMIT_developers,$SUBMIT_developersites,$SUBMIT_publishers,$SUBMIT_publishersites, $SUBMIT_id) or die(mysqli_error($con));
+        		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_game_review VALUES (?,?,?,?,?,?,?,?)") or die(mysqli_error($con));
+				mysqli_stmt_bind_param($sqlero, 'isssssss', $SUBMIT_id, $SUBMIT_genre, $SUBMIT_platforms,$SUBMIT_testedplatforms,$SUBMIT_developers,$SUBMIT_developersites,$SUBMIT_publishers,$SUBMIT_publishersites) or die(mysqli_error($con));
     			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
 			break;
 
@@ -344,7 +354,7 @@ function implode_multi($arr, $join, $key){
 				$SUBMIT_moviepublishers      = mysqli_real_escape_string($con, $_POST['moviepublishers']);
 				$SUBMIT_moviepublisherssites = mysqli_real_escape_string($con, $_POST['moviepublisherssites']);
         		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_movie_review VALUES (?,?,?,?,?,?,?)") or die(mysqli_error($con));
-				mysqli_stmt_bind_param($sqlero, 'isissss', $last_id, $SUBMIT_moviegenre, $SUBMIT_duration,$SUBMIT_directors,$SUBMIT_cast,$SUBMIT_moviepublishers,$SUBMIT_moviepublisherssites) or die(mysqli_error($con));
+				mysqli_stmt_bind_param($sqlero, 'isissss', $SUBMIT_id, $SUBMIT_moviegenre, $SUBMIT_duration,$SUBMIT_directors,$SUBMIT_cast,$SUBMIT_moviepublishers,$SUBMIT_moviepublisherssites) or die(mysqli_error($con));
     			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
 			break;
 
@@ -354,7 +364,7 @@ function implode_multi($arr, $join, $key){
        			$SUBMIT_manu 				= mysqli_real_escape_string($con, $_POST['manufacturers']);
 				$SUBMIT_manusites      		= mysqli_real_escape_string($con, $_POST['manufacturerssites']);
         		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_tech_review VALUES (?,?,?,?,?)") or die(mysqli_error($con));
-				mysqli_stmt_bind_param($sqlero, 'isdss', $last_id, $SUBMIT_category, $SUBMIT_rrp, $SUBMIT_manu, $SUBMIT_manusites) or die(mysqli_error($con));
+				mysqli_stmt_bind_param($sqlero, 'isdss', $SUBMIT_id, $SUBMIT_category, $SUBMIT_rrp, $SUBMIT_manu, $SUBMIT_manusites) or die(mysqli_error($con));
     			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
 			break;
 		}

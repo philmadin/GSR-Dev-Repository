@@ -5,10 +5,13 @@
  * Date: 26/04/2016
  * Time: 6:20 PM
  */
-
+	include "mysql_con.php";
     $games_ar = array();
     $get_games =  mysqli_query($con, "SELECT title,id FROM tbl_games");
-    while ($game = mysqli_fetch_assoc($get_games)) {array_push($games_ar, $game);}
+    while ($game = mysqli_fetch_assoc($get_games)) {
+        $temp = array("title"=>utf8_encode($game['title']), "id"=>$game['id']);
+        array_push($games_ar, $temp);
+        }
 ?>
 <script type="text/javascript">
     var games = <?php echo json_encode($games_ar, JSON_PRETTY_PRINT) ?>;
