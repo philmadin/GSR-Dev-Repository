@@ -326,7 +326,7 @@ if (!has_perms("edit-article-override")) {
 							<input name="category" id="category" type="text" value="<?php echo $category; ?>" placeholder="<?php echo $category; ?>" required />
 						</p>
 						<p class="scroll_section" id="rrp_section">
-							<label for="rrp">Recomended Retail Price (RRP) at time of review</label>
+							<label for="rrp">Recommended Retail Price at the time of review (AUD)</label>
 							<input name="rrp" id="rrp" type="text" value="<?php echo $RRP; ?>" placeholder="<?php echo $RRP; ?>" required />
 						</p>
 						<p class="scroll_section" id="manufacturers_section">

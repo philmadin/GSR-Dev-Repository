@@ -3125,7 +3125,6 @@ aside.articles .sticky {
 
 aside.articles .sticky #message {
 	width: 100%;
-	height: 100px;
 	padding: 15px 20px;
 	color: #ffffff;
 	background: #393939;
@@ -5968,7 +5967,6 @@ footer nav p a:hover {
     height: 100%;
     content: " ";
     position: relative;
-    width: 730px;
     box-sizing: border-box;
     margin-left: 5px;
     color: #333333;
