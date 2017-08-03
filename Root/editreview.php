@@ -30,12 +30,13 @@
 		$file_graphics	 	= $artROW['content_5'];
 		$file_verdict	 	= $artROW['content_6'];
 		
-		$overview 		= $artROW['Overview'];
-		$storyline		= $artROW['Storyline'];
-		$gameplay 		= $artROW['Gameplay'];
-		$audio 			= $artROW['Audio'];
-		$graphics 		= $artROW['Graphics'];
-		$verdict 		= $artROW['Verdict'];
+		$overview 			= $artROW['Overview'];
+		$Content1			= $artROW['HTMLContent_1'];
+		$Content2	 		= $artROW['HTMLContent_2'];
+		$Content4			= $artROW['HTMLContent_4'];
+		$Content3 			= $artROW['HTMLContent_3'];
+		$verdict 			= $artROW['Verdict'];
+
 		$trailer		 	= $artROW['trailer'];
 		$testedplatforms 	= $artROW['testedplatforms'];
 		$genre			 	= $artROW['genre'];
@@ -43,15 +44,12 @@
 		$createdate		 	= $artROW['createdate'];
 		$developers		 	= $artROW['developers'];
 		$publishers			= $artROW['publishers'];
-		$platforms			= $artROW['platforms'];
+		//$platforms			= $artROW['platforms'];
 		$release_date	 	= $artROW['release_date'];
 		$officialsite	 	= $artROW['officialsite'];
 		$developersites	 	= $artROW['developersites'];
 		$publishersites	 	= $artROW['publishersites'];
-		$storyline_rating	= $artROW['storyline_rating'];
-		$gameplay_rating	= $artROW['gameplay_rating'];
-		$audio_rating		= $artROW['audio_rating'];
-		$graphics_rating	= $artROW['graphics_rating'];
+		$temp				= array($artROW['Rating_1'],$artROW['Rating_2'],$artROW['Rating_3'],$artROW['Rating_4']);
 		$main_rating		= $artROW['main_rating'];
 		$file_beta_notes	= $artROW['beta_notes'];
 		$file_alpha_notes	= $artROW['alpha_notes'];
@@ -60,8 +58,51 @@
 		$pending			= $artROW['pending'];
 		$beta_approval		= $artROW['beta_approval'];
 		$alpha_approval		= $artROW['alpha_approval'];
+		$classification		= $artROW['classification'];
 	}
-
+	$rating=array();
+	foreach($temp as $string){
+		$number = round((float)$string*2);
+		array_push($rating,$number);
+	}
+	switch($classification){
+		case "G":
+			$stmt = mysqli_prepare($con, "SELECT * FROM tbl_game_review WHERE reviewIDFK=?");
+			mysqli_stmt_bind_param($stmt, "i", $getArticle);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt, $articleID, $game_genre, $platforms, $test_platforms, $devs, $devs_sites, $pubs, $pubs_sites);
+			mysqli_stmt_fetch($stmt);
+			$generallabel="Game";
+			$label1="Storyline";
+			$label2="Gameplay";
+			$label3="Graphics";
+			$label4="Audio";
+			break;
+		case "T":
+			$stmt = mysqli_prepare($con, "SELECT * FROM tbl_tech_review WHERE reviewIDFK=?");
+			mysqli_stmt_bind_param($stmt, "i", $getArticle);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt, $articleID, $category, $RRP, $manu, $manu_site);
+			mysqli_stmt_fetch($stmt);
+			$generallabel="Tech";
+			$label1="Intuitive";
+			$label2="Ergonomic";
+			$label3="Design";
+			$label4="Value";
+			break;
+		case "M":
+			$stmt = mysqli_prepare($con, "SELECT * FROM tbl_movie_review WHERE reviewIDFK=?");
+			mysqli_stmt_bind_param($stmt, "i", $getArticle);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt, $articleID, $movie_genre, $runtime, $directors, $cast, $studios_publishers, $studios_publishers_sites);
+			mysqli_stmt_fetch($stmt);
+			$generallabel="Movie";
+			$label1="Storyline";
+			$label2="Cinematography";
+			$label3="Audio";
+			$label4="Direction";
+			break;
+	}
 global $authuser;
 if (!has_perms("edit-article-override")) {
 	if($user!=$authuser) {
@@ -92,7 +133,105 @@ if (!has_perms("edit-article-override")) {
 </head>
 
 <body>
+	<script>
 
+	function changeTo(event){
+		switch(event){
+			case "G":
+				
+				$('#gameSpecifics').css('display','');
+				$('#movieSpecifics').css('display','none');
+				$('#techSpecifics').css('display','none');
+				$('#content_1_section label').text("Storyline");
+				$('#firstContentRating').text("Storyline");
+				$('#content_2_section label').text("Gameplay");
+				$('#secondContentRating').text("Gameplay");
+				$('#content_3_section label').text("Graphics");
+				$('#thirdContentRating').text("Graphics");
+				$('#content_4_section label').text("Audio");
+				$('#fourthContentRating').text("Audio");
+				$('#storylinerating option')[4].innerHTML="2.5 - Very basic storyline or ambiguous storyline.";
+				$('#storylinerating option')[9].innerHTML="5.0 - Mediocre storyline or not original, lacks creativity.";
+				$('#storylinerating option')[14].innerHTML="7.5 - Great storyline or better than average.";
+				$('#storylinerating option')[19].innerHTML="10 - Incredible storyline, very creative or immersive.";
+				$('#gameplayrating option')[4].innerHTML="2.5 - Hard to play or not intuitive at all.";
+				$('#gameplayrating option')[9].innerHTML="5.0 - Mediocre gameplay or lacks creativity, average.";
+				$('#gameplayrating option')[14].innerHTML="7.5 - Great gameplay or better than average.";
+				$('#gameplayrating option')[19].innerHTML="10 - Incredible gameplay, very creative or immersive.";
+				$('#graphicsrating option')[4].innerHTML="2.5 - Poor quality graphics or graphics are very basic.";
+				$('#graphicsrating option')[9].innerHTML="5.0 - Standard graphics; nothing new; mediocre.";
+				$('#graphicsrating option')[14].innerHTML="7.5 - Great graphics; fluid; better than average.";
+				$('#graphicsrating option')[19].innerHTML="10 - Incredible graphics, very creative or high quality.";
+				$('#audiorating option')[4].innerHTML="2.5 - Very basic sounds; not a huge variety; poor.";
+				$('#audiorating option')[9].innerHTML="5.0 - Standard sound effects or not really immersive.";
+				$('#audiorating option')[14].innerHTML="7.5 - Great audio effects; slightly immersive.";
+				$('#audiorating option')[19].innerHTML="10 - Incredible sound effects, very immersive/creative.";
+				break;
+			case "T":
+				$('#gameSpecifics').css('display','none');
+				$('#movieSpecifics').css('display','none');
+				$('#techSpecifics').css('display','');
+				$('#content_1_section label').text("Intuitive");
+				$('#firstContentRating').text("Intuitive");
+				$('#content_2_section label').text("Ergonomic");
+				$('#secondContentRating').text("Ergonomic");
+				$('#content_3_section label').text("Design");
+				$('#thirdContentRating').text("Design");
+				$('#content_4_section label').text("Value");
+				$('#fourthContentRating').text("Value");
+				$('#storylinerating option')[4].innerHTML="2.5 - Was difficult to learn or not easy to learn.";
+				$('#storylinerating option')[9].innerHTML="5.0 - Was neither easy or difficult to learn.";
+				$('#storylinerating option')[14].innerHTML="7.5 - Was easy to learn and engaging.";
+				$('#storylinerating option')[19].innerHTML="10 - Incredibly easy to learn, extremely natural.";
+				$('#gameplayrating option')[4].innerHTML="2.5 - Not comfortable or feels uncomfortable.";
+				$('#gameplayrating option')[9].innerHTML="5.0 - Doesn’t feel bad and doesn’t feel good.";
+				$('#gameplayrating option')[14].innerHTML="7.5 - Feels great, not too shabby at all.";
+				$('#gameplayrating option')[19].innerHTML="10 - Feels incredible! This can’t get any better!.";
+				$('#graphicsrating option')[4].innerHTML="2.5 - Very poor design for the intended purpose of use.";
+				$('#graphicsrating option')[9].innerHTML="5.0 - Mediocre design, designed for the intended purpose.";
+				$('#graphicsrating option')[14].innerHTML="7.5 - Excellent design, above and beyond.";
+				$('#graphicsrating option')[19].innerHTML="10 - Incredible design, sets the benchmark!.";
+				$('#audiorating option')[4].innerHTML="2.5 - Not worth the money; poor value for money.";
+				$('#audiorating option')[9].innerHTML="5.0 - Was a just cost, though I wouldn’t pay a cent more.";
+				$('#audiorating option')[14].innerHTML="7.5 - Was definitely worth the investment.";
+				$('#audiorating option')[19].innerHTML="10 - Great value for money, I’d buy this again!";
+				break;
+			case "M":
+				$('#gameSpecifics').css('display','none');
+				$('#techSpecifics').css('display','none');
+				$('#movieSpecifics').css('display','');
+				$('#content_1_section label').text("Storyline");
+				$('#firstContentRating').text("Storyline");
+				$('#content_2_section label').text("Cinematography");
+				$('#secondContentRating').text("Cinematography");
+				$('#content_3_section label').text("Script");
+				$('#thirdContentRating').text("Script");
+				$('#content_4_section label').text("Direction");
+				$('#fourthContentRating').text("Direction");
+				$('#storylinerating option')[4].innerHTML="2.5 - The storyline was very cookie-cutter, not original.";
+				$('#storylinerating option')[9].innerHTML="5.0 - Basic storyline, not boring, but not exciting either.";
+				$('#storylinerating option')[14].innerHTML="7.5 - Great story! But I wouldn’t see it again anytime soon.";
+				$('#storylinerating option')[19].innerHTML="10 - Wow! Can we watch that again?.";
+				$('#gameplayrating option')[4].innerHTML="2.5 - Awkward angles; poor scenery; bad camera work.";
+				$('#gameplayrating option')[9].innerHTML="5.0 - Average camera work, not bad.";
+				$('#gameplayrating option')[14].innerHTML="7.5 - Great placement, good locations and shots.";
+				$('#gameplayrating option')[19].innerHTML="10 - Incredible camera work, couldn’t have been better!";
+				$('#graphicsrating option')[4].innerHTML="2.5 - Poor script; predictable, not entertaining.";
+				$('#graphicsrating option')[9].innerHTML="5.0 - Average story and characters, predictable.";
+				$('#graphicsrating option')[14].innerHTML="7.5 - Fresh concept, gripping and entertaining.";
+				$('#graphicsrating option')[19].innerHTML="10 - Incredible script, unique, perfect story and characters.";
+				$('#audiorating option')[4].innerHTML="2.5 - Poor cast; no chemistry; rushed film; uncreative.";
+				$('#audiorating option')[9].innerHTML="5.0 - Standard chemistry; cast weren’t special; average.";
+				$('#audiorating option')[14].innerHTML="7.5 - Great cast; good direction; very creative; good pace.";
+				$('#audiorating option')[19].innerHTML="10 - Incredible cast, great pace; great chemistry; terrific!";
+				break;
+		}
+	}
+
+	$(document).ready(function(){
+		changeTo("<?php echo $classification?>");
+	})
+	</script>
 	<?php include "header.php"; ?>
 
 	<div id="page" class="container_24">
@@ -110,52 +249,53 @@ if (!has_perms("edit-article-override")) {
 				            <option value="Review" selected>Review</option>
 				        </select>
 				    </p>
-
-				    <p class="scroll_section" id="title_section">
-				    	<label for="articletitle">Title</label>
-				        <input name="articletitle" id="articletitle" type="text" value="<?php echo $title; ?>" placeholder="<?php echo $title; ?>" required />
-				    </p>
-
-				    <p class="scroll_section" id="gamename_section">
-				    	<label for="gamename">Game Title</label>
-				        <input name="gamename" id="gamename" type="text" value="<?php echo $gamename; ?>" placeholder="<?php echo $gamename; ?>" required />
-				    </p>
-
-				    <p class="scroll_section" id="summary_section">
-				    	<label for="summary">Summary <i>(MAX 100 CHARACTERS)</i></label>
-				        <textarea name="summary" id="summary" required maxlength="100"><?php echo $summary; ?></textarea>
-				        <span id="charCount">100 Characters left.</span>
-				    </p>
-
-				    <p class="scroll_section" id="overview_section">
-				    	<label for="overview">Overview</label>
-				        <textarea name="overview" id="overview" required><?php echo $overview; ?></textarea>
-				    </p>
-
-				    <p class="scroll_section" id="storyline_section">
-				    	<label for="storyline">Storyline</label>
-				        <textarea name="storyline" id="storyline" required><?php echo $storyline; ?></textarea>
-				    </p>
-
-				    <p class="scroll_section" id="gameplay_section">
-				    	<label for="gameplay">Gameplay</label>
-				        <textarea name="gameplay" id="gameplay" required><?php echo $gameplay; ?></textarea>
-				    </p>
-					
-				    <p class="scroll_section" id="graphics_section">
-				    	<label for="graphics">Graphics</label>
-				        <textarea name="graphics" id="graphics" required><?php echo $graphics; ?></textarea>
-				    </p>
-
-				    <p class="scroll_section" id="audio_section">
-				    	<label for="audio">Audio</label>
-				        <textarea name="audio" id="audio" required><?php echo $audio; ?></textarea>
-				    </p>
-
-				    <p class="scroll_section" id="verdict_section">
-				    	<label for="verdict">Verdict</label>
-				        <textarea name="verdict" id="verdict" required><?php echo $verdict; ?></textarea>
-				    </p>
+					<table>
+						<tr>		
+							<td>
+								<label for="classification">Subject Classification</label>
+							</td>
+							<td>
+								<select id="classification" name="classification" onchange="changeTo(this.value);">
+								<?php
+									switch($classification){
+										case "G":
+											
+											echo "<option value='G'>Game review</option>";
+											echo "<option value='M'>Movie review</option>";
+											echo "<option value='T'>Tech review</option>";
+											break;
+										case "T":					
+											echo "<option value='T'>Tech review</option>";					
+											echo "<option value='G'>Game review</option>";
+											echo "<option value='M'>Movie review</option>";
+											break;
+										case "M":
+											echo "<option value='M'>Movie review</option>";
+											echo "<option value='G'>Game review</option>";
+											echo "<option value='T'>Tech review</option>";
+											break;
+										}
+								?>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="gamename">Subject Title</label>
+							</td>
+							<td>
+				       			<input name="gamename" id="gamename" type="text" value="<?php echo $gamename; ?>" placeholder="<?php echo $gamename; ?>" required />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="articletitle">Title</label>
+							</td>
+							<td>
+								<input name="articletitle" id="articletitle" type="text" value="<?php echo $title; ?>" placeholder="<?php echo $title; ?>" required />
+							</td>
+						</tr>
+					</table>
 
 				    <p class="scroll_section" id="trailer_section">
 				    	<label for="trailer">Official Trailer - YOUTUBE URL <i>(prefered if more than one)</i></label>
@@ -169,75 +309,270 @@ if (!has_perms("edit-article-override")) {
 				        </span>
 				    </p>
 
-				    <p class="scroll_section" id="releasedate_section">
-				    	<label for="releasedate">Game Release Date <i>(FORMAT: YYYY-MM-DD)</i></label>
-				        <input name="releasedate" id="releasedate" type="text" value="<?php echo date('Y-m-d', strtotime($release_date)); ?>" placeholder="<?php echo $releasedate; ?>" maxlength="10" minlength="10" required />
-				    </p>
-
-				    <p class="scroll_section" id="platforms_section">
-				    	<label for="platforms">Available Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="platforms" id="platforms" type="text" value="<?php echo $platforms; ?>" placeholder="<?php echo $platforms; ?>" required />
-				    </p>
-
-				    <p class="scroll_section" id="testedplatforms_section">
-				    	<label for="testedplatforms">Tested Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="testedplatforms" id="testedplatforms" type="text" value="<?php echo $testedplatforms; ?>" placeholder="<?php echo $testedplatforms; ?>" required />
-				    </p>
-
-				    <p class="scroll_section" id="genre_section">
-				    	<label for="genre">Game Genre</label>
-				        <input name="genre" id="genre" type="text" value="<?php echo $genre; ?>" placeholder="<?php echo $genre; ?>" required />
-				    </p>
-
-				    <p class="scroll_section" id="developers_section">
-				    	<label for="developers">List of Developers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="developers" id="developers" type="text" value="<?php echo $developers; ?>" placeholder="<?php echo $developers; ?>" required />
-				        <span>If the same as publisher please enter in both fields.</span>
-				    </p>
-
-				    <p class="scroll_section" id="publishers_section">
-				    	<label for="publishers">List of Publishers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="publishers" id="publishers" type="text" value="<?php echo $publishers; ?>" placeholder="<?php echo $publishers; ?>" required />
-				        <span>If the same as developer please enter in both fields.</span>
-				    </p>
-
 				    <p class="scroll_section" id="officialsite_section">
 				    	<label for="officialsite">Official Site</label>
 				        <input name="officialsite" id="officialsite" type="url" value="<?php echo $officialsite; ?>" placeholder="<?php echo $officialsite; ?>" required />
 				        <span>If none exists please enter &lsquo;http://none.co&rsquo;</span>
 				    </p>
 
-				    <p class="scroll_section" id="developersites_section">
-				    	<label for="developersites">List of Developers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="developersites" id="developersites" type="text" value="<?php echo $developersites; ?>" placeholder="<?php echo $developersites; ?>" required />
-				        <span>If none exists please enter &lsquo;NA&rsquo;</span>
+				    <p class="scroll_section" id="releasedate_section">
+				    	<label for="releasedate">Initial Release Date <i>(FORMAT: YYYY-MM-DD)</i></label>
+				        <input name="releasedate" id="releasedate" type="text" value="<?php echo date('Y-m-d', strtotime($release_date)); ?>" placeholder="<?php echo $releasedate; ?>" maxlength="10" minlength="10" required />
+				    </p>
+					<div id="techSpecifics">
+						<h2>Tech specific details</h2>
+						<p class="scroll_section" id="category_section">
+							<label for="category">Category</label>
+							<input name="category" id="category" type="text" value="<?php echo $category; ?>" placeholder="<?php echo $category; ?>" required />
+						</p>
+						<p class="scroll_section" id="rrp_section">
+							<label for="rrp">Recommended Retail Price at the time of review (AUD)</label>
+							<input name="rrp" id="rrp" type="text" value="<?php echo $RRP; ?>" placeholder="<?php echo $RRP; ?>" required />
+						</p>
+						<p class="scroll_section" id="manufacturers_section">
+							<label for="manufacturers">List of Manufacturers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="manufacturers" id="manufacturers" type="text" value="<?php echo $manu; ?>" placeholder="<?php echo $manu; ?>" required />
+						</p>
+
+						<p class="scroll_section" id="manufacturerssites_section">
+							<label for="manufacturerssites">List of Manufacturers sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="manufacturerssites" id="manufacturerssites" type="text" value="<?php echo $manu_sites; ?>" placeholder="<?php echo $manu_sites; ?>" required />
+						</p>
+					</div>
+					<div id="movieSpecifics">
+						<h2>Movie / show specific details</h2>
+						<p class="scroll_section" id="genre_section">
+							<label for="moviegenre">Genre</label>
+							<input name="moviegenre" id="moviegenre" type="text" value="<?php echo $movie_genre;?>" placeholder="<?php echo $movie_genre;?>" required />
+						</p>
+
+						<p class="scroll_section" id="duration_section">
+							<label for="duration">Duration <i>(minutes)</i></label>
+							<input name="duration" id="duration" type="text" value="<?php echo $runtime;?>" placeholder="<?php echo $runtime;?>" required />
+						</p>
+
+						<p class="scroll_section" id="directors_section">
+							<label for="directors">List of Directors <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="directors" id="directors" type="text" value="<?php echo $directors;?>" placeholder="<?php echo $directors;?>" required />
+						</p>
+
+						<p class="scroll_section" id="cast_section">
+							<label for="cast">List of main cast <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="cast" id="cast" type="text" value="<?php echo $cast;?>" placeholder="<?php echo $cast;?>" required />
+						</p>
+
+						<p class="scroll_section" id="moviepublishers_section">
+							<label for="moviepublishers">List of Studios / Publishers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="moviepublishers" id="moviepublishers" type="text" value="<?php echo $studios_publishers;?>" placeholder="<?php echo $studios_publishers;?>" required />
+						</p>
+
+						<p class="scroll_section" id="moviepublisherssites_section">
+							<label for="moviepublisherssites">List of Studios / Publishers sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+							<input name="moviepublisherssites" id="moviepublisherssites" type="text" value="<?php echo $studios_publishers_sites;?>" placeholder="<?php echo $studios_publishers_sites;?>" required />
+						</p>
+					</div>
+
+					<div id="gameSpecifics">
+						<h2>Game specific details</h2>
+				    	<p class="scroll_section" id="genre_section">
+				    		<label for="genre">Game Genre</label>
+				        	<input name="genre" id="genre" type="text" value="<?php echo $game_genre; ?>" placeholder="<?php echo $game_genre; ?>" required />
+				    	</p>
+
+				    	<p class="scroll_section" id="platforms_section">
+				    		<label for="platforms">Available Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="platforms" id="platforms" type="text" value="<?php echo $platforms; ?>" placeholder="<?php echo $platforms; ?>" required />
+				    	</p>
+
+				    	<p class="scroll_section" id="testedplatforms_section">
+				    		<label for="testedplatforms">Tested Platforms <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="testedplatforms" id="testedplatforms" type="text" value="<?php echo $test_platforms; ?>" placeholder="<?php echo $test_platforms; ?>" required />
+				    	</p>
+
+				    	<p class="scroll_section" id="developers_section">
+				    		<label for="developers">List of Developers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="developers" id="developers" type="text" value="<?php echo $devs; ?>" placeholder="<?php echo $devs; ?>" required />
+				        	<span>If the same as publisher please enter in both fields.</span>
+				    	</p>
+
+				    	<p class="scroll_section" id="developersites_section">
+				    		<label for="developersites">List of Developers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="developersites" id="developersites" type="text" value="<?php echo $devs_sites; ?>" placeholder="<?php echo $devs_sites; ?>" required />
+				        	<span>If none exists please enter &lsquo;NA&rsquo;</span>
+				    	</p>
+
+
+				    	<p class="scroll_section" id="publishers_section">
+				    		<label for="publishers">List of Publishers <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="publishers" id="publishers" type="text" value="<?php echo $pubs; ?>" placeholder="<?php echo $pubs; ?>" required />
+				        	<span>If the same as developer please enter in both fields.</span>
+				    	</p>
+				    	<p class="scroll_section" id="publishersites_section">
+				    		<label for="publishersites">List of Publishers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
+				        	<input name="publishersites" id="publishersites" type="text" value="<?php echo $pubs_sites; ?>" placeholder="<?php echo $pubs_sites; ?>" required />
+				        	<span>If none exists please enter &lsquo;NA&rsquo;</span>
+				    	</p>
+					</div>
+					
+					
+					<h2>Review content</h2>
+					<p class="scroll_section" id="summary_section">
+				    	<label for="summary">Summary <i>(MAX 100 CHARACTERS)</i></label>
+				       	<textarea name="summary" id="summary" required maxlength="100"><?php echo $summary; ?></textarea>
+				        <span id="charCount">100 Characters left.</span>
 				    </p>
 
-				    <p class="scroll_section" id="publishersites_section">
-				    	<label for="publishersites">List of Publishers&rsquo; Sites <i>(separated by comma - &lsquo;,&rsquo;)</i></label>
-				        <input name="publishersites" id="publishersites" type="text" value="<?php echo $publishersites; ?>" placeholder="<?php echo $publishersites; ?>" required />
-				        <span>If none exists please enter &lsquo;NA&rsquo;</span>
+				    <p class="scroll_section" id="overview_section">
+				    	<label for="overview">Overview</label>
+				        <textarea name="overview" id="overview" required><?php echo $overview; ?></textarea>
 				    </p>
 
-				    <p class="scroll_section" id="storylinerating_section">
-				    	<label for="storylinerating">Storyline Rating <i>(one decimal point)</i></label>
-				        <input name="storylinerating" id="storylinerating" type="text" value="<?php echo $storyline_rating; ?>" placeholder="<?php echo $storyline_rating; ?>" required maxlength="4" minlength="3" />
+				    <p class="scroll_section" id="content_1_section">
+				    	<label for="storyline"><?php echo $label1; ?></label>
+				        <textarea name="storyline" id="storyline" required><?php echo $Content1; ?></textarea>
 				    </p>
 
-				    <p class="scroll_section" id="gameplayrating_section">
-				    	<label for="gameplayrating">Gameplay Rating <i>(one decimal point)</i></label>
-				        <input name="gameplayrating" id="gameplayrating" type="text" value="<?php echo $gameplay_rating; ?>" placeholder="<?php echo $gameplay_button; ?>" required maxlength="4" minlength="3" />
+					<p class="scroll_section" id="storylinerating_section">
+						<label for="storylinerating"><span id="firstContentRating">Storyline</span> Rating</label>
+						<input class="ratingcheck" name="storylinecheck" id="ratingcheck1" type="checkbox"  style="display: none;" checked></input>
+						<label id="ratinglabel1" for="ratingcheck1" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
+						<select name="storylinerating"  id="storylinerating">
+							<option>0.5</option>
+							<option>1.0</option>
+							<option>1.5</option>
+							<option>2.0</option>
+							<option>2.5</option>
+							<option>3.0</option>
+							<option>3.5</option>
+							<option>4.0</option>
+							<option>4.5</option>
+							<option>5.0</option>
+							<option>5.5</option>
+							<option>6.0</option>
+							<option>6.5</option>
+							<option>7.0</option>
+							<option>7.5</option>
+							<option>8.0</option>
+							<option>8.5</option>
+							<option>9.0</option>
+							<option>9.5</option>
+							<option>10</option>
+						</select>
+					</p>
+				    <p class="scroll_section" id="content_2_section">
+				    	<label for="gameplay"><?php echo $label2; ?></label>
+				        <textarea name="gameplay" id="gameplay" required><?php echo $Content2; ?></textarea>
 				    </p>
 					
-				    <p class="scroll_section" id="graphicsrating_section">
-				    	<label for="graphicsrating">Graphics Rating <i>(one decimal point)</i></label>
-				        <input name="graphicsrating" id="graphicsrating" type="text" value="<?php echo $graphics_rating; ?>" placeholder="<?php echo $graphics_rating; ?>" required maxlength="4" minlength="3" />
+					<p class="scroll_section" id="gameplayrating_section">
+						<label for="gameplayrating"><span id="secondContentRating">Gameplay</span> Rating</label>
+						<input class="ratingcheck" name="gameplaycheck" id="ratingcheck2" type="checkbox" style="display: none;" checked></input>
+						<label id="ratinglabel2" for="ratingcheck2" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
+						<select name="gameplayrating" id="gameplayrating">
+							<option>0.5</option>
+							<option>1.0</option>
+							<option>1.5</option>
+							<option>2.0</option>
+							<option>2.5</option>
+							<option>3.0</option>
+							<option>3.5</option>
+							<option>4.0</option>
+							<option>4.5</option>
+							<option>5.0</option>
+							<option>5.5</option>
+							<option>6.0</option>
+							<option>6.5</option>
+							<option>7.0</option>
+							<option>7.5</option>
+							<option>8.0</option>
+							<option>8.5</option>
+							<option>9.0</option>
+							<option>9.5</option>
+							<option>10</option>
+						</select>
+					</p>
+
+				    <p class="scroll_section" id="content_3_section">
+				    	<label for="graphics"><?php echo $label3; ?></label>
+				        <textarea name="graphics" id="graphics" required><?php echo $Content3; ?></textarea>
 				    </p>
 
-				    <p class="scroll_section" id="audiorating_section">
-				    	<label for="audiorating">Audio Rating <i>(one decimal point)</i></label>
-				        <input name="audiorating" id="audiorating" type="text" value="<?php echo $audio_rating; ?>" placeholder="<?php echo $audio_rating; ?>" required maxlength="4" minlength="3" />
+					<p class="scroll_section" id="graphicsrating_section">
+						<label for="graphicsrating"><span id="thirdContentRating">Graphics</span> Rating</label>
+						<input class="ratingcheck" name="graphicscheck" id="ratingcheck4" type="checkbox"  style="display: none;" checked></input>
+						<label id="ratinglabel4" for="ratingcheck4" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
+						<select name="graphicsrating" id="graphicsrating">
+							<option>0.5</option>
+							<option>1.0</option>
+							<option>1.5</option>
+							<option>2.0</option>
+							<option>2.5</option>
+							<option>3.0</option>
+							<option>3.5</option>
+							<option>4.0</option>
+							<option>4.5</option>
+							<option>5.0</option>
+							<option>5.5</option>
+							<option>6.0</option>
+							<option>6.5</option>
+							<option>7.0</option>
+							<option>7.5</option>
+							<option>8.0</option>
+							<option>8.5</option>
+							<option>9.0</option>
+							<option>9.5</option>
+							<option>10</option>
+						</select>
+					</p>
+
+				    <p class="scroll_section" id="content_4_section">
+				    	<label for="audio"><?php echo $label4; ?></label>
+				        <textarea name="audio" id="audio" required><?php echo $Content4; ?></textarea>
 				    </p>
+
+					<p class="scroll_section" id="audiorating_section">
+						<label for="audiorating"><span id="fourthContentRating">Audio</span> Rating</label>
+						<input class="ratingcheck" name="audiocheck" id="ratingcheck3" type="checkbox"  style="display: none;" checked></input>
+						<label id="ratinglabel3" for="ratingcheck3" class="ratingcheck_label" style="float: right; height: 30px; color: white; text-align: center;">&#10004;</label>
+						<select name="audiorating" id="audiorating">
+							<option>0.5</option>
+							<option>1.0</option>
+							<option>1.5</option>
+							<option>2.0</option>
+							<option>2.5</option>
+							<option>3.0</option>
+							<option>3.5</option>
+							<option>4.0</option>
+							<option>4.5</option>
+							<option>5.0</option>
+							<option>5.5</option>
+							<option>6.0</option>
+							<option>6.5</option>
+							<option>7.0</option>
+							<option>7.5</option>
+							<option>8.0</option>
+							<option>8.5</option>
+							<option>9.0</option>
+							<option>9.5</option>
+							<option>10</option>
+						</select>
+					</p>
+
+				    <p class="scroll_section" id="verdict_section">
+				    	<label for="verdict">Verdict</label>
+				        <textarea name="verdict" id="verdict" required><?php echo $verdict; ?></textarea>
+				    </p>
+
+
+					<?php
+						echo "Story" . $rating[1];
+					?>
+					<script>
+						$('#storylinerating')[0].selectedIndex=<?php echo ($rating[0])-1 ?>;
+						$('#gameplayrating')[0].selectedIndex=<?php echo ($rating[1])-1 ?>;
+						$('#graphicsrating')[0].selectedIndex=<?php echo ($rating[2])-1 ?>;
+						$('#audiorating')[0].selectedIndex=<?php echo ($rating[3])-1 ?>;
+					</script>
 
 				    <p class="scroll_section" id="mainrating_section">
 				    	<label for="mainrating">Main Rating <i>(AUTO)</i></label>
@@ -500,20 +835,16 @@ if (!has_perms("edit-article-override")) {
 						required: true
 					},
 					storylinerating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					gameplayrating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					audiorating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					graphicsrating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					tags: {
 						required: true
@@ -578,36 +909,28 @@ if (!has_perms("edit-article-override")) {
 						required: "Please provide all publisher companies website URL's."
 					},
 					storylinerating: {
-						required: "You must give a rating.",
-						hasletters: "No letters can be used for a rating."
+						required: "You must give a rating."
 					},
 					gameplayrating: {
-						required: "You must give a rating.",
-						hasletters: "No letters can be used for a rating."
+						required: "You must give a rating."
 					},
 					audiorating: {
-						required: "You must give a rating.",
-						hasletters: "No letters can be used for a rating."
+						required: "You must give a rating."
 					},
 					graphicsrating: {
-						required: "You must give a rating.",
-						hasletters: "No letters can be used for a rating."
+						required: "You must give a rating."
 					},
 					storylinerating: {
-						required: "You must provide a storyline quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a storyline quality rating."
 					},
 					gameplayrating: {
-						required: "You must provide a gameplay quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a gameplay quality rating."
 					},
 					audiorating: {
-						required: "You must provide a audio quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a audio quality rating."
 					},
 					graphicsrating: {
-						required: "You must provide a graphics quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a graphics quality rating."
 					},
 					tags: {
 						required: "You must provide tags (relavent keywords) for your article."

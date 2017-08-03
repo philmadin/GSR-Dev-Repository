@@ -1,6 +1,1 @@
-AuthType Basic
-AuthName "development"
-AuthUserFile "/home/gameshar/.htpasswds/public_html/development/passwd"
-require valid-user
 
-AddHandler application/x-httpd-php71 .php .php5 .php4 .php3
