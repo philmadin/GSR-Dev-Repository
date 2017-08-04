@@ -1,5 +1,6 @@
 <?php
     session_start();
+    error_reporting(E_ALL ^ E_NOTICE);
 
 $con = mysqli_connect('127.0.0.1','root','root','gameshar_gsr',3306);
 

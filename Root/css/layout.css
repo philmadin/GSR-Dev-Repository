@@ -279,7 +279,7 @@ input:focus, input:active, button:focus, button:active, textarea:focus, textarea
         opacity: 0;
     }
     1% {
-        transform: rotateX(-90deg) translateY(-30px);
+        transform: rotateX(-60deg) translateY(-30px);
         opacity: 1;
     }
     100% {
@@ -1456,10 +1456,11 @@ header .navigation nav .marquee_links img {
 /* MAIN CONTENT */
 
 #page {
-    background: #ffffff;
+    /*background: #ffffff;*/
     padding: 10px auto;
     position: relative;
     z-index: 10;
+    border: 2px solid red;
 }
 
 article {

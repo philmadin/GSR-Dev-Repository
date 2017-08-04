@@ -89,7 +89,7 @@ include 'holiday-code.php';
 				<?php
 					$MQi = 0;
 					$art_row = array();
-						
+
 					$review_link_list = mysqli_query($con, "SELECT * FROM tbl_review WHERE alpha_approved = 'true' ORDER BY id DESC LIMIT 3");
 					while ($rvw_row = mysqli_fetch_assoc($review_link_list)) {
 					array_push($art_row, $rvw_row);
@@ -106,40 +106,40 @@ include 'holiday-code.php';
 					while ($gd_row = mysqli_fetch_assoc($guide_link_list)) {
 					array_push($art_row, $gd_row);
 					}
-						
+
 						function date_compare($a, $b)
 						{
 							$t1 = strtotime($b['createdate']);
 							$t2 = strtotime($a['createdate']);
 							return $t1 - $t2;
-						}    
+						}
 						usort($art_row, 'date_compare');
 						$art_row = array_slice($art_row, 0, 3);
-						
+
 					foreach ($art_row as $MQrow) {
 					$MQi++;
 					$MQtitle = $MQrow['title'];
 					$MQsummary = $MQrow['summary'];
 					$MQgamename = $MQrow['gamename'];
-					
-					if($MQrow['article_type']=="Review"){	
+
+					if($MQrow['article_type']=="Review"){
 					$MQurl = "review.php?t=" . urlencode(str_replace(" ", "_", $MQtitle)) . "&g=" . urlencode(str_replace(" ", "_", $MQgamename));
 					echo '<a href="'.$MQurl.'">'.$MQtitle.' - '.substr($MQsummary, 0, -80).'...</a>';if($MQi!=3){echo '&nbsp; &bull; &nbsp;';}
-					}					
-					if($MQrow['article_type']=="Opinion"){	
+					}
+					if($MQrow['article_type']=="Opinion"){
 					$MQurl = "opinion.php?t=" . urlencode(str_replace(" ", "_", $MQtitle));
 					echo '<a href="'.$MQurl.'">'.$MQtitle.'</a>';if($MQi!=3){echo '&nbsp; &bull; &nbsp;';}
-					}						
-					if($MQrow['article_type']=="News"){	
+					}
+					if($MQrow['article_type']=="News"){
 					$MQurl = "news.php?t=" . urlencode(str_replace(" ", "_", $MQtitle));
 					echo '<a href="'.$MQurl.'">'.$MQtitle.'</a>';if($MQi!=3){echo '&nbsp; &bull; &nbsp;';}
-					}					
-					if($MQrow['article_type']=="Guide"){	
+					}
+					if($MQrow['article_type']=="Guide"){
 					$MQurl = "guide.php?t=" . urlencode(str_replace(" ", "_", $MQtitle));
 					echo '<a href="'.$MQurl.'">'.$MQtitle.'</a>';if($MQi!=3){echo '&nbsp; &bull; &nbsp;';}
 					}
-					
-					
+
+
 					}
 				?>
 				</p>
@@ -157,7 +157,5 @@ include 'holiday-code.php';
 
 	if(!isset($sessionlogin) || !isset($cookielogin)) {
 		include "loginform.php";
-	} else {
-		include "usermenu.php";
-	}
+	} 
 ?>

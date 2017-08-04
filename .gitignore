@@ -1,2 +1,6 @@
 ### Ignore mysql_con.php settings
 Root/mysql_con.php
+
+Root/review.php
+
+Root/css/layout.css
