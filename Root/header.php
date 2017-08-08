@@ -157,5 +157,7 @@ include 'holiday-code.php';
 
 	if(!isset($sessionlogin) || !isset($cookielogin)) {
 		include "loginform.php";
-	} 
+	} else {
+		include "usermenu.php";
+	}
 ?>

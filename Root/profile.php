@@ -5,55 +5,51 @@
 
 	$proQRYA = mysqli_query($con, "SELECT * FROM tbl_accounts WHERE username = '$getprofilename'");
 	$proQRYB = mysqli_query($con, "SELECT * FROM tbl_companies WHERE username = '$getprofilename'");
-	
-    if(mysqli_num_rows($proQRYA) < 1 && mysqli_num_rows($proQRYB) < 1){
-	header("Location: index.php");
-	}
-	else{
-	if(mysqli_num_rows($proQRYA) < 1) {
-		$profileQRY = $proQRYB;	
+
+  if (mysqli_num_rows($proQRYA) < 1 && mysqli_num_rows($proQRYB) < 1) {
+		header("Location: index.php");
 	} else {
-		$profileQRY = $proQRYA;
+		if (mysqli_num_rows($proQRYA) < 1) {
+			$profileQRY = $proQRYB;
+		} else {
+			$profileQRY = $proQRYA;
+		}
 	}
-	}
-	
-	
 	while ($prof = mysqli_fetch_assoc($profileQRY)) {
-		$pr_id			= $prof['id'];
-		$pr_username	= $prof['username'];
+		$pr_id = $prof['id'];
+		$pr_username = $prof['username'];
 		$pr_firstname	= $prof['firstname'];
-		$pr_lastname	= $prof['lastname'];
-		$showName		= $prof['showname'];
-		$pr_xbox		= $prof['xbox'];
+		$pr_lastname = $prof['lastname'];
+		$showName	= $prof['showname'];
+		$pr_xbox = $prof['xbox'];
 		$pr_playstation	= $prof['playstation'];
-		$pr_steam		= $prof['steam'];
-		$pr_console		= $prof['console'];
-		$pr_game		= $prof['game'];
-		$pr_quote		= $prof['quote'];
-		$pr_bio			= $prof['biography'];
-		$pr_rank		= $prof['rank'];
-		$pr_since		= strtotime($prof['since']);
-		$pr_town		= $prof['town'];
-		$pr_country		= $prof['country'];
-		$pr_website		= $prof['website'];
+		$pr_steam = $prof['steam'];
+		$pr_console	= $prof['console'];
+		$pr_game = $prof['game'];
+		$pr_quote	= $prof['quote'];
+		$pr_bio	= $prof['biography'];
+		$pr_rank = $prof['rank'];
+		$pr_since	= strtotime($prof['since']);
+		$pr_town = $prof['town'];
+		$pr_country	= $prof['country'];
+		$pr_website	= $prof['website'];
 		$pr_faceboook	= $prof['facebook'];
-		$pr_twitter		= $prof['twitter'];
-		$pr_googleplus	= $prof['googleplus'];
-		$pr_level		= $prof['level'];
-		$pr_picture		= $prof['picture'];
-		$pr_badges		= $prof['badges'];
-		$pr_favs		= $prof['favourites'];
-		$pr_friends		= $prof['friends'];
-		$pr_clan		= $prof['clan'];
-		$pr_clantime	= $prof['clantime'];
-
-		$pr_cotype		= $prof['cotype'];
+		$pr_twitter	= $prof['twitter'];
+		$pr_googleplus = $prof['googleplus'];
+		$pr_level	= $prof['level'];
+		$pr_picture	= $prof['picture'];
+		$pr_badges = $prof['badges'];
+		$pr_favs = $prof['favourites'];
+		$pr_friends	= $prof['friends'];
+		$pr_clan = $prof['clan'];
+		$pr_clantime = $prof['clantime'];
+		$pr_cotype = $prof['cotype'];
 	}
 
-$bQUERY = mysqli_query($con, "SELECT * FROM tbl_ranks WHERE id = $pr_rank");
-while($bROW = mysqli_fetch_assoc($bQUERY)) {
-	$pr_position = $bROW['name'];
-}
+	$bQUERY = mysqli_query($con, "SELECT * FROM tbl_ranks WHERE id = $pr_rank");
+	while ($bROW = mysqli_fetch_assoc($bQUERY)) {
+		$pr_position = $bROW['name'];
+	}
 
 	$profileGSQRY = mysqli_query($con, "SELECT * FROM tbl_users WHERE username = '$getprofilename'");
 

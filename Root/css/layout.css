@@ -8257,6 +8257,10 @@ footer nav p a:hover {
   border-color: #e73030;
   border-image: initial;
   background: #e73030;
+  -webkit-transition: background 500ms ease-out, color 500ms ease-out, -webkit-border-radius 500ms ease-out 250ms;
+  -moz-transition: background 500ms ease-out, color 500ms ease-out, -ms-border-radius 500ms ease-out 250ms;
+  -o-transition: background 500ms ease-out, color 500ms ease-out, -o-border-radius 500ms ease-out 250ms;
+  transition: background 500ms ease-out, color 500ms ease-out, border-radius 500ms ease-out 250ms;
 }
 
 .FriendAdd:hover {
@@ -8310,20 +8314,13 @@ footer nav p a:hover {
 }
 
 #backStats {
-  background-color: #b2b2b2;
-  border-color: #b2b2b2;
-  border-radius: 100%;
   padding: 4px;
-  margin-left: 10px;
-}
-
-#iconStats {
-  color: #FFF;
+  margin-left: 2px;
 }
 
 #userStts {
   display: inline-block !important;
-  margin-left: 8px;
+  margin-left: 6px;
 }
 
 #stats {
@@ -8333,7 +8330,7 @@ footer nav p a:hover {
 }
 
 #userClan {
-  margin-left: 8px;
+  margin-left: 6px;
   display: inline-block !important;
   color: #e73030;
   font-weight: bold;

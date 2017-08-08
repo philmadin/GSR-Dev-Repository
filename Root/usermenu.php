@@ -36,7 +36,7 @@
         <div class="grid_3" id="userpp" data-shark-picture="<?php echo $ur_image;?>"></div>
 
         <div class="grid_2" id="userlvl">LVL<span id="currentlevel" class="currentlevel"><?php echo $ur_level; ?></span></div>
-        <div class="grid_4" id="usernam"><a href="profile.php?profilename=<?php echo $ur_username; ?>"><?php echo $ur_username; ?></a></div>
+        <div class="grid_4" id="usernam"><a href="newProfile.php?profilename=<?php echo $ur_username; ?>"><?php echo $ur_username; ?></a></div>
         <ul id="usernav">
             <!--<li><a href="messages.php">MESSAGES</a></li>-->
             <!--<li><a href="#">CLAN HUB</a></li>-->
