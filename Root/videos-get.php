@@ -2,7 +2,11 @@
 
 header('Content-Type: application/json');
 include 'mysql_con.php';
+<<<<<<< HEAD
 set_time_limit(0);
+=======
+set_time_limit(10000);
+>>>>>>> 3b252456cedc9e1e2a4528e19dbbf0e4acfcb9eb
 
 function channelVideos(){
     global $con;
@@ -121,6 +125,12 @@ function totalViews()
 
 }
 
+<<<<<<< HEAD
+=======
+if(isset($_GET['video-list'])){
+echo channelVideos();
+}
+>>>>>>> 3b252456cedc9e1e2a4528e19dbbf0e4acfcb9eb
 
 echo channelVideos();
 ?>
