@@ -96,7 +96,7 @@ function changeTo(event){
 
 </script>
 
-<form class="grid_18 grid_0 submitform" id="submitreview" method="get" action="" enctype="multipart/form-data">
+<form class="submitform" id="submitreview" method="get" action="" enctype="multipart/form-data">
 	<h6>Article Submission</h6>
 	<div class='article_form_group'>
 	<table>	
@@ -488,32 +488,3 @@ function changeTo(event){
 		<button name="submit" id="submit" type="submit" value="<?php echo $user; ?>">SUBMIT FORM</button>
 	</p>
 </form>
-
-<ul class="grid_6 grid_0" id="checklist">
-	<h6>Checklist</h6>
-	<li class="check_btn complete" id="articletype_button">TYPE</li>
-	<li class="check_btn" id="articletitle_button">TITLE</li>
-	<li class="check_btn" id="gamename_button">GAME NAME</li>
-	<li class="check_btn" id="summary_button">SUMMARY</li>
-	<li class="check_btn" id="overview_button">OVERVIEW</li>
-	<li class="check_btn" id="storyline_button">STORYLINE</li>
-	<li class="check_btn" id="gameplay_button">GAMEPLAY</li>
-	<li class="check_btn" id="audio_button">AUDIO</li>
-	<li class="check_btn" id="graphics_button">GRAPHICS</li>
-	<li class="check_btn" id="verdict_button">VERDICT</li>
-	<li class="check_btn" id="trailer_button">TRAILER</li>
-	<li class="check_btn" id="releasedate_button">RELEASE DATE</li>
-	<li class="check_btn" id="testedplatforms_button">TESTED PLATFORMS</li>
-	<li class="check_btn" id="platforms_button">AVAILABLE PLATFORMS</li>
-	<li class="check_btn" id="genre_button">GENRE</li>
-	<li class="check_btn" id="developers_button">DEVELOPERS</li>
-	<li class="check_btn" id="publishers_button">PUBLISHERS</li>
-	<li class="check_btn" id="officialsite_button">OFFICIAL SITE</li>
-	<li class="check_btn" id="developersites_button">DEVELOPER SITES</li>
-	<li class="check_btn" id="publishersites_button">PUBLISHER SITES</li>
-	<li class="check_btn" id="storylinerating_button">STORYLINE RATING</li>
-	<li class="check_btn" id="gameplayrating_button">GAMEPLAY</li>
-	<li class="check_btn" id="audiorating_button">AUDIO RATING</li>
-	<li class="check_btn" id="graphicsrating_button">GRAPHICS RATING</li>
-	<li class="check_btn" id="tags_button">TAGS</li>
-</ul>
