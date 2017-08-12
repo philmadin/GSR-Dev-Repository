@@ -201,7 +201,7 @@ function changeTo(event){
 			<input name="category" class="form_box_right" id="category" type="text" value="" placeholder="Type the subject's category here..." required />
 		</p>
 		<p class="scroll_section" id="rrp_section">
-			<label for="rrp">Recomended Retail Price (RRP) at time of review</label>
+			<label for="rrp">Recommended Retail Price at the time of review (AUD)</label>
 			<input name="rrp" class="form_box_right" id="rrp" type="text" value="" placeholder="Type the subject's rrp here..." required />
 		</p>
 		<p class="scroll_section" id="manufacturers_section">
