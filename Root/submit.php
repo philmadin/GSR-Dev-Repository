@@ -170,31 +170,26 @@ function expandReviewSection(id) {
 				$("#mainrating").val(total_rating.toFixed(1));
 			});
 $('.ratingcheck').change(function() { 
-updateAverage();
+	updateAverage();
 	var checkbox = this;
-	console.log(checkbox)
 	var str = this.id;
 	var no = str.substring(11,12);
-	labelid = "ratinglabel"+no
-	console.log(labelid)
-	var label = document.getElementById(labelid)
+	labelid = "ratinglabel"+no;
+	var label = document.getElementById(labelid);
 	if (checkbox.checked) {
-		console.log("Checking");
 		label.style.background = "green"
 		label.style.color = "white";
 		label.innerHTML = "&#10004;";
-		fadeTextbox(no, "on")
+		fadeTextbox(no, "on");
 	} else {
-		console.log("Unchecking");
-		label.style.background = "red"
+		label.style.background = "red";
 		label.style.color = "black";
 		label.innerHTML = "N/A";
-		fadeTextbox(no, "off")
+		fadeTextbox(no, "off");
 	}
 });
 
 var fadeTextbox = function(no, direction) {
-	console.log("Number " + no)
 	if (no==1){
 		var id="storylinerating"
 	} else if(no==2){
@@ -204,8 +199,6 @@ var fadeTextbox = function(no, direction) {
 	} else if(no==4){
 		var id="graphicsrating"
 	}
-	console.log("ID: " + id);
-	console.log("Direction: " + direction)
 	var textbox = document.getElementById(id);
 	if (direction == "off") {
 		textbox.style.background = 'gray'
@@ -213,14 +206,13 @@ var fadeTextbox = function(no, direction) {
 		textbox.style.background = "white"
 	}
 }
-						$("#storylinerating, #gameplayrating, #audiorating, #graphicsrating").on('keyup', function(event) {
-                                updateAverage()
+			$("#storylinerating, #gameplayrating, #audiorating, #graphicsrating").on('change', function(event) {
+				updateAverage()
 			});
-                        $('#checkbox').click(function(){
-                                updateAverage()
+			$('#checkbox').click(function(){
+				updateAverage()
 			});
-                        function updateAverage() {
-			        console.log("Key pressed")
+			function updateAverage() {
 				var rating1 = $("#storylinerating").val() == "" ? 0.0 : parseFloat($("#storylinerating").val());
 				var rating2 = $("#gameplayrating").val() == "" ? 0.0 : parseFloat($("#gameplayrating").val());
 				var rating3 = $("#audiorating").val() == "" ? 0.0 : parseFloat($("#audiorating").val());
@@ -329,20 +321,16 @@ updateAverage();
 						required: true
 					},
 					storylinerating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					gameplayrating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					audiorating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					graphicsrating: {
-						required: true,
-						hasletters: true
+						required: true
 					},
 					tags: {
 						required: true
@@ -411,20 +399,16 @@ updateAverage();
 						required: "Please provide all publisher companies website URL's."
 					},
 					storylinerating: {
-						required: "You must provide a storyline quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a storyline quality rating."
 					},
 					gameplayrating: {
-						required: "You must provide a gameplay quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a gameplay quality rating."
 					},
 					audiorating: {
-						required: "You must provide a audio quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a audio quality rating."
 					},
 					graphicsrating: {
-						required: "You must provide a graphics quality rating.",
-						hasletters: "You cannot use letters for your rating."
+						required: "You must provide a graphics quality rating."
 					},
 					tags: {
 						required: "You must provide tags (relavent keywords) for your article."

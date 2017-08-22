@@ -14,11 +14,8 @@ function average($numbers) {
 }
 
 function clean($string) {
-	
-   error_log("This: ".$string , 0);
    $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
    $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
-   error_log("Becomes: ".$string , 0);
 
    return $string; // Removes special chars.
 }
@@ -38,6 +35,7 @@ function implode_multi($arr, $join, $key){
     if(isset($_POST['submit'])) {
         $SUBMIT_articletype     = $_POST['articletype'];
         $SUBMIT_articletitle    = $_POST['articletitle'];
+        $SUBMIT_classification	= $_POST['classification'];
         $SUBMIT_game            = mysqli_real_escape_string($con, $_POST['gamename']);
         $SUBMIT_gameid          = mysqli_real_escape_string($con, $_POST['gameid']); //ADDED THIS
         $SUBMIT_summary         = mysqli_real_escape_string($con, $_POST['summary']);
@@ -57,21 +55,15 @@ function implode_multi($arr, $join, $key){
 	$SUBMIT_graphics = iconv('UTF-8', 'ASCII//TRANSLIT', $SUBMIT_graphics); 
 	$SUBMIT_graphics = htmlentities($SUBMIT_graphics, ENT_QUOTES); 
         $SUBMIT_verdict         = $_POST['verdict'];
+        $SUBMIT_trailer         = $_POST['trailer'];
 	$SUBMIT_verdict = iconv('UTF-8', 'ASCII//TRANSLIT', $SUBMIT_verdict); 
 	$SUBMIT_verdict = htmlentities($SUBMIT_verdict, ENT_QUOTES); 
-        $SUBMIT_testedplatforms = mysqli_real_escape_string($con, $_POST['testedplatforms']);
         $SUBMIT_releasedate     = mysqli_real_escape_string($con, $_POST['releasedate'] . " 00:00:00");
-        $SUBMIT_platforms       = mysqli_real_escape_string($con, $_POST['platforms']);
-        $SUBMIT_genre           = mysqli_real_escape_string($con, $_POST['genre']);
-        $SUBMIT_developers      = mysqli_real_escape_string($con, $_POST['developers']);
-        $SUBMIT_publishers      = mysqli_real_escape_string($con, $_POST['publishers']);
-        $SUBMIT_officialsite    = mysqli_real_escape_string($con, $_POST['officialsite']);
-        $SUBMIT_developersites  = mysqli_real_escape_string($con, $_POST['developersites']);
-        $SUBMIT_publishersites  = mysqli_real_escape_string($con, $_POST['publishersites']);
-        $SUBMIT_storylinerating = $_POST['storylinerating'];
-        $SUBMIT_gameplayrating  = $_POST['gameplayrating'];
-        $SUBMIT_audiorating     = $_POST['audiorating'];
-        $SUBMIT_graphicsrating  = $_POST['graphicsrating'];
+		$SUBMIT_officialsite    = mysqli_real_escape_string($con, $_POST['officialsite']);
+        $SUBMIT_storylinerating = floatval($_POST['storylinerating']);
+        $SUBMIT_gameplayrating  = floatval($_POST['gameplayrating']);
+        $SUBMIT_audiorating     = floatval($_POST['audiorating']);
+        $SUBMIT_graphicsrating  = floatval($_POST['graphicsrating']);
         $SUBMIT_mainrating      = $_POST['mainrating'];
         $SUBMIT_tags            = mysqli_real_escape_string($con, $_POST['tags']);
 
@@ -190,14 +182,50 @@ function implode_multi($arr, $join, $key){
 		
 		$SUBMIT_articletitle    = mysqli_real_escape_string($con, strip_tags($_POST['articletitle']));
 		$SUBMIT_game            = mysqli_real_escape_string($con, strip_tags($_POST['gamename']));
-		
-        mysqli_query($con, "INSERT INTO tbl_review (article_type, title, gamename, game_id, summary, content_1, content_2, content_3, content_4, content_5, content_6, Overview, Storyline, Gameplay, Audio, Graphics, Verdict, trailer, testedplatforms, genre, author, authuser, createdate, month, year, developers, publishers, platforms, release_date, officialsite, developersites, publishersites, main_rating, storyline_rating, gameplay_rating, graphics_rating, audio_rating, pending, beta_approved, alpha_approved, beta_notes, alpha_notes, editors_choice, tags) VALUES ('$SUBMIT_articletype', '$SUBMIT_articletitle', '$SUBMIT_game', '$SUBMIT_gameid', '$SUBMIT_summary', '$overview_file', '$storyline_file', '$gameplay_file', '$audio_file', '$graphics_file', '$verdict_file', '$SUBMIT_overview', '$SUBMIT_storyline', '$SUBMIT_gameplay', '$SUBMIT_audio', '$SUBMIT_graphics', '$SUBMIT_verdict', '$SUBMIT_trailer', '$SUBMIT_testedplatforms', '$SUBMIT_genre', '$SUBMIT_author', '$SUBMIT_username', '$SUBMIT_date', '$SUBMIT_month', '$SUBMIT_year', '$SUBMIT_developers', '$SUBMIT_publishers', '$SUBMIT_platforms', '$SUBMIT_releasedate', '$SUBMIT_officialsite', '$SUBMIT_developersites', '$SUBMIT_publishersites', '$SUBMIT_mainrating', '$SUBMIT_storylinerating', '$SUBMIT_gameplayrating', '$SUBMIT_graphicsrating', '$SUBMIT_audiorating', '$ifbossa', '$ifbossb', 'false', '$beta_notes_file', '$alpha_notes_file', '0', '$SUBMIT_tags')");
-    
-		
+        mysqli_query($con, "INSERT INTO tbl_review (classification, article_type, title, gamename, game_id, summary, content_1, content_2, content_3, content_4, content_5, content_6, Overview, HTMLContent_1, HTMLContent_2, HTMLContent_4, HTMLContent_3, Verdict, trailer, author, authuser, createdate, month, year, release_date, officialsite, main_rating, Rating_1, Rating_2, Rating_3, Rating_4, pending, beta_approved, alpha_approved, beta_notes, alpha_notes, editors_choice, tags) VALUES ('$SUBMIT_classification','$SUBMIT_articletype', '$SUBMIT_articletitle', '$SUBMIT_game', '$SUBMIT_gameid', '$SUBMIT_summary', '$overview_file', '$storyline_file', '$gameplay_file', '$audio_file', '$graphics_file', '$verdict_file', '$SUBMIT_overview', '$SUBMIT_storyline', '$SUBMIT_gameplay', '$SUBMIT_audio', '$SUBMIT_graphics', '$SUBMIT_verdict', '$SUBMIT_trailer', '$SUBMIT_author', '$SUBMIT_username', '$SUBMIT_date', '$SUBMIT_month', '$SUBMIT_year', '$SUBMIT_releasedate', '$SUBMIT_officialsite', '$SUBMIT_mainrating', '$SUBMIT_storylinerating', '$SUBMIT_gameplayrating', '$SUBMIT_graphicsrating', '$SUBMIT_audiorating', '$ifbossa', '$ifbossb', 'false', '$beta_notes_file', '$alpha_notes_file', '0', '$SUBMIT_tags')");
+        $last_id = mysqli_insert_id($con);
+		switch($SUBMIT_classification){
+			case "G":
+				$SUBMIT_genre           = mysqli_real_escape_string($con, $_POST['genre']);
+				$SUBMIT_platforms       = mysqli_real_escape_string($con, $_POST['platforms']);
+       			$SUBMIT_testedplatforms = mysqli_real_escape_string($con, $_POST['testedplatforms']);
+				$SUBMIT_developers      = mysqli_real_escape_string($con, $_POST['developers']);
+				$SUBMIT_developersites  = mysqli_real_escape_string($con, $_POST['developersites']);
+				$SUBMIT_publishers      = mysqli_real_escape_string($con, $_POST['publishers']);
+        		$SUBMIT_publishersites  = mysqli_real_escape_string($con, $_POST['publishersites']);
+
+        		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_game_review VALUES (?,?,?,?,?,?,?,?)") or die(mysqli_error($con));
+				mysqli_stmt_bind_param($sqlero, 'isssssss', $last_id, $SUBMIT_genre, $SUBMIT_platforms,$SUBMIT_testedplatforms,$SUBMIT_developers,$SUBMIT_developersites,$SUBMIT_publishers,$SUBMIT_publishersites) or die(mysqli_error($con));
+    			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
+			break;
+
+			case "M":
+				$SUBMIT_moviegenre      	 = mysqli_real_escape_string($con, $_POST['moviegenre']);
+				$SUBMIT_duration       		 = mysqli_real_escape_string($con, $_POST['duration']);
+       			$SUBMIT_directors 			 = mysqli_real_escape_string($con, $_POST['directors']);
+				$SUBMIT_cast      			 = mysqli_real_escape_string($con, $_POST['cast']);
+				$SUBMIT_moviepublishers      = mysqli_real_escape_string($con, $_POST['moviepublishers']);
+				$SUBMIT_moviepublisherssites = mysqli_real_escape_string($con, $_POST['moviepublisherssites']);
+        		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_movie_review VALUES (?,?,?,?,?,?,?)") or die(mysqli_error($con));
+				mysqli_stmt_bind_param($sqlero, 'isissss', $last_id, $SUBMIT_moviegenre, $SUBMIT_duration,$SUBMIT_directors,$SUBMIT_cast,$SUBMIT_moviepublishers,$SUBMIT_moviepublisherssites) or die(mysqli_error($con));
+    			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
+    		break;
+
+			case "T":
+				$SUBMIT_category      		= mysqli_real_escape_string($con, $_POST['category']);
+				$SUBMIT_rrp       			= mysqli_real_escape_string($con, $_POST['rrp']);
+       			$SUBMIT_manu 				= mysqli_real_escape_string($con, $_POST['manufacturers']);
+				$SUBMIT_manusites      		= mysqli_real_escape_string($con, $_POST['manufacturerssites']);
+        		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_tech_review VALUES (?,?,?,?,?)") or die(mysqli_error($con));
+				mysqli_stmt_bind_param($sqlero, 'isdss', $last_id, $SUBMIT_category, $SUBMIT_rrp, $SUBMIT_manu, $SUBMIT_manusites) or die(mysqli_error($con));
+    			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
+    		break;
+		}
 	}
 
     if(isset($_POST['save'])) {
-        $SUBMIT_type            = $_POST['articletype'];
+        $SUBMIT_type            = $_POST['articletype'];        
+        $SUBMIT_classification	= $_POST['classification'];
         $SUBMIT_articletitle    = $_POST['articletitle'];
         $SUBMIT_game            = $_POST['gamename'];
         $SUBMIT_summary         = mysqli_real_escape_string($con, $_POST['summary']);
@@ -229,10 +257,10 @@ function implode_multi($arr, $join, $key){
         $SUBMIT_officialsite    = mysqli_real_escape_string($con, $_POST['officialsite']);
         $SUBMIT_developersites  = mysqli_real_escape_string($con, $_POST['developersites']);
         $SUBMIT_publishersites  = mysqli_real_escape_string($con, $_POST['publishersites']);
-        $SUBMIT_storylinerating = $_POST['storylinerating'];
-        $SUBMIT_gameplayrating  = $_POST['gameplayrating'];
-        $SUBMIT_audiorating     = $_POST['audiorating'];
-        $SUBMIT_graphicsrating  = $_POST['graphicsrating'];
+        $SUBMIT_storylinerating = floatval($_POST['storylinerating']);
+        $SUBMIT_gameplayrating  = floatval($_POST['gameplayrating']);
+        $SUBMIT_audiorating     = floatval($_POST['audiorating']);
+        $SUBMIT_graphicsrating  = floatval($_POST['graphicsrating']);
         $SUBMIT_mainrating      = $_POST['mainrating'];
         $SUBMIT_betanotes       = $_POST['beta_notes'];
         $SUBMIT_alphanotes      = $_POST['alpha_notes'];
@@ -292,7 +320,55 @@ function implode_multi($arr, $join, $key){
 		$SUBMIT_game            = mysqli_real_escape_string($con, $_POST['gamename']);
 
         
-        mysqli_query($con, "UPDATE tbl_review SET article_type = '$SUBMIT_type', title = '$SUBMIT_articletitle', gamename = '$SUBMIT_game', summary = '$SUBMIT_summary', trailer = '$SUBMIT_trailer', testedplatforms = '$SUBMIT_testedplatforms', genre = '$SUBMIT_genre', developers = '$SUBMIT_developers', publishers = '$SUBMIT_publishers', platforms = '$SUBMIT_platforms', release_date = '$SUBMIT_releasedate', officialsite = '$SUBMIT_officialsite', developersites = '$SUBMIT_developersites', publishersites = '$SUBMIT_publishersites', main_rating = '$SUBMIT_mainrating', storyline_rating = '$SUBMIT_storylinerating', gameplay_rating = '$SUBMIT_gameplayrating', graphics_rating = '$SUBMIT_graphicsrating', audio_rating = '$SUBMIT_audiorating', tags = '$SUBMIT_tags', Overview = '$SUBMIT_overview', Storyline= '$SUBMIT_storyline', Gameplay= '$SUBMIT_gameplay', Audio= '$SUBMIT_audio', Graphics= '$SUBMIT_graphics', Verdict= '$SUBMIT_verdict' WHERE id = '$SUBMIT_id'");
+        mysqli_query($con, "UPDATE tbl_review SET classification = '$SUBMIT_classification', article_type = '$SUBMIT_type', title = '$SUBMIT_articletitle', gamename = '$SUBMIT_game', summary = '$SUBMIT_summary', trailer = '$SUBMIT_trailer', release_date = '$SUBMIT_releasedate', officialsite = '$SUBMIT_officialsite', main_rating = '$SUBMIT_mainrating', Rating_1 = '$SUBMIT_storylinerating', Rating_2 = '$SUBMIT_gameplayrating', Rating_3 = '$SUBMIT_graphicsrating', Rating_4 = '$SUBMIT_audiorating', tags = '$SUBMIT_tags', Overview = '$SUBMIT_overview', HTMLContent_1= '$SUBMIT_storyline', HTMLContent_2= '$SUBMIT_gameplay', HTMLContent_4= '$SUBMIT_audio', HTMLContent_3= '$SUBMIT_graphics', Verdict= '$SUBMIT_verdict' WHERE id = '$SUBMIT_id'");
+		
+        		
+        $delM = mysqli_prepare($con,"DELETE FROM tbl_movie_review WHERE reviewIDFK=?") or die(mysqli_error($con));
+        $delT = mysqli_prepare($con,"DELETE FROM tbl_tech_review WHERE reviewIDFK=?") or die(mysqli_error($con));
+        $delG = mysqli_prepare($con,"DELETE FROM tbl_game_review WHERE reviewIDFK=?") or die(mysqli_error($con));
+        mysqli_stmt_bind_param($delM, 'i', $SUBMIT_id) or die(mysqli_error($con));
+		mysqli_stmt_bind_param($delT, 'i', $SUBMIT_id) or die(mysqli_error($con));	
+		mysqli_stmt_bind_param($delG, 'i', $SUBMIT_id) or die(mysqli_error($con));
+    	mysqli_stmt_execute($delM) or die(mysqli_error($con));
+    	mysqli_stmt_execute($delT) or die(mysqli_error($con));
+    	mysqli_stmt_execute($delG) or die(mysqli_error($con));
+		switch($SUBMIT_classification){
+			case "G":
+				$SUBMIT_genre           = mysqli_real_escape_string($con, $_POST['genre']);
+				$SUBMIT_platforms       = mysqli_real_escape_string($con, $_POST['platforms']);
+       			$SUBMIT_testedplatforms = mysqli_real_escape_string($con, $_POST['testedplatforms']);
+				$SUBMIT_developers      = mysqli_real_escape_string($con, $_POST['developers']);
+				$SUBMIT_developersites  = mysqli_real_escape_string($con, $_POST['developersites']);
+				$SUBMIT_publishers      = mysqli_real_escape_string($con, $_POST['publishers']);
+        		$SUBMIT_publishersites  = mysqli_real_escape_string($con, $_POST['publishersites']);
+        		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_game_review VALUES (?,?,?,?,?,?,?,?)") or die(mysqli_error($con));
+				mysqli_stmt_bind_param($sqlero, 'isssssss', $SUBMIT_id, $SUBMIT_genre, $SUBMIT_platforms,$SUBMIT_testedplatforms,$SUBMIT_developers,$SUBMIT_developersites,$SUBMIT_publishers,$SUBMIT_publishersites) or die(mysqli_error($con));
+    			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
+			break;
+
+			case "M":
+				$SUBMIT_moviegenre      	 = mysqli_real_escape_string($con, $_POST['moviegenre']);
+				$SUBMIT_duration       		 = mysqli_real_escape_string($con, $_POST['duration']);
+       			$SUBMIT_directors 			 = mysqli_real_escape_string($con, $_POST['directors']);
+				$SUBMIT_cast      			 = mysqli_real_escape_string($con, $_POST['cast']);
+				$SUBMIT_moviepublishers      = mysqli_real_escape_string($con, $_POST['moviepublishers']);
+				$SUBMIT_moviepublisherssites = mysqli_real_escape_string($con, $_POST['moviepublisherssites']);
+        		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_movie_review VALUES (?,?,?,?,?,?,?)") or die(mysqli_error($con));
+				mysqli_stmt_bind_param($sqlero, 'isissss', $SUBMIT_id, $SUBMIT_moviegenre, $SUBMIT_duration,$SUBMIT_directors,$SUBMIT_cast,$SUBMIT_moviepublishers,$SUBMIT_moviepublisherssites) or die(mysqli_error($con));
+    			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
+			break;
+
+			case "T":
+				$SUBMIT_category      		= mysqli_real_escape_string($con, $_POST['category']);
+				$SUBMIT_rrp       			= mysqli_real_escape_string($con, $_POST['rrp']);
+       			$SUBMIT_manu 				= mysqli_real_escape_string($con, $_POST['manufacturers']);
+				$SUBMIT_manusites      		= mysqli_real_escape_string($con, $_POST['manufacturerssites']);
+        		$sqlero = mysqli_prepare($con,"INSERT INTO tbl_tech_review VALUES (?,?,?,?,?)") or die(mysqli_error($con));
+				mysqli_stmt_bind_param($sqlero, 'isdss', $SUBMIT_id, $SUBMIT_category, $SUBMIT_rrp, $SUBMIT_manu, $SUBMIT_manusites) or die(mysqli_error($con));
+    			mysqli_stmt_execute($sqlero) or die(mysqli_error($con));
+			break;
+		}
+
     }
 
     if(isset($_POST['upload_images'])) {
@@ -406,6 +482,7 @@ function implode_multi($arr, $join, $key){
 
     if(isset($_GET['deletionid'])) {
         $deletionid = $_GET['deletionid'];
+        $classification = $_POST['classification'];
 
         $files_query = mysqli_query($con, "SELECT * FROM tbl_review WHERE id = '$deletionid'");
 
@@ -425,6 +502,7 @@ function implode_multi($arr, $join, $key){
 
             $delete_notesaFILE       = $_SERVER['DOCUMENT_ROOT'] . $filesROW['alpha_notes'];
             $delete_notesbFILE       = $_SERVER['DOCUMENT_ROOT'] . $filesROW['beta_notes'];
+            $ref_classification		 = $filesROW['classification'];
         }
 
         if(file_exists($delete_aimageFILE)) { unlink($delete_aimageFILE); }
@@ -442,5 +520,18 @@ function implode_multi($arr, $join, $key){
         if(file_exists($delete_notesbFILE)) { unlink($delete_notesbFILE); }
 
         mysqli_query($con, "DELETE FROM tbl_review WHERE id = '$deletionid'");
+		switch($ref_classification){
+			case "G":
+        		mysqli_query($con, "DELETE FROM tbl_game_review WHERE reviewIDFK = '$deletionid'");
+			break;
+
+			case "M":
+        		mysqli_query($con, "DELETE FROM tbl_movie_review WHERE reviewIDFK = '$deletionid'");
+			break;
+
+			case "T":
+        		mysqli_query($con, "DELETE FROM tbl_tech_review WHERE reviewIDFK = '$deletionid'");
+			break;
+		}
     }
 ?>
