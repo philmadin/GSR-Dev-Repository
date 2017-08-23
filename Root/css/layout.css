@@ -5327,818 +5327,6 @@ footer nav p a:hover {
   overflow-x: hidden !important;
 }
 
-/* PROFILE PAGE
-
-#blank_area {
-background: #222222;
-background: -moz-linear-gradient(top, #111111 0%, #222222 100%);
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #111111), color-stop(100%, #222222));
-background: -webkit-linear-gradient(top, #111111 0%, #222222 100%);
-background: -o-linear-gradient(top, #111111 0%, #222222 100%);
-background: -ms-linear-gradient(top, #111111 0%, #222222 100%);
-background: linear-gradient(to bottom, #111111 0%, #222222 100%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#111111', endColorstr='#222222', GradientType=0);
-height: 50px;
-}
-
-#userprofile {
-white-space: nowrap;
-padding-bottom: 40px;
-margin-top: 0px;
-}
-
-#profilepicture {
-height: 314px;
-position: relative;
-}
-
-#profilepicture:after {
-position: absolute;
-width: 100%;
-height: 100%;
-top: 0;
-left: 0;
-background: url(../imgs/gsr-dark-pattern.png) top right repeat-y;
-z-index: 99;
-content: "";
-}
-
-#profilepicture img {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-}
-
-#profiledetails {
-background: #333333;
-padding: 12px 20px 0px 15px;
-position: relative;
-height: 314px;
-overflow: hidden;
-box-sizing: border-box;
-}
-
-#profiledetails p {
-padding: 0px;
-margin: 5px 0;
-color: #ffffff;
-font-weight: normal;
-font-size: 14px;
-}
-
-#profiledetails p a {
-color: #dddddd;
-}
-
-#profiledetails p a:hover, #profiledetails p abbr {
-color: #e73030;
-}
-
-#profiledetails #profilerealname {
-color: #666666;
-font-size: 14px;
-}
-
-#profiledetails #profileusername {
-color: #ffffff;
-font-size: 24px;
-}
-
-#profiledetails #profileonline {
-font-size: 12px;
-height: 16px;
-position: relative;
-padding-left: 15px;
-}
-
-#profiledetails #profileonline:before {
-font-size: 42px;
-line-height: 16px;
-content: '\b7';
-position: absolute;
-top: 0;
-left: 0;
-
-}
-
-#profiledetails #profileonline.online {
-color: #ffffff;
-}
-
-#profiledetails #profileonline.offline {
-color: #666666;
-}
-
-#profiledetails #profileonline.online:before {
-color: #00ff00;
-}
-
-#profiledetails #profileonline.offline:before {
-color: #666666;
-}
-
-#profiledetails #profileposition {
-color: #e73030;
-font-size: 16px;
-text-transform: uppercase;
-margin: 40px 0px 30px 0px;
-}
-
-#profiledetails #profiletime {
-color: #ffffff;
-font-size: 13px;
-padding-left: 20px;
-background: url(../imgs/gsr-profile-detail-icons.jpg) 0px 0px no-repeat;
-position: relative;
-height: 20px;
-line-height: 20px;
-}
-
-#profiledetails #profilelocation {
-color: #ffffff;
-font-size: 13px;
-padding-left: 20px;
-background: url(../imgs/gsr-profile-detail-icons.jpg) 0px -20px no-repeat;
-position: relative;
-height: 20px;
-line-height: 20px;
-}
-
-#profiledetails #profilemedia {
-position: absolute;
-display: block;
-height: 26px;
-right: 10px;
-bottom: 10px;
-padding: 0;
-text-align: right;
-}
-
-#profiledetails #profilemedia .profilemedia {
-position: relative;
-display: inline-block;
-height: 26px;
-width: 26px;
-margin: 2px;
-padding: 0;
-background-image: url(../imgs/gsr-profile-link-icons.jpg);
-background-repeat: no-repeat;
-}
-
-#profiledetails #profilemedia .profilemedia#facebook {
-background-position: 0px 0px;
-}
-
-#profiledetails #profilemedia .profilemedia#googleplus {
-background-position: 0px -26px;
-}
-
-#profiledetails #profilemedia .profilemedia#twitter {
-background-position: 0px -52px;
-}
-
-#profiledetails #profilemedia .profilemedia#website {
-background-position: 0px -78px;
-}
-
-#profiledetails #profilemedia .profilemedia#facebook:hover {
-background-position: 0px -104px;
-}
-
-#profiledetails #profilemedia .profilemedia#googleplus:hover {
-background-position: 0px -130px;
-}
-
-#profiledetails #profilemedia .profilemedia#twitter:hover {
-background-position: 0px -156px;
-}
-
-#profiledetails #profilemedia .profilemedia#website:hover {
-background-position: 0px -182px;
-}
-
-#profilegaming {
-background: #222222;
-box-sizing: border-box;
-height: 314px;
-width: 210px;
-}
-
-#profilegaming p {
-color: #ffffff;
-font-size: 11px;
-text-align: left;
-width: 80%;
-margin-left: 10%;
-}
-
-#profilegaming span {
-color: #666666;
-}
-
-#profilegaming #profileloves {
-position: relative;
-display: block;
-padding: 0;
-height: 52px;
-width: 56px;
-margin: 30px auto 10px auto;
-background: url(../imgs/gsr-profile-loves.jpg) 0px 0px no-repeat;
-}
-
-#profilegaming #profileloves #lovesicon {
-position: absolute;
-display: block;
-content: '';
-height: 14px;
-width: 30px;
-top: 47%;
-left: 50%;
-margin-top: -7px;
-margin-left: -15px;
-background-image: url(../imgs/gsr-profile-gaming-icons.jpg);
-background-position: 0px -70px;
-background-repeat: no-repeat;
-}
-
-#profilegaming #profileloves #lovesicon.xbox {
-background-position: 0px -84px;
-}
-
-#profilegaming #profileloves #lovesicon.play {
-background-position: 0px -98px;
-}
-
-#profilegaming #profileloves #lovesicon.comp {
-background-position: 0px -112px;
-}
-
-#profilegaming #profileloves #lovesicon.ntdo {
-background-position: 0px -126px;
-}
-
-#profilegaming #profileconsole {
-color: #e73030;
-text-align: center;
-margin-bottom: 40px;
-white-space: normal;
-}
-
-#profilegaming #profilegame {
-position: relative;
-height: 14px;
-padding-left: 50px;
-background: url(../imgs/gsr-profile-gaming-icons.jpg) 0px 0px no-repeat;
-white-space: nowrap;
-width: 90%;
-overflow: hidden;
-text-overflow: ellipsis;
-}
-
-#profilegaming #profilexbox {
-position: relative;
-height: 14px;
-padding-left: 50px;
-background: url(../imgs/gsr-profile-gaming-icons.jpg) 0px -14px no-repeat;
-}
-
-#profilegaming #profileplaystation {
-position: relative;
-height: 14px;
-padding-left: 50px;
-background: url(../imgs/gsr-profile-gaming-icons.jpg) 0px -28px no-repeat;
-}
-
-#profilegaming #profilesteam {
-position: relative;
-height: 14px;
-padding-left: 50px;
-background: url(../imgs/gsr-profile-gaming-icons.jpg) 0px -42px no-repeat;
-}
-
-#profilelevel {
-height: 60px;
-color: #ffffff;
-background: #e73030;
-box-sizing: border-box;
-padding-left: 20px;
-line-height: 60px;
-font-size: 22px;
-width: 500px;
-}
-
-#profilelevel #addfriend, #profilelevel #acceptfriend {
-color: #333333;
-background: #ffffff;
-box-shadow: inset 0px 15px 0px 0px #dddddd;
--moz-box-shadow: inset 0px 15px 0px 0px #dddddd;
--webkit-box-shadow: inset 0px 15px 0px 0px #dddddd;
-border-radius: 5px;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
-text-shadow: 1px 1px 1px #ffffff;
-font-size: 12px;
-text-align: center;
-display: block;
-box-sizing: border-box;
-width: 100px;
-height: 30px;
-line-height: 30px;
-margin: 15px 20px;
-float: right;
-border: 2px solid #c70000;
-cursor: pointer;
-}
-
-#profilelevel #acceptfriend {
-width: 140px;
-}
-
-#profilelevel #addfriend:hover, #profilelevel #acceptfriend:hover {
-color: #ff0000;
-background: #ffffff;
-box-shadow: inset 0px 15px 0px 0px #cfcfcf;
--moz-box-shadow: inset 0px 15px 0px 0px #cfcfcf;
--webkit-box-shadow: inset 0px 15px 0px 0px #cfcfcf;
-text-shadow: 1px 1px 1px #ffffff;
-border: 2px solid #ff0000;
-}
-
-#profilelevel #friend, #profilelevel #requestfriend {
-color: #d62020;
-background: #920000;
-border-radius: 5px;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
-font-size: 12px;
-text-align: center;
-display: block;
-box-sizing: border-box;
-width: 100px;
-height: 30px;
-line-height: 30px;
-margin: 15px 20px;
-float: right;
-border: 2px solid #d62020;
-cursor: pointer;
-}
-
-#profilelevel #requestfriend {
-width: 140px;
-}
-
-#profilebadges {
-background: transparent;
-box-sizing: border-box;
-height: 60px;
-width: 210px;
-display: block;
-position: relative;
-}
-
-#profilebadges:after {
-position: absolute;
-display: block;
-top: 0;
-left: 0;
-width: 100%;
-background: #222222;
-content: "";
-height: 30px;
--webkit-clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-z-index: 100;
-}
-
-#profilebadges #badgeswrapper {
-position: absolute;
-top: 0;
-left: 0;
-height: 60px;
-z-index: 3000;
-background: #000000;
-width: 100%;
-white-space: normal;
-}
-
-#profilebadges #badgeswrapper.active {
-animation: activeBadges .5s ease-in-out 0s forwards;
--webkit-animation: activeBadges .5s ease-in-out 0s forwards;
-}
-
-@keyframes activeBadges {
-0% {
-height: 60px;
-}
-100% {
-height: 70px;
-}
-}
-
-@-webkit-keyframes activeBadges {
-0% {
-height: 60px;
-}
-100% {
-height: 70px;
-}
-}
-
-#profilebadges #badgeswrapper.showall.active {
-animation: none;
--webkit-animation: none;
-}
-
-#profilebadges #badgeswrapper.showall {
-height: auto;
-}
-
-#profilebadges #badgeswrapper #badgelist {
-display: none;
-margin: 40px 5px;
-width: 100%;
-position: relative;
-height: auto;
-}
-
-#profilebadges #badgeswrapper.showall #badgelist {
-display: block;
-}
-
-#profilebadges #badgeswrapper #darkside {
-position: absolute;
-display: block;
-top: 0;
-left: 0;
-width: 50%;
-background: #c02a2a;
-content: "";
-height: 100%;
-}
-
-#profilebadges #badgeswrapper #darkside:after {
-position: absolute;
-display: block;
-top: 100%;
-left: 0;
-width: 100%;
-background: #c02a2a;
-content: "";
-height: 30px;
--webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
-clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
-}
-
-#profilebadges #badgeswrapper #liteside {
-position: absolute;
-display: block;
-top: 0;
-right: 0;
-width: 50%;
-background: #e73030;
-content: "";
-height: 100%;
-}
-
-#profilebadges #badgeswrapper #liteside:after {
-position: absolute;
-display: block;
-top: 100%;
-left: 0;
-width: 100%;
-background: #e73030;
-content: "";
-height: 30px;
--webkit-clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
-clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
-}
-
-#profilebadges #badgeswrapper #updown {
-position: absolute;
-width: 100%;
-left: 0;
-bottom: -18px;
-text-align: center;
-height: 12px;
-line-height: 12px;
-}
-
-#profilebadges #badgeswrapper #updown a {
-color: #ffffff;
-font-size: 12px;
-text-decoration: none;
-cursor: pointer;
-}
-
-#profilebadges #badgeswrapper.showall #updown a:hover:after {
-content: "\25b3";
-position: absolute;
-top: -15px;
-left: 0%;
-width: 100%;
-text-align: center;
-font-size: 12px;
-}
-
-#profilebadges #updown a:hover:after {
-content: "\25be";
-position: absolute;
-top: 100%;
-left: 0%;
-width: 100%;
-text-align: center;
-margin-top: 5px;
-font-size: 10px;
-}
-
-#profilebadges .badge {
-padding: 0;
-margin: 5px;
-position: relative;
-width: 30px;
-height: 30px;
-display: inline-block;
-padding: 0;
-}
-
-#profilebadges .badge img {
-opacity: 0.5;
--webkit-transition: all .25s ease-out;
--moz-transition: all .25s ease-out;
--ms-transition: all .25s ease-out;
--o-transition: all .25s ease-out;
-transition: all .25s ease-out;
-}
-
-#profilebadges .badge img:hover {
-opacity: 1;
-}
-
-#profilebadges .badge span {
-padding: 5px 10px;
-font-size: 10px;
-color: #333333;
-background-color: #ffffff;
-border-radius: 6px;
--moz-border-radius: 6px;
--webkit-border-radius: 6px;
-width: 100px;
-display: none;
-line-height: 16px;
-white-space: pre-wrap;
-text-align: center;
-font-style: normal;
-position: absolute;
-top: 40px;
-left: 50%;
-margin-left: -60px;
-z-index: 5000;
-border: 2px #333333 solid;
-}
-
-#profilebadges .badge:hover span {
-display: block;
-}
-
-#profilebadges .badge span b {
-text-transform: uppercase;
-color: #e73030;
-}
-
-#profilebadges .badge span:after, #profilebadges .badge span:before {
-bottom: 100%;
-left: 50%;
-border: solid transparent;
-content: " ";
-height: 0;
-width: 0;
-position: absolute;
-pointer-events: none;
-}
-
-#profilebadges .badge span:after {
-border-color: transparent;
-border-bottom-color: #333333;
-border-width: 5px;
-margin-left: -5px;
-}
-
-#profilebadges .badge span:before {
-border-color: transparent;
-border-bottom-color: #333333;
-border-width: 5px;
-margin-left: -5px;
-}
-
-#profileinfo {
-background: #922222;
-position: relative;
-box-sizing: border-box;
-padding: 20px 20px;
-top: 0;
-width: 710px;
-}
-
-#profileinfo h4 {
-color: #f95353;
-font-size: 12px;
-line-height: 24px;
-font-weight: normal;
-text-transform: uppercase;
-margin: 0;
-}
-
-#profileinfo p {
-margin: 0px 0px 20px 0px;
-padding: 0;
-color: #ffffff;
-font-size: 12px;
-text-align: left;
-font-weight: normal;
-width: auto;
-white-space: normal;
-}
-
-#profileinfo #quote {
-font-style: italic;
-}
-
-#profilefavourites {
-background: #fafafa;
-position: relative;
-box-sizing: border-box;
-padding: 20px 20px;
-top: 0;
-width: 710px;
-border-bottom: 1px solid #dddddd;
-}
-
-#profilefavourites h4 {
-color: #e73030;
-font-size: 12px;
-line-height: 24px;
-font-weight: normal;
-text-transform: uppercase;
-margin: 0;
-}
-
-#profilefavourites p {
-margin: 10px 0px;
-padding: 0;
-font-size: 11px;
-text-align: left;
-font-weight: normal;
-width: auto;
-white-space: normal;
-}
-
-#profilefavourites p a {
-text-decoration: none;
-color: #333333;
-margin: 0px 10px 5px 0px;
-display: inline-block;
-}
-
-#profilefavourites p a b {
-color: #e73030;
-}
-
-#profilefavourites p a i {
-color: #666666;
-}
-
-#profilefriends {
-background: #fafafa;
-position: relative;
-box-sizing: border-box;
-padding: 20px 20px;
-top: 0;
-width: 710px;
-border-bottom: 1px solid #dddddd;
-}
-
-#profilefriends h4 {
-color: #e73030;
-font-size: 12px;
-line-height: 24px;
-font-weight: normal;
-text-transform: uppercase;
-margin: 0;
-}
-
-#profilefriends p {
-margin: 10px 0px;
-padding: 0;
-font-size: 11px;
-text-align: left;
-font-weight: normal;
-width: auto;
-white-space: normal;
-}
-
-#profilefriends p a {
-text-decoration: none;
-color: #333333;
-margin: 0px 0px 5px 0px;
-display: inline-block;
-border-right: 1px solid #dddddd;
-text-align: center;
-}
-
-#profilefriends p a:hover {
-font-weight: bold;
-color: #e73030;
-}
-
-#useractivity {
-position: relative;
-margin: -50px 0 0 -5px;
-width: 250px;
-padding: 0;
-}
-
-#useractivity h2 {
-background: #c02a2a;
-box-sizing: border-box;
-font-size: 12px;
-color: #ffffff;
-text-transform: uppercase;
-height: 30px;
-line-height: 30px;
-padding: 0px 0px 0px 15px;
-}
-
-#useractivity h2:before {
-display: none;
-}
-
-#useractivity ul {
-list-style: none;
-}
-
-#useractivity ul li {
-display: block;
-width: 100%;
-padding: 0;
-margin: 0;
-box-sizing: border-box;
-border-bottom: 1px #dddddd solid;
-}
-
-#useractivity ul li a {
-/* LIMIT TO 100 CHARACTERS FOLLOWED BY '...'
-display: block;
-width: 80%;
-margin: 0px 10% 15px 10%;
-font-size: 11px;
-color: #000000;
-font-style: italic;
-text-align: left;
-padding: 10px 0px 15px 10px;
-position: relative;
-}
-
-#useractivity ul li a b {
-position: absolute;
-top: -7px;
-left: 0;
-color: #e73030;
-font-style: normal;
-}
-
-#useractivity ul li a span {
-position: absolute;
-bottom: 0;
-left: 0;
-color: #cccccc;
-font-style: normal;
-font-size: 10px;
-}
-
-#useractivity #activityPagination p {
-text-align: center;
-}
-
-#useractivity #activityPagination p a {
-font-size: 8px;
-background: #e73030;
-color: #ffffff;
-padding: 5px 10px;
-border-radius: 15px;
--moz-border-radius: 15px;
--webkit-border-radius: 15px;
-cursor: pointer;
-font-weight: bold;
-border: 2px #e73030 solid;
-}
-
-#useractivity #activityPagination p a:hover {
-background: #ffffff;
-color: #e73030;
-}
-*/
 /* MESSAGES */
 
 #messagelist {
@@ -8393,6 +7581,7 @@ color: #e73030;
   margin-top: 10px;
   border-radius: 5px;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 #second_Pic {
@@ -8401,6 +7590,7 @@ color: #e73030;
   margin-top: 10px;
   border-radius: 5px;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 #third_Pic {
@@ -8409,6 +7599,7 @@ color: #e73030;
   margin-right: 10px;
   margin-top: 10px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 #third_Pic_text {
@@ -8421,6 +7612,84 @@ color: #e73030;
   text-transform: uppercase;
   text-align: center;
   color: #FFF;
-  /*background: rgba(255, 255, 255, 0.2) !important;*/
   padding: 5px;
+  cursor: pointer;
+}
+/* Modal */
+.image_modal {
+  display: none;
+  position: fixed;
+  z-index: 10000000 !important;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #000;
+}
+
+.modal_content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 100%;
+  max-width: 720px;
+}
+
+.close {
+  color: #FFF;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.next:hover, .prev:hover {
+  background-color: #000;
+  opacity: 80%;
+}
+
+.menu_bar_tabs {
+  margin-left: 200px;
+  float: left;
+}
+
+#profile_sidebar {
+  width: 20%;
+  border: 2px solid #000;
+}
+
+#profile_aside {
+  width: 80%
+  border: 2px solid red;
 }
