@@ -326,13 +326,67 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 			<br>
 		</div>
 		<div id="profile_aside">
-			<div class="menu_bar_tabs">
-				<button class="tab_menu" onclick="openPage(event, 'Activity')">Activity</button>
-				<button class="tab_menu" onclick="openPage(event, 'Articles')">Articles</button>
-				<button class="tab_menu" onclick="openPage(event, 'Clan')">Clan</button>
-				<button class="tab_menu" onclick="openPage(event, 'About')">About</button>
-				<button class="tab_menu" onclick="openPage(event, 'Stats')">Stats</button>
-				<button class="tab_menu" onclick="openPage(event, 'Contact')">Contact</button>
+			<!-- <div class="tab_menu">
+				<button class="tab_link" onclick="openTab(event, 'Activity')" id="defaultOpen">Activity</button>
+				<button class="tab_link" onclick="openTab(event, 'Articles')">Articles</button>
+				<button class="tab_link" onclick="openTab(event, 'Clan')">Clan</button>
+				<button class="tab_link" onclick="openTab(event, 'About')">About</button>
+				<button class="tab_link" onclick="openTab(event, 'Stats_tab')">Stats</button>
+				<button class="tab_link" onclick="openTab(event, 'Contact')">Contact</button>
+			</div>
+			<br>
+			<div id="Activity" class="tab_content">
+				<span><strong>This is a test of the activity tab.</strong></span>
+				<br>
+				<span>Real time of the user activity on the web page.</span>
+			</div>
+			<div id="Articles" class="tab_content">
+				<span><b>This is an example of the artices tab.</b></span>
+				<br>
+				<span>List of articles, possibly with a thumbnail.</span>
+			</div>
+			<div id="Clan" class="tab_content">
+				<span><b style="color:red;font-size:16px;text-align: center;">Web under construction.</b></span>
+				<br>
+				<span>Clan contents will be availble soon.</span>
+			</div>
+			<div id="About" class="tab_content">
+				<span><b>About page with information about the user.</b></span>
+				<br>
+				<span>Biography, favourite quote, game platforms, etc.</span>
+			</div>
+			<div id="Stats_tab" class="tab_content">
+				<span><b>Stats page.</b></span>
+				<br>
+				<span>Article count, subscriber button, Profile Views, Article Views (accumulation of user's article views), Likes (bites), Subscribers.</span>
+			</div>
+			<div id="Contact" class="tab_content">
+				<span><b>Contact page.</b></span>
+				<br>
+				<span>Mail form, social media.</span>
+			</div>-->
+			<div class="tab">
+				<button class="tablinks" onclick="openTab(event, 'Activity')" id="defaultOpen">Activity</button>
+  			<button class="tablinks" onclick="openTab(event, 'Articles')">Articles</button>
+  			<button class="tablinks" onclick="openTab(event, 'Clan')">Clan</button>
+				<button class="tablinks" onclick="openTab(event, 'About')">About</button>
+  			<button class="tablinks" onclick="openTab(event, 'Stats')">Stats</button>
+  			<button class="tablinks" onclick="openTab(event, 'Contact')">Contact</button>
+			</div>
+
+			<div id="Activity" class="tabcontent">
+  			<h3>London</h3>
+  			<p>London is the capital city of England.</p>
+			</div>
+
+			<div id="Articles" class="tabcontent">
+  			<h3>Paris</h3>
+  			<p>Paris is the capital of France.</p>
+			</div>
+
+			<div id="Clan" class="tabcontent">
+  			<h3>Tokyo</h3>
+  			<p>Tokyo is the capital of Japan.</p>
 			</div>
 		</div>
 	</div>
@@ -368,6 +422,7 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 		});
 	});
 
+	// Modal
 	function openModal() { // Shows the modal
 		document.getElementById("modal").style.display = "block";
 	}
@@ -401,6 +456,29 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 		}
 		slides[slideIndex-1].style.display = "block";
 	}
+	
+	function openTab(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+	}
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
 	</script>
 </body>
 </html>
