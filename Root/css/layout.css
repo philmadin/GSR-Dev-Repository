@@ -6934,6 +6934,10 @@ footer nav p a:hover {
 	font-family: 'Jaldi', sans-serif;
 }
 
+#review_page .content .vglnk span{
+	display:inherit
+}
+
 #review_page .content span {
     color: #e73030;
     font-size: 20px;
