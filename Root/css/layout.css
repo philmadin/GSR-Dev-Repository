@@ -7428,9 +7428,9 @@ footer nav p a:hover {
 #addfriend, #requestfriend, #acceptfriend {
   display: inline-block;
   float: right;
-  position: relative;
+  position: absolute;
   right: 12px;
-  top: -42px;
+  top: 272px;
   cursor: pointer;
   height: 30px;
   width: 200px;
@@ -7525,7 +7525,24 @@ footer nav p a:hover {
 #userStats span {
   display: block;
 }
+/*
+#userStats #statsList .statsBack {
+  position: relative;
+  display: inline-block;
+  height: 22px;
+  width: 22px;
+  padding-top: 15px;
+  background-image: url(.../imgs/stats_icons/stats_icons.png);
+  background-repeat: no-repeat;
+}
 
+#userStats #statsList .statsBack #userViews { background-position: 0px 0px; }
+#userStats #statsList .statsBack #userBites { background-position: 0px 0px; }
+#userStats #statsList .statsBack #userFriends { background-position: 0px 0px; }
+#userStats #statsList .statsBack #userAchievements { background-position: 0px 0px; }
+#userStats #statsList .statsBack #userArticles { background-position: 0px 0px; }
+#userStats #statsList .statsBack #userClan { background-position: 0px 0px; }
+*/
 #backStats {
   padding: 4px;
   margin-left: 2px;
@@ -7542,7 +7559,7 @@ footer nav p a:hover {
   font-weight: bold;
 }
 
-#userClan {
+#userClanText {
   margin-left: 6px;
   display: inline-block !important;
   color: #e73030;
@@ -7681,65 +7698,82 @@ footer nav p a:hover {
   background-color: #000;
   opacity: 80%;
 }
-/* tab menu */
-#profile_aside {
-  margin: 0 9px 0 197px;
-  width: auto;
-  border: 1px solid white;
+
+/* tab menu*/
+#profile_aside div {
+  margin: 3px 0 0 197px;
+  width: 78.129%;
 }
 
 div.tab {
-    overflow: hidden;
-    border-bottom: 3px solid #e73030;
-    background-color: none;
-    width: 100%;
-    margin-top: 2px;
+  overflow: hidden;
+  border-bottom: 3px solid #e73030;
+  background-color: none;
+  width: auto;
+  margin-top: 2px;
 }
 
 /* Style the buttons inside the tab */
 div.tab button {
-    background-color: #bfbfbf;
-    color: #FFF;
-    font-size: 14px;
-    font-weight: 400;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 6px 38px;
-    margin-bottom: 0;
-    margin-left: 0;
-    transition: 0.3s;
+  background-color: #bfbfbf;
+  color: #FFF;
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 6px 37px;
+  margin: 0 2px 0 0;
+  transition: 0.3s;
 }
 
 /* Change background color of buttons on hover */
 div.tab button:hover {
-    background-color: #e73030;
+  background-color: #e73030;
 }
 
 /* Create an active/current tablink class */
 div.tab button.active {
-    background-color: #e73030;
+  background-color: #e73030;
 }
 
 /* Style the tab content */
 .tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: none;
-    -webkit-animation: fadeEffect 1s;
-    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+  display: none;
+  border: none;
+  -webkit-animation: fadeEffect 1s;
+  animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+.tab_header {
+  padding: 0 0 0 18px;
+  margin: 0;
+  font-size: 18px;
+  text-align: left;
+  color: #e73030;
+  background: url(../imgs/gamer_h2.png) no-repeat;
+}
+
+.tab_header:before {
+  content: none;
+}
+
+.tabcontent p, #Clan p {
+  padding: 5px 25px;
+  margin: 0;
+  font-size: 14px;
+  text-align: justify;
 }
 
 @-webkit-keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 
 @keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
+  from {opacity: 0;}
+  to {opacity: 1;}
 }

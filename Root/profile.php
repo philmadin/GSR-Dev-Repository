@@ -136,7 +136,7 @@ if (!empty($pr_friends) || $pr_friends != NULL || $pr_friends != "") { // If the
 		$text_friends = "friends";
 	}
 } else {
-	$text_friends = "You have no friends";
+	$text_friends = "no friends";
 }
 
 /* Number of achievements */
@@ -164,24 +164,37 @@ if (!empty($pr_badges) || $pr_badges != NULL || $pr_badges != "") { // If the us
 		$text_achievements = "achievements";
 	}
 } else {
-	$text_achievements = "You have no badges";
+	$text_achievements = "no badges";
 }
 
 /* Number of articles */
+$articles_info = array();
+$reviews_info = array();
 $stmt = mysqli_prepare($con, $query_user_articles) or die("Unable to prepare statement: " . mysqli_error($con));
 if ($stmt) {
-	mysqli_stmt_bind_param($stmt, 'ssss', $pr_username, $pr_username, $pr_username, $pr_username);
+	mysqli_stmt_bind_param($stmt, 'sss', $pr_username, $pr_username, $pr_username);
 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
 	$us_articles = mysqli_stmt_get_result($stmt);
+	while ($article_row = mysqli_fetch_array($us_articles)) {
+		array_push($articles_info, $article_row);
+	}
 	mysqli_stmt_close($stmt);
 }
-$num_rows = mysqli_num_rows($us_articles);
-if ($num_rows == 0) {
-	$text_articles = "You have not articles";
-} elseif ($num_rows == 1) {
+$stmt = mysqli_prepare($con, $query_user_review) or die("Unable to prepare statement: " . mysqli_error($con));
+if ($stmt) {
+	mysqli_stmt_bind_param($stmt, 's', $pr_username);
+	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
+	$us_reviews = mysqli_stmt_get_result($stmt);
+	while ($review_row = mysqli_fetch_array($us_reviews)) {
+		array_push($reviews_info, $review_row);
+	}
+	mysqli_stmt_close($stmt);
+}
+$num_rows = sizeof($articles_info) + sizeof($reviews_info);
+if ($num_rows == 1) {
 	$user_articles = 1;
 	$text_articles = "article";
-}else {
+} else {
 	$user_articles = $num_rows;
 	$text_articles = "articles";
 }
@@ -199,7 +212,7 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 	$photos_var = "true";
 } else {
 	$photos_var = "false";
-	$photos_text = "You have no pictures";
+	$photos_text = "no pictures";
 }
 ?>
 
@@ -271,7 +284,7 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 					<span id="userFriends"><img id="backStats" src="imgs/stats_icons/friends_icon.png"><span id="userStts"><?php echo $user_friends; ?><strong id="stats"> <?php echo $text_friends; ?></strong></span></span>
 					<span id="userAchievements"><img id="backStats" src="imgs/stats_icons/achievements_icon.png"><span id="userStts"><?php echo $user_achievements; ?><strong id="stats"> <?php echo $text_achievements; ?></strong></span></span>
 					<span id="userArticles"><img id="backStats" src="imgs/stats_icons/articles_icon.png"><span id="userStts"><?php echo $user_articles; ?><strong id="stats"> <?php echo $text_articles; ?></strong></span></span>
-					<span><img id="backStats" src="imgs/stats_icons/clan_icon.png"><span id="userClan"><?php echo $user_clan; ?></span>
+					<span><img id="backStats" src="imgs/stats_icons/clan_icon.png"><span id="userClanText"><?php echo $user_clan; ?></span>
 				</div>
 				<br>
 			</div>
@@ -326,72 +339,117 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 			<br>
 		</div>
 		<div id="profile_aside">
-			<!-- <div class="tab_menu">
-				<button class="tab_link" onclick="openTab(event, 'Activity')" id="defaultOpen">Activity</button>
-				<button class="tab_link" onclick="openTab(event, 'Articles')">Articles</button>
-				<button class="tab_link" onclick="openTab(event, 'Clan')">Clan</button>
-				<button class="tab_link" onclick="openTab(event, 'About')">About</button>
-				<button class="tab_link" onclick="openTab(event, 'Stats_tab')">Stats</button>
-				<button class="tab_link" onclick="openTab(event, 'Contact')">Contact</button>
-			</div>
-			<br>
-			<div id="Activity" class="tab_content">
-				<span><strong>This is a test of the activity tab.</strong></span>
-				<br>
-				<span>Real time of the user activity on the web page.</span>
-			</div>
-			<div id="Articles" class="tab_content">
-				<span><b>This is an example of the artices tab.</b></span>
-				<br>
-				<span>List of articles, possibly with a thumbnail.</span>
-			</div>
-			<div id="Clan" class="tab_content">
-				<span><b style="color:red;font-size:16px;text-align: center;">Web under construction.</b></span>
-				<br>
-				<span>Clan contents will be availble soon.</span>
-			</div>
-			<div id="About" class="tab_content">
-				<span><b>About page with information about the user.</b></span>
-				<br>
-				<span>Biography, favourite quote, game platforms, etc.</span>
-			</div>
-			<div id="Stats_tab" class="tab_content">
-				<span><b>Stats page.</b></span>
-				<br>
-				<span>Article count, subscriber button, Profile Views, Article Views (accumulation of user's article views), Likes (bites), Subscribers.</span>
-			</div>
-			<div id="Contact" class="tab_content">
-				<span><b>Contact page.</b></span>
-				<br>
-				<span>Mail form, social media.</span>
-			</div>-->
 			<div class="tab">
 				<button class="tablinks" onclick="openTab(event, 'Activity')" id="defaultOpen">Activity</button>
-  			<button class="tablinks" onclick="openTab(event, 'Articles')">Articles</button>
-  			<button class="tablinks" onclick="openTab(event, 'Clan')">Clan</button>
+				<button class="tablinks" onclick="openTab(event, 'Status')">Status</button>
+				<button class="tablinks" onclick="openTab(event, 'Articles')">Articles</button>
+				<button class="tablinks" onclick="openTab(event, 'Clan')">Clan</button>
 				<button class="tablinks" onclick="openTab(event, 'About')">About</button>
-  			<button class="tablinks" onclick="openTab(event, 'Stats')">Stats</button>
-  			<button class="tablinks" onclick="openTab(event, 'Contact')">Contact</button>
+				<button class="tablinks" onclick="openTab(event, 'Contact')">Contact</button>
 			</div>
 
 			<div id="Activity" class="tabcontent">
-  			<h3>London</h3>
-  			<p>London is the capital city of England.</p>
+				<h3 class="tab_header">Activity tab</h3>
+				<p class="paragraph">Real time changes.</p>
+			</div>
+
+			<div id="Status" class="tabcontent">
+				<br>
+				<!-- 250 character max... -->
+
 			</div>
 
 			<div id="Articles" class="tabcontent">
-  			<h3>Paris</h3>
-  			<p>Paris is the capital of France.</p>
+				<br>
+
 			</div>
 
 			<div id="Clan" class="tabcontent">
-  			<h3>Tokyo</h3>
-  			<p>Tokyo is the capital of Japan.</p>
+				<br>
+				<h3 class="tab_header">Page under construction</h3>
+				<p class="paragraph">Please check back soon.</p>
+				<br>
+			</div>
+
+			<div id="About" class="tabcontent">
+				<!--<h3>About</h3>
+				<p>Biography
+				favourite quote
+				game platforms
+
+				$pr_firstname	= $prof['firstname'];
+				$pr_lastname = $prof['lastname'];
+				$showName	= $prof['showname'];
+				$pr_xbox = $prof['xbox'];
+				$pr_playstation	= $prof['playstation'];
+				$pr_steam = $prof['steam'];
+				$pr_console	= $prof['console'];
+				$pr_game = $prof['game'];
+				$pr_quote	= $prof['quote']; *
+				$pr_bio	= $prof['biography']; *
+
+				$pr_since	= strtotime($prof['since']); *
+				$pr_town = $prof['town']; *
+				$pr_country	= $prof['country']; *
+
+
+				$pr_favs = $prof['favourites'];
+				$pr_friends	= $prof['friends'];
+
+				$pr_cotype = $prof['cotype']; ?????
+				</p>-->
+				<br>
+				<p style="font-size:16px;font-weight:500;margin:0;padding:0">Plays from <?php echo $pr_town . ", " . $pr_country; ?> since <?php echo humanTiming($pr_since); ?></p>
+				<br>
+				<h3 class="tab_header">Biography</h3>
+				<p class="paragraph"><?php echo $pr_bio; ?></p>
+				<br>
+				<h3 class="tab_header">Favourite Quote</h3>
+				<p class="paragraph"><?php echo $pr_quote; ?></p>
+				<br>
+			</div>
+
+			<div id="Contact" class="tabcontent">
+				<br>
+				<?php
+				if($pr_website != "undefined" || empty($pr_website)) {
+					?>
+					<a href="<?php echo $pr_website; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/www.png">&nbsp;</a>
+					<?php
+				}
+				if($pr_faceboook != "undefined" || empty($pr_faceboook)) {
+					?>
+					<a href="<?php echo $pr_faceboook; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/facebook.png">&nbsp;</a>
+					<?php
+				}
+				if($pr_twitter != "undefined" || empty($pr_twitter)) {
+					?>
+					<a href="<?php echo $pr_twitter; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/twitter.png">&nbsp;</a>
+					<?php
+				}
+				if($pr_googleplus != "undefined" || empty($pr_googleplus)) {
+					?>
+					<a href="<?php echo $pr_googleplus; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/google-plus.png">&nbsp;</a>
+					<?php
+				}
+				if ($pr_website != "undefined" || empty($pr_website) && $pr_faceboook != "undefined" || empty($pr_faceboook) && $pr_twitter != "undefined" || empty($pr_twitter) && $pr_googleplus != "undefined" || empty($pr_googleplus)) {
+					?>
+					<br>
+					<br>
+					<p style="font-size:8px;text-align:center">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
+					<?php
+				} else {
+					?>
+					<p style="text-align:center;font-weight:bold;color:#e73030">This user cannot be contacted.</p>
+					<?php
+				}
+				?>
+				<br>
 			</div>
 		</div>
 	</div>
 	<?php include "footer.html"; ?>
-	<script type="text/javascript">
+	<script>
 	$("#addfriend").click(function() {
 		var sendUser = $(this).attr("data-send-user");
 		var sendProf = $(this).attr("data-send-prof");
@@ -456,29 +514,22 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 		}
 		slides[slideIndex-1].style.display = "block";
 	}
-	
-	function openTab(evt, cityName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
 
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-	}
 	// Get the element with id="defaultOpen" and click on it
-	document.getElementById("defaultOpen").click();
+	document.getElementsByClassName('tablinks')[0].click();
+	function openTab(evt, cityName) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
 	</script>
 </body>
 </html>
