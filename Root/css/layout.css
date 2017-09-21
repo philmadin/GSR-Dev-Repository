@@ -7768,6 +7768,19 @@ div.tab button.active {
   text-align: justify;
 }
 
+.tabcontent h4 {
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #e73030;
+}
+
+.tabcontent h5 {
+  color: #bfbfbf;
+  font-weight: 200;
+}
+
 @-webkit-keyframes fadeEffect {
   from {opacity: 0;}
   to {opacity: 1;}

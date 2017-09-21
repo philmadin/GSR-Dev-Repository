@@ -5,16 +5,15 @@ include ("links.php");
 include ("header.php");
 
 $browserUSER = $_SESSION['username']; // User that starts the session
+
 if (isset($browserUSER)) {
-	$stmt = mysqli_prepare($con, $query_user_info) or die("Unable to prepare statement: " . mysqli_error($con));
+	$stmt = mysqli_prepare($con, "SELECT id, friends FROM tbl_accounts WHERE username = ?") or die("Unable to prepare statement: " . mysqli_error($con));
 	if ($stmt) {
 		mysqli_stmt_bind_param($stmt, 's', $browserUSER);
 		mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-		$bwsrQRY = mysqli_stmt_get_result($stmt);
-		while ($bwsrROW = mysqli_fetch_array($bwsrQRY)) {
-			$bwsrID = $bwsrROW['id'];
-			$bwsrFR = explode(',', $bwsrROW['friends']);
-		}
+		mysqli_stmt_bind_result($stmt, $bwsrID, $FRbwsr);
+		mysqli_stmt_fetch($stmt);
+		$bwsrFR = explode(',', $FRbwsr);
 		mysqli_stmt_close($stmt);
 	}
 }
@@ -25,41 +24,48 @@ $stmt = mysqli_prepare($con, $query_user_info) or die("Unable to prepare stateme
 if ($stmt) {
 	mysqli_stmt_bind_param($stmt, 's', $getprofilename);
 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-	$proQRYA = mysqli_stmt_get_result($stmt);
+	mysqli_stmt_bind_result($stmt,
+													$pr_id,
+													$pr_username,
+													$pr_firstname,
+													$pr_lastname,
+													$pr_showName,
+													$pr_xbox,
+													$pr_playstation,
+													$pr_steam,
+													$pr_console,
+													$pr_game,
+													$pr_quote,
+													$pr_bio,
+													$pr_rank,
+													$pr_since,
+													$pr_town,
+													$pr_country,
+													$pr_website,
+													$pr_facebook,
+													$pr_twitter,
+													$pr_googleplus,
+													$pr_level,
+													$pr_picture,
+													$pr_badges,
+													$pr_favs,
+													$pr_friends,
+													$pr_clan,
+													$pr_clantime,
+													$pr_photos,
+													$pr_cover_pic,
+													$pr_status);
+	mysqli_stmt_fetch($stmt);
 	mysqli_stmt_close($stmt);
 }
 
-while ($prof = mysqli_fetch_array($proQRYA)) {
-	$pr_id = $prof['id'];
-	$pr_username = $prof['username'];
-	$pr_firstname	= $prof['firstname'];
-	$pr_lastname = $prof['lastname'];
-	$showName	= $prof['showname'];
-	$pr_xbox = $prof['xbox'];
-	$pr_playstation	= $prof['playstation'];
-	$pr_steam = $prof['steam'];
-	$pr_console	= $prof['console'];
-	$pr_game = $prof['game'];
-	$pr_quote	= $prof['quote'];
-	$pr_bio	= $prof['biography'];
-	$pr_rank = $prof['rank'];
-	$pr_since	= strtotime($prof['since']);
-	$pr_town = $prof['town'];
-	$pr_country	= $prof['country'];
-	$pr_website	= $prof['website'];
-	$pr_faceboook	= $prof['facebook'];
-	$pr_twitter	= $prof['twitter'];
-	$pr_googleplus = $prof['googleplus'];
-	$pr_level	= $prof['level'];
-	$pr_picture	= $prof['picture'];
-	$pr_cover_pic = $prof['cover_pic'];
-	$pr_badges = $prof['badges'];
-	$pr_favs = $prof['favourites'];
-	$pr_friends	= $prof['friends'];
-	$pr_clan = $prof['clan'];
-	$pr_clantime = $prof['clantime'];
-	$pr_cotype = $prof['cotype'];
-	$pr_photos = $prof['photos'];
+$stmt = mysqli_prepare($con, $query_user_rank) or die("Unable to prepare statement: " . mysqli_error($con));
+if ($stmt) {
+	mysqli_stmt_bind_param($stmt, 's', $pr_rank);
+	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
+	mysqli_stmt_bind_result($stmt, $pr_rank_name);
+	mysqli_stmt_fetch($stmt);
+	mysqli_stmt_close($stmt);
 }
 
 if($pr_picture == NULL || $pr_picture == "" || empty($pr_picture)) {
@@ -76,14 +82,18 @@ if($pr_cover_pic == NULL || $pr_cover_pic == "" || empty($pr_cover_pic)) {
 
 /* Number of views */
 $action = "view";
+$views = array();
 $stmt = mysqli_prepare($con, $query_user_exp) or die("Unable to prepare statement: " . mysqli_error($con));
 if ($stmt) {
 	mysqli_stmt_bind_param($stmt, 'ss', $getprofilename, $action);
 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-	$statsUser = mysqli_stmt_get_result($stmt);
+	mysqli_stmt_bind_result($stmt, $pr_views);
+	while (mysqli_stmt_fetch($stmt)) {
+		array_push($views, $pr_views);
+	}
 	mysqli_stmt_close($stmt);
 }
-$num_rows = mysqli_num_rows($statsUser);
+$num_rows = sizeof($views);
 if ($num_rows == 1) {
 	$user_views = 1;
 	$text_view = "view";
@@ -94,14 +104,18 @@ if ($num_rows == 1) {
 
 /* Number of bites */
 $action = "bite";
+$bites = array();
 $stmt = mysqli_prepare($con, $query_user_exp) or die("Unable to prepare statement: " . mysqli_error($con));
 if ($stmt) {
 	mysqli_stmt_bind_param($stmt, 'ss', $getprofilename, $action);
 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-	$statsUser = mysqli_stmt_get_result($stmt);
+	mysqli_stmt_bind_result($stmt, $pr_bites);
+	while (mysqli_stmt_fetch($stmt)) {
+		array_push($bites, $pr_bites);
+	}
 	mysqli_stmt_close($stmt);
 }
-$num_rows = mysqli_num_rows($statsUser);
+$num_rows = sizeof($bites);
 if ($num_rows == 1) {
 	$user_bites = 1;
 	$text_bite = "bite";
@@ -119,14 +133,13 @@ if (!empty($pr_friends) || $pr_friends != NULL || $pr_friends != "") { // If the
 		if ($stmt) {
 			mysqli_stmt_bind_param($stmt, 's', $id);
 			mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-			$friend_info = mysqli_stmt_get_result($stmt);
-			while ($friend_row = mysqli_fetch_array($friend_info)) {
-				array_push($friends, $friend_row); // Fill the array $friends with the information of every friend
+			mysqli_stmt_bind_result($stmt, $fr_username, $fr_firstname, $fr_lastname);
+			while (mysqli_stmt_fetch($stmt)) {
+				array_push($friends, $fr_username, $fr_firstname, $fr_lastname); // Fill the array $friends with the information of every friend
 			}
 			mysqli_stmt_close($stmt);
 		}
 	}
-	//echo $friends[0]['username'] . " Hello";
 	$num_rows = sizeof($friends_ids);
 	if ($num_rows == 1) {
 		$user_friends = 1;
@@ -146,11 +159,11 @@ if (!empty($pr_badges) || $pr_badges != NULL || $pr_badges != "") { // If the us
 	foreach ($badges_array as $badge) {
 		$stmt = mysqli_prepare($con, $query_user_badges) or die("Unable to prepare statement: " . mysqli_error($con));
 		if ($stmt) {
-			mysqli_stmt_bind_param($stmt, 's', $badge);
+			mysqli_stmt_bind_param($stmt, 's', $badge_name, $badge_file);
 			mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-			$badge_info = mysqli_stmt_get_result($stmt);
-			while ($badge_row = mysqli_fetch_array($badge_info)) {
-				array_push($badges, $badge_row); // Fill the array $badges with the information of every badge
+			mysqli_stmt_bind_result($stmt, $badge_name, $badge_file);
+			while (mysqli_stmt_fetch($stmt)) {
+				array_push($badges, $badge_info);
 			}
 			mysqli_stmt_close($stmt);
 		}
@@ -169,14 +182,16 @@ if (!empty($pr_badges) || $pr_badges != NULL || $pr_badges != "") { // If the us
 
 /* Number of articles */
 $articles_info = array();
+$articles_ids = array();
 $reviews_info = array();
 $stmt = mysqli_prepare($con, $query_user_articles) or die("Unable to prepare statement: " . mysqli_error($con));
 if ($stmt) {
 	mysqli_stmt_bind_param($stmt, 'sss', $pr_username, $pr_username, $pr_username);
 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-	$us_articles = mysqli_stmt_get_result($stmt);
-	while ($article_row = mysqli_fetch_array($us_articles)) {
-		array_push($articles_info, $article_row);
+	mysqli_stmt_bind_result($stmt, $art_id, $art_type, $art_title, $art_author, $art_createdate);
+	while (mysqli_stmt_fetch($stmt)) {
+		array_push($articles_info, $art_id, $art_type, $art_title, $art_author, $art_createdate);
+		array_push($articles_ids, $art_id);
 	}
 	mysqli_stmt_close($stmt);
 }
@@ -184,13 +199,14 @@ $stmt = mysqli_prepare($con, $query_user_review) or die("Unable to prepare state
 if ($stmt) {
 	mysqli_stmt_bind_param($stmt, 's', $pr_username);
 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-	$us_reviews = mysqli_stmt_get_result($stmt);
-	while ($review_row = mysqli_fetch_array($us_reviews)) {
-		array_push($reviews_info, $review_row);
+	mysqli_stmt_bind_result($stmt, $rev_id, $rev_type, $rev_title, $rev_gamename, $rev_author, $rev_createdate);
+	while (mysqli_stmt_fetch($stmt)) {
+		array_push($reviews_info, $rev_id, $rev_type, $rev_title, $rev_gamename, $rev_author, $rev_createdate);
+		array_push($articles_ids, $rev_id);
 	}
 	mysqli_stmt_close($stmt);
 }
-$num_rows = sizeof($articles_info) + sizeof($reviews_info);
+$num_rows = sizeof($articles_ids);
 if ($num_rows == 1) {
 	$user_articles = 1;
 	$text_articles = "article";
@@ -236,12 +252,16 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 			<!-- Add as a friend -->
 			<?php
 			if($pr_username != $browserUSER && isset($browserUSER)) {
-				//$query_add_friend = "SELECT * FROM tbl_requests WHERE requestee = ? AND requester = ?";
+				$requesteeQRY = array();
+				$requesterQRY = array();
 				$stmt = mysqli_prepare($con, $query_add_friend) or die("Unable to prepare statement: " . mysqli_error($con));
 				if ($stmt) {
 					mysqli_stmt_bind_param($stmt, 'ii', $pr_id, $bwsrID);
 					mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-					$requesteeQRY = mysqli_stmt_get_result($stmt);
+					mysqli_stmt_bind_result($stmt, $requestee);
+					while (mysqli_stmt_fetch($stmt)) {
+						array_push($requesteeQRY, $requestee);
+					};
 					mysqli_stmt_close($stmt);
 				}
 
@@ -249,15 +269,18 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 				if ($stmt) {
 					mysqli_stmt_bind_param($stmt, 'ii', $bwsrID, $pr_id);
 					mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-					$requesterQRY = mysqli_stmt_get_result($stmt);
+					mysqli_stmt_bind_result($stmt, $requester);
+					while (mysqli_stmt_fetch($stmt)) {
+						array_push($requesterQRY, $requester);
+					};
 					mysqli_stmt_close($stmt);
 				}
 
-				if(mysqli_num_rows($requesteeQRY) > 0) { // The session user send a friend request
+				if(sizeof($requesteeQRY) > 0) { // The session user send a friend request
 					?>
 					<button id="requestfriend" name="FriendAdd" type="button" style="cursor: auto !important;"><i class="fa fa-user-o"></i>  Request sent</button>
 					<?php
-				} else if(mysqli_num_rows($requesterQRY) > 0) { // The session user receive a friend request
+				} else if(sizeof($requesterQRY) > 0) { // The session user receive a friend request
 					?>
 					<button id="acceptfriend" data-send-user="<?php echo $browserUSER; ?>" data-send-prof="<?php echo $pr_username; ?>" name="FriendAdd" type="button" style="cursor: auto !important;"><i class="fa fa-user"></i>  Accept request</button>
 					<?php
@@ -265,7 +288,7 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 					?>
 					<button id="friend" name="FriendAdd" type="button" disabled><i class="fa fa-user-o"></i>  Friend</button>
 					<?php
-				} else if(!in_array($pr_id, $bwsrFR) && mysqli_num_rows($requesterQRY) < 1 && mysqli_num_rows($requesteeQRY) < 1) { // If the session user and the profile user are not friends yet and none of them has sent a friend request
+				} else if(!in_array($pr_id, $bwsrFR) && sizeof($requesterQRY) < 1 && sizeof($requesteeQRY) < 1) { // If the session user and the profile user are not friends yet and none of them has sent a friend request
 					?>
 					<button id="addfriend" data-send-user="<?php echo $browserUSER; ?>" data-send-prof="<?php echo $pr_username; ?>" name="FriendAdd" type="button"><i class="fa fa-user-plus"></i>  Add friend</button>
 					<?php
@@ -366,20 +389,17 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 
 			<div id="Clan" class="tabcontent">
 				<br>
+				<?php echo $bwsrID . " hello " . $bwsrFR; ?>
 				<h3 class="tab_header">Page under construction</h3>
 				<p class="paragraph">Please check back soon.</p>
 				<br>
 			</div>
 
 			<div id="About" class="tabcontent">
-				<!--<h3>About</h3>
-				<p>Biography
-				favourite quote
-				game platforms
-
-				$pr_firstname	= $prof['firstname'];
-				$pr_lastname = $prof['lastname'];
-				$showName	= $prof['showname'];
+				<!--
+				$pr_firstname	= $prof['firstname']; *
+				$pr_lastname = $prof['lastname']; *
+				$showName	= $prof['showname']; *
 				$pr_xbox = $prof['xbox'];
 				$pr_playstation	= $prof['playstation'];
 				$pr_steam = $prof['steam'];
@@ -399,7 +419,14 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 				$pr_cotype = $prof['cotype']; ?????
 				</p>-->
 				<br>
-				<p style="font-size:16px;font-weight:500;margin:0;padding:0">Plays from <?php echo $pr_town . ", " . $pr_country; ?> since <?php echo humanTiming($pr_since); ?></p>
+				<h4><?php if ($showName === 1) {
+					echo $pr_firstname . " " . $pr_lastname;
+				} else {
+					echo $pr_username;
+				}
+				?></h4>
+				<h5><?php echo $pr_rank_name; ?></h5>
+				<p style="font-size:16px;font-weight:500;margin:0;padding:0">Plays with <b style="color:#e73030">GSR</b> from <?php echo $pr_town . ", " . $pr_country; ?> since <?php echo humanTiming($pr_since); ?></p>
 				<br>
 				<h3 class="tab_header">Biography</h3>
 				<p class="paragraph"><?php echo $pr_bio; ?></p>
@@ -412,27 +439,32 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 			<div id="Contact" class="tabcontent">
 				<br>
 				<?php
+				$social = "false";
 				if($pr_website != "undefined" || empty($pr_website)) {
+					$social = "true";
 					?>
 					<a href="<?php echo $pr_website; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/www.png">&nbsp;</a>
 					<?php
 				}
-				if($pr_faceboook != "undefined" || empty($pr_faceboook)) {
+				if ($pr_faceboook != "undefined" || empty($pr_faceboook)) {
+					$social = "true";
 					?>
 					<a href="<?php echo $pr_faceboook; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/facebook.png">&nbsp;</a>
 					<?php
 				}
-				if($pr_twitter != "undefined" || empty($pr_twitter)) {
+				if ($pr_twitter != "undefined" || empty($pr_twitter)) {
+					$social = "true";
 					?>
 					<a href="<?php echo $pr_twitter; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/twitter.png">&nbsp;</a>
 					<?php
 				}
-				if($pr_googleplus != "undefined" || empty($pr_googleplus)) {
+				if ($pr_googleplus != "undefined" || empty($pr_googleplus)) {
+					$social = "true";
 					?>
 					<a href="<?php echo $pr_googleplus; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/google-plus.png">&nbsp;</a>
 					<?php
 				}
-				if ($pr_website != "undefined" || empty($pr_website) && $pr_faceboook != "undefined" || empty($pr_faceboook) && $pr_twitter != "undefined" || empty($pr_twitter) && $pr_googleplus != "undefined" || empty($pr_googleplus)) {
+				if ($social === "true") {
 					?>
 					<br>
 					<br>
