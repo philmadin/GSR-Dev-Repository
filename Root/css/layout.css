@@ -7033,6 +7033,10 @@ footer nav p a:hover {
   font-family: 'Jaldi', sans-serif;
 }
 
+#review_page .content .vglnk span{
+	display:inherit
+}
+
 #review_page .content span {
   color: #e73030;
   font-size: 20px;
@@ -7789,4 +7793,6 @@ div.tab button.active {
 @keyframes fadeEffect {
   from {opacity: 0;}
   to {opacity: 1;}
+	cursor: pointer;
+	inset 10px 10px 10px 10px rgba(0,0,0,0.5);
 }
