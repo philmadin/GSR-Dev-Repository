@@ -159,7 +159,7 @@
 			
 				<h2><?php echo $title; ?></h2>		
 				<p class="content" id="main_section" style="margin:0px !important;">
-					<?php echo strip_tags(html_entity_decode($content), $exclude_html); ?>
+					<?php echo html_entity_decode($content); ?>
 				</p>
 				<br />
 				<hr />

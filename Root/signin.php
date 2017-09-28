@@ -28,7 +28,7 @@
 
 
         if(mysqli_query($con, "UPDATE tbl_users SET online = 'ONLINE' WHERE username = '$username'")) {
-			
+
 			if(isset($_GET['staylogged'])){
 				setcookie('username', $username, time() + (3600*24*365*10), "/");
 				setcookie('username', $username, time() + (3600*24*365*10), "/mobilesite");
@@ -37,7 +37,7 @@
 				setcookie('username', $username, time() + (86400 * 30), "/");
 				setcookie('username', $username, time() + (86400 * 30), "/mobilesite");
 			}
-            
+
             $_SESSION['username'] = $username;
 
         }

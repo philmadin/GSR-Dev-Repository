@@ -33,7 +33,7 @@
 		$overview		= $tROW['Overview'];
 		$file_storyline	 	= $tROW['content_2'];
 		$Content1		= $tROW['HTMLContent_1'];
-		$file_gameplay		= $tROW['content_3'];		
+		$file_gameplay		= $tROW['content_3'];
 		$Content2		= $tROW['HTMLContent_2'];
 		$file_audio		 	= $tROW['content_4'];
 		$Content4			= $tROW['HTMLContent_4'];
@@ -108,20 +108,20 @@
 		break;
 	}
 	$viewer_ip = $_SERVER['REMOTE_ADDR'];
-	
+
 	$biteQUERY = mysqli_query($con, "SELECT * FROM tbl_article_stats WHERE article_id = '$articleid' AND type = 'bite' AND ip = '$viewer_ip' AND article_type = '$articletype'");
-	if(mysqli_num_rows($biteQUERY)>0){ 
+	if(mysqli_num_rows($biteQUERY)>0){
 	$hasbit=true;
 	}else{$hasbit=false;}
 
 	$bitecount = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_article_stats WHERE article_id = '$articleid' AND type = 'bite'AND article_type = '$articletype'"));
 	if($bitecount==1){$bitecounttext="bite";}
 	else{$bitecounttext = "bites";}
-	
+
 	$articleviews = (mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_article_stats WHERE article_id = '$articleid' AND type = 'view' AND article_type = '$articletype'"))+1);
 	if($articleviews==1){$articleviewtext="view";}
 	else{$articleviewtext = "views";}
-	
+
 	$aQUERY = mysqli_query($con, "SELECT * FROM tbl_accounts WHERE username = '$authuser'");
 	while($aROW = mysqli_fetch_assoc($aQUERY)) {
 		$arow_rank			= $aROW['rank'];
@@ -138,46 +138,46 @@
 	} else {
 		$arow_img = $arow_pic;
 	}
-	
+
 	$fb_url = "http://www.facebook.com/sharer/sharer.php?u=".urlencode($url);
 	$gplus_url = "https://plus.google.com/share?url=".urlencode($url);
 	$twitter_url = "http://twitter.com/share?url=".urlencode($url)."&text=".urlencode($title.": \n");
-	
+
 ?>
 
 <!doctype html>
 <html>
 <head>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title><?php echo $title . " by " . $author . " | " . $gamename . " Review"; ?> | GSR</title>
+    <title><?php echo $title . " by " . $author . " | " . $gamename . " Review"; ?> | GSR</title>
 
-<meta name="description" content="<?php echo $title . " - " . $summary; ?>">
+    <meta name="description" content="<?php echo $title . " - " . $summary; ?>">
 
-<meta name="author" content="<?php echo $author;?>" />
+    <meta name="author" content="<?php echo $author; ?>"/>
 
-<meta itemprop="name" content="<?php echo $title;?>">
-<meta itemprop="description" content="<?php echo $summary;?>">
-<meta itemprop="image" content="http://gamesharkreviews.com/imgs/review/<?php echo $aimage; ?>">
+    <meta itemprop="name" content="<?php echo $title; ?>">
+    <meta itemprop="description" content="<?php echo $summary; ?>">
+    <meta itemprop="image" content="http://gamesharkreviews.com/imgs/review/<?php echo $aimage; ?>">
 
-<!-- for Facebook -->          
-<meta property="og:title" content="<?php echo $title;?>" />
-<meta property="og:type" content="article" />
-<meta property="og:site_name" content="Gameshark Reviews (GSR)" />
-<meta property="og:updated_time" content="<?php echo date("D jS M Y", strtotime($createdate));?>" />
-<meta property="og:image" content="http://gamesharkreviews.com/imgs/review/<?php echo $aimage; ?>" />
-<meta property="og:url" content="<?php echo $url;?>" />
-<meta property="og:description" content="<?php echo $summary;?>" />
+    <!-- for Facebook -->
+    <meta property="og:title" content="<?php echo $title; ?>"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:site_name" content="Gameshark Reviews (GSR)"/>
+    <meta property="og:updated_time" content="<?php echo date("D jS M Y", strtotime($createdate)); ?>"/>
+    <meta property="og:image" content="http://gamesharkreviews.com/imgs/review/<?php echo $aimage; ?>"/>
+    <meta property="og:url" content="<?php echo $url; ?>"/>
+    <meta property="og:description" content="<?php echo $summary; ?>"/>
 
-<!-- for Twitter -->          
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="<?php echo $title;?>" />
-<meta name="twitter:description" content="<?php echo $summary;?>" />
-<meta name="twitter:image" content="http://gamesharkreviews.com/imgs/review/<?php echo $aimage; ?>" />
+    <!-- for Twitter -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="<?php echo $title; ?>"/>
+    <meta name="twitter:description" content="<?php echo $summary; ?>"/>
+    <meta name="twitter:image" content="http://gamesharkreviews.com/imgs/review/<?php echo $aimage; ?>"/>
 
-<?php include "links.php"; ?>
+    <?php include "links.php"; ?>
 </head>
 
 <body>
@@ -185,18 +185,18 @@
 {
   "@context": "http://schema.org/",
   "@type": "Review",
-  "name": "<?php echo $title;?>",
+  "name": "<?php echo $title; ?>",
   "itemReviewed": {
     "@type": "Game",
-    "name": "<?php echo $gamename;?>"
+    "name": "<?php echo $gamename; ?>"
   },
   "author": {
     "@type": "Person",
-    "name": "<?php echo $author;?>"
+    "name": "<?php echo $author; ?>"
   },
   "reviewRating": {
     "@type": "Rating",
-    "ratingValue": "<?php echo $main_rating;?>",
+    "ratingValue": "<?php echo $main_rating; ?>",
     "bestRating": "10"
   },
   "publisher": {
@@ -205,15 +205,16 @@
   },
   "datePublished": "<?php echo date(DATE_ISO8601, strtotime($createdate)); ?>"
 }
+
 </script>
 	<?php include "header.php"; ?>
 
 	<div id="page" class="container_24">
 
-		<article>		
+		<article>
 			<section class="grid_24" id="review_feature_image">
 				<img src="imgs/review/<?php echo $aimage; ?>">
-				<div id="gradient"></div>	
+				<div id="gradient"></div>
 				<h1><?php echo $title; ?><span><?php echo $articletype; ?></span></h1>
 				<ul id="tagmenu">
 					<li class="tagmenu_button" id="overview_button">OVERVIEW</li>
@@ -230,7 +231,7 @@
 			<section id="review_page" class="grid_16">
 				<p id="small_details">
 					<big><?php echo $gamename; ?></big><br>
-					<?php 
+					<?php
 					echo $generallabel. " review";
 					if($generallabel=="Game"){
 						echo " on " . $testedplatforms;
@@ -276,11 +277,11 @@
 				<a class="social_gplus" title="Share on Google+" href="<?php echo $gplus_url;?>" href="#"></a>
 				</p>
 				<p id="bite_area">
-				<?php 
-				if($hasbit==true){ 
+				<?php
+				if($hasbit==true){
 				echo '<button id="bite" title="Unbite" data-state="active"></button><span id="bite_count" data-state="active">'.$bitecount.'</span>';
 				}
-				if($hasbit==false){ 
+				if($hasbit==false){
 				echo '<button id="bite" title="Take a bite" data-state="inactive"></button><span id="bite_count" data-state="inactive">'.$bitecount.'</span>';
 				}
 				?>
@@ -309,7 +310,7 @@
 				* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
 				*/
 				var disqus_config = function () {
-				this.page.identifier = "<?php echo $articleid; ?>"; 
+				this.page.identifier = "<?php echo $articleid; ?>";
 				};
 				(function() { // DON'T EDIT BELOW THIS LINE
 				var d = document, s = d.createElement('script');
@@ -428,135 +429,135 @@
 							<a class="related-contain" href="<?php echo $rel['url'];?>">
 									<span style="background-image:url(<?php echo $rel['image'];?>);" class="related">
 										<span class="related-bites">
-											<?php echo formatNum($rel['bites']);?> bites
+											<?php echo formatNum($rel['bites']); ?> bites
 										</span>
 										<span class="related-views">
-											<?php echo formatNum($rel['views']);?> views
+											<?php echo formatNum($rel['views']); ?> views
 										</span>
 									</span>
-								<span class="related-title"><?php echo $rel['title'];?></span>
-							</a>
-						</li>
-					<?php } ?>
-				</ul>
+                            <span class="related-title"><?php echo $rel['title']; ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
 
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- GSR Article Side -->
-			<ins class="adsbygoogle"
-				 style="display:inline-block;width:200px;height:450px"
-				 data-ad-client="ca-pub-8657869581265556"
-				 data-ad-slot="8271829821"></ins>
-			<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
-			
-			</div>
-			
-		</article>
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- GSR Article Side -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:200px;height:450px"
+                 data-ad-client="ca-pub-8657869581265556"
+                 data-ad-slot="8271829821"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
 
-	</div>
+        </div>
 
-	<?php include "footer.html"; ?>
+    </article>
 
-	<script type="text/javascript">
-		var articleid=<?php echo $articleid;?>;
-		var articletype='<?php echo $articletype;?>';
-	
-$(".social_share_side a, .social_share_bottom a").click(function(e){
-e.preventDefault();
-var socialURL = $(this).attr("href");
-	var actionType = $(this).attr("class");
-window.open( socialURL, "socialWindow", "status = 1, height = 550, width = 600, resizable = 0" );
-	ae8857b082115f203e8a5d23410461f7(50, articletype, articleid, actionType, "<h3>Article Share!</h3> You have been rewarded %xp%xp<br />for sharing this review.");
-});
+</div>
 
-$(function() {
+<?php include "footer.html"; ?>
 
-	$.post("article_view_action.php",
-    {
-        articleid: articleid,
-        articletype: articletype
-    },
-    function(data, status){
-		$("#displayviews").text(data);
-		setTimeout(function(){
-			ae8857b082115f203e8a5d23410461f7(150, articletype, articleid, "view", "<h3>Article View!</h3> You have been rewarded %xp%xp<br />for reading this review.");
-		}, 30000);
-    });
-});
+<script type="text/javascript">
+    var articleid =<?php echo $articleid;?>;
+    var articletype = '<?php echo $articletype;?>';
 
-$("#bite").click(function(){
-	var articleid=<?php echo $articleid;?>;
-	var articletype='<?php echo $articletype;?>';
-	var state = $(this).attr("data-state");
-	var count = parseInt($("#bite_count").text());
-	var action;
-	if(state=="active"){
-	action = "unbite";
-	$("#bite, #bite_count").attr("data-state", "inactive");
-	$("#bite").attr("title", "Take a bite");
-	count--;
-	}
-	if(state=="inactive"){
-	action = "bite";
-	$("#bite, #bite_count").attr("data-state", "active");
-	$("#bite").attr("title", "Unbite");
-	count++;
-	}
-	
-	$("#bite_count").text(count);
-	
-	
-	$.get("bite_action.php",
-    {
-        articleid: articleid,
-        articletype: articletype,
-        action: action
-    },
-    function(data, status){
-        var row = data.split("-");
-		var new_action = row[0];
-		var new_count = row[1];
-			if(new_action=="unbite"){
-			$("#bite, #bite_count").attr("data-state", "inactive");
-			$("#bite").attr("title", "Take a bite")
-			}
-			if(new_action=="bite"){
-			$("#bite, #bite_count").attr("data-state", "active");
-			$("#bite").attr("title", "Unbite")
-	}
-		ae8857b082115f203e8a5d23410461f7(50, articletype, articleid, "bite", "<h3>Article Bite!</h3> You have been rewarded %xp%xp<br />for biting this review.");
-	$("#bite_count").text(new_count);
-		
+    $(".social_share_side a, .social_share_bottom a").click(function (e) {
+        e.preventDefault();
+        var socialURL = $(this).attr("href");
+        var actionType = $(this).attr("class");
+        window.open(socialURL, "socialWindow", "status = 1, height = 550, width = 600, resizable = 0");
+        ae8857b082115f203e8a5d23410461f7(50, articletype, articleid, actionType, "<h3>Article Share!</h3> You have been rewarded %xp%xp<br />for sharing this review.");
     });
 
-	
-	});
+    $(function () {
 
-		$('#image_holder').magnificPopup({
-			delegate: 'a:not(.related-contain)', // child items selector, by clicking on it popup will open
-			type: 'image',
-			gallery: {
-			  enabled: true
-			}
-		  // other options
-		});
+        $.post("article_view_action.php",
+            {
+                articleid: articleid,
+                articletype: articletype
+            },
+            function (data, status) {
+                $("#displayviews").text(data);
+                setTimeout(function () {
+                    ae8857b082115f203e8a5d23410461f7(150, articletype, articleid, "view", "<h3>Article View!</h3> You have been rewarded %xp%xp<br />for reading this review.");
+                }, 30000);
+            });
+    });
 
-		$(function() {
-			
-			
-			$(".tagmenu_button").each(function() {
-				var btnID = $(this).attr("id").replace("_button","");
+    $("#bite").click(function () {
+        var articleid =<?php echo $articleid;?>;
+        var articletype = '<?php echo $articletype;?>';
+        var state = $(this).attr("data-state");
+        var count = parseInt($("#bite_count").text());
+        var action;
+        if (state == "active") {
+            action = "unbite";
+            $("#bite, #bite_count").attr("data-state", "inactive");
+            $("#bite").attr("title", "Take a bite");
+            count--;
+        }
+        if (state == "inactive") {
+            action = "bite";
+            $("#bite, #bite_count").attr("data-state", "active");
+            $("#bite").attr("title", "Unbite");
+            count++;
+        }
 
-				$(this).click(function() {
-					$("html, body").animate({
-						scrollTop : ($("#" + btnID + "_section").offset().top - 80)
-					}, 1000);
-				});
-			});
-		});
+        $("#bite_count").text(count);
 
-	</script>
+
+        $.get("bite_action.php",
+            {
+                articleid: articleid,
+                articletype: articletype,
+                action: action
+            },
+            function (data, status) {
+                var row = data.split("-");
+                var new_action = row[0];
+                var new_count = row[1];
+                if (new_action == "unbite") {
+                    $("#bite, #bite_count").attr("data-state", "inactive");
+                    $("#bite").attr("title", "Take a bite")
+                }
+                if (new_action == "bite") {
+                    $("#bite, #bite_count").attr("data-state", "active");
+                    $("#bite").attr("title", "Unbite")
+                }
+                ae8857b082115f203e8a5d23410461f7(50, articletype, articleid, "bite", "<h3>Article Bite!</h3> You have been rewarded %xp%xp<br />for biting this review.");
+                $("#bite_count").text(new_count);
+
+            });
+
+
+    });
+
+    $('#image_holder').magnificPopup({
+        delegate: 'a:not(.related-contain)', // child items selector, by clicking on it popup will open
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+        // other options
+    });
+
+    $(function () {
+
+
+        $(".tagmenu_button").each(function () {
+            var btnID = $(this).attr("id").replace("_button", "");
+
+            $(this).click(function () {
+                $("html, body").animate({
+                    scrollTop: ($("#" + btnID + "_section").offset().top - 80)
+                }, 1000);
+            });
+        });
+    });
+
+</script>
 
 </body>
 </html>
