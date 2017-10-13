@@ -18,7 +18,7 @@ include_once("tokengen.php");
 $query_user_info = "SELECT id, username, firstname, lastname, showname, xbox, playstation, steam, console, game, quote, biography, rank, since, town, country, website, facebook, twitter, googleplus, level, picture, badges, favourites, friends, clan, clantime, photos, cover_pic, status FROM tbl_accounts WHERE username = ?";
 $query_user_rank = "SELECT name FROM tbl_ranks WHERE id = ?";
 $query_user_exp = "SELECT id FROM tbl_xp_log WHERE username = ? AND action_type = ?";
-$query_user_friend = "SELECT username, firstname, lastname FROM tbl_accounts WHERE id = ?";
+$query_user_friend = "SELECT showname, username, firstname, lastname FROM tbl_accounts WHERE id = ?";
 $query_user_badges = "SELECT name, file FROM tbl_badges WHERE id = ?";
 $query_user_articles = "SELECT id, article_type, title, author, createdate FROM tbl_guide WHERE authuser = ? UNION SELECT id, article_type, title, author, createdate FROM tbl_news WHERE authuser = ? UNION SELECT id, article_type, title, author, createdate FROM tbl_opinion WHERE authuser = ?;";
 $query_user_review = "SELECT id, article_type, title, gamename, author, createdate FROM tbl_review WHERE authuser = ?";

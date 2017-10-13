@@ -25,36 +25,36 @@ if ($stmt) {
 	mysqli_stmt_bind_param($stmt, 's', $getprofilename);
 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
 	mysqli_stmt_bind_result($stmt,
-													$pr_id,
-													$pr_username,
-													$pr_firstname,
-													$pr_lastname,
-													$pr_showName,
-													$pr_xbox,
-													$pr_playstation,
-													$pr_steam,
-													$pr_console,
-													$pr_game,
-													$pr_quote,
-													$pr_bio,
-													$pr_rank,
-													$pr_since,
-													$pr_town,
-													$pr_country,
-													$pr_website,
-													$pr_facebook,
-													$pr_twitter,
-													$pr_googleplus,
-													$pr_level,
-													$pr_picture,
-													$pr_badges,
-													$pr_favs,
-													$pr_friends,
-													$pr_clan,
-													$pr_clantime,
-													$pr_photos,
-													$pr_cover_pic,
-													$pr_status);
+	$pr_id,
+	$pr_username,
+	$pr_firstname,
+	$pr_lastname,
+	$pr_showName,
+	$pr_xbox,
+	$pr_playstation,
+	$pr_steam,
+	$pr_console,
+	$pr_game,
+	$pr_quote,
+	$pr_bio,
+	$pr_rank,
+	$pr_since,
+	$pr_town,
+	$pr_country,
+	$pr_website,
+	$pr_facebook,
+	$pr_twitter,
+	$pr_googleplus,
+	$pr_level,
+	$pr_picture,
+	$pr_badges,
+	$pr_favs,
+	$pr_friends,
+	$pr_clan,
+	$pr_clantime,
+	$pr_photos,
+	$pr_cover_pic,
+	$pr_status);
 	mysqli_stmt_fetch($stmt);
 	mysqli_stmt_close($stmt);
 }
@@ -354,90 +354,92 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 				} else { // The user has no pictures
 					?>
 					<br>
-					<span id="photo_gallery_text"><?php echo $photos_text; ?></span>
+					<span class="sidebar_text"><?php echo $photos_text; ?></span>
 					<?php
 				}
 				?>
 			</div>
 			<br>
-		</div>
-		<div id="profile_aside">
-			<div class="tab">
-				<button class="tablinks" onclick="openTab(event, 'Activity')" id="defaultOpen">Activity</button>
-				<button class="tablinks" onclick="openTab(event, 'Status')">Status</button>
-				<button class="tablinks" onclick="openTab(event, 'Articles')">Articles</button>
-				<button class="tablinks" onclick="openTab(event, 'Clan')">Clan</button>
-				<button class="tablinks" onclick="openTab(event, 'About')">About</button>
-				<button class="tablinks" onclick="openTab(event, 'Contact')">Contact</button>
+			<div id="userFriendList">
+				<span id="FriendsTag"><img id="backStats" src="imgs/stats_icons/friends_icon.png"><span id="textFriends">friends</span></span>
+				<br>
+				<br>
+				<?php
+				if (!empty($friends)) { // If the user has friends
+					// 3x3 grid with thumbnail
+					// To be continue...
+				} else {
+					echo "<span class='sidebar_text'>This user has no friends</span>";
+				} ?>
 			</div>
+			<br>
+		</div>
 
-			<div id="Activity" class="tabcontent">
-				<h3 class="tab_header">Activity tab</h3>
-				<p class="paragraph">Real time changes.</p>
+		<div id="profile_aside">
+			<ul class="tabs">
+				<li class="tablinks active" data-tab="Activity">Activity</li>
+				<li class="tablinks" data-tab="Status">Status</li>
+				<li class="tablinks" data-tab="Articles">Articles</li>
+				<li class="tablinks" data-tab="Clan">Clan</li>
+				<li class="tablinks" data-tab="About">About</li>
+				<li class="tablinks" data-tab="Contact">Contact</li>
+			</ul>
+
+			<div id="Activity" class="tabcontent active">
+				<h3>Activity tab</h3>
+				<p>Real time changes</p>
 			</div>
 
 			<div id="Status" class="tabcontent">
-				<br>
-				<!-- 250 character max... -->
-
+				<h3>Status tab</h3>
+				<p>Real time changes</p>
 			</div>
 
 			<div id="Articles" class="tabcontent">
-				<br>
-
+				<h3>Articles tab</h3>
+				<p>Real time changes</p>
 			</div>
 
 			<div id="Clan" class="tabcontent">
-				<br>
-				<?php echo $bwsrID . " hello " . $bwsrFR; ?>
-				<h3 class="tab_header">Page under construction</h3>
-				<p class="paragraph">Please check back soon.</p>
-				<br>
+				<h3>Page under construction</h3>
+				<p>Please check back soon.</p>
 			</div>
 
 			<div id="About" class="tabcontent">
-				<!--
-				$pr_firstname	= $prof['firstname']; *
-				$pr_lastname = $prof['lastname']; *
-				$showName	= $prof['showname']; *
-				$pr_xbox = $prof['xbox'];
-				$pr_playstation	= $prof['playstation'];
-				$pr_steam = $prof['steam'];
-				$pr_console	= $prof['console'];
-				$pr_game = $prof['game'];
-				$pr_quote	= $prof['quote']; *
-				$pr_bio	= $prof['biography']; *
-
-				$pr_since	= strtotime($prof['since']); *
-				$pr_town = $prof['town']; *
-				$pr_country	= $prof['country']; *
-
-
-				$pr_favs = $prof['favourites'];
-				$pr_friends	= $prof['friends'];
-
-				$pr_cotype = $prof['cotype']; ?????
-				</p>-->
+				<div class="span1">
+					<?php
+					if ($pr_showName) {
+						echo "<h4>" . $pr_firstname . " " . $pr_lastname . "</h4>";
+					} else {
+						echo "<h4>" . $pr_username . "</h4>";
+					}
+					echo "<h5>". $pr_rank_name ."</h5>";
+					?>
+				</div>
 				<br>
-				<h4><?php if ($showName === 1) {
-					echo $pr_firstname . " " . $pr_lastname;
-				} else {
-					echo $pr_username;
-				}
-				?></h4>
-				<h5><?php echo $pr_rank_name; ?></h5>
-				<p style="font-size:16px;font-weight:500;margin:0;padding:0">Plays with <b style="color:#e73030">GSR</b> from <?php echo $pr_town . ", " . $pr_country; ?> since <?php echo humanTiming($pr_since); ?></p>
-				<br>
-				<h3 class="tab_header">Biography</h3>
-				<p class="paragraph"><?php echo $pr_bio; ?></p>
-				<br>
-				<h3 class="tab_header">Favourite Quote</h3>
-				<p class="paragraph"><?php echo $pr_quote; ?></p>
-				<br>
+				<div style="display: flex">
+					<div class="span2">
+						<h6>bio</h6>
+						<?php echo "<p>" . $pr_bio . "</p>"; ?>
+					</div>
+					<div class="span3">
+						<h6>quote</h6>
+						<?php echo "<p style='font-style:italic;'>'" . $pr_quote . "'</p>"; ?>
+					</div>
+				</div>
+				<div class="span4">
+					<?php
+					if ($pr_console != "undefined" || empty($pr_console)) {
+						echo "<img id='consoleLove' alt='Favourite console' src='imgs/love_console.png'><p class='favText'>" . $pr_console . "</p>";
+					}
+					if ($pr_game != "undefined" || empty($pr_game)) {
+						echo "<img id='gameLove' alt='Favourite game' src='imgs/1stplace.png'><p class='favText'>" . $pr_game . "</p>";
+					}
+					?>
+				</div>
 			</div>
 
 			<div id="Contact" class="tabcontent">
-				<br>
 				<?php
 				$social = "false";
 				if($pr_website != "undefined" || empty($pr_website)) {
@@ -446,10 +448,10 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 					<a href="<?php echo $pr_website; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/www.png">&nbsp;</a>
 					<?php
 				}
-				if ($pr_faceboook != "undefined" || empty($pr_faceboook)) {
+				if ($pr_facebook != "undefined" || empty($pr_facebook)) {
 					$social = "true";
 					?>
-					<a href="<?php echo $pr_faceboook; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/facebook.png">&nbsp;</a>
+					<a href="<?php echo $pr_facebook; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/facebook.png">&nbsp;</a>
 					<?php
 				}
 				if ($pr_twitter != "undefined" || empty($pr_twitter)) {
@@ -468,16 +470,17 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 					?>
 					<br>
 					<br>
-					<p style="font-size:8px;text-align:center">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
+					<p style="font-size:8px;padding:0">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
 					<?php
 				} else {
 					?>
-					<p style="text-align:center;font-weight:bold;color:#e73030">This user cannot be contacted.</p>
+					<br>
+					<p style="text-align:center;font-weight:bold;font-size:16px;color:#e73030">This user cannot be contacted.</p>
 					<?php
 				}
 				?>
-				<br>
 			</div>
+
 		</div>
 	</div>
 	<?php include "footer.html"; ?>
@@ -547,21 +550,15 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 		slides[slideIndex-1].style.display = "block";
 	}
 
-	// Get the element with id="defaultOpen" and click on it
-	document.getElementsByClassName('tablinks')[0].click();
-	function openTab(evt, cityName) {
-		var i, tabcontent, tablinks;
-		tabcontent = document.getElementsByClassName("tabcontent");
-		for (i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
-		}
-		tablinks = document.getElementsByClassName("tablinks");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].className = tablinks[i].className.replace(" active", "");
-		}
-		document.getElementById(cityName).style.display = "block";
-		evt.currentTarget.className += " active";
-	}
+	$(document).ready(function() {
+		$('ul.tabs li').click(function() {
+			var tab_id = $(this).attr('data-tab');
+			$('ul.tabs li').removeClass('active');
+			$('.tabcontent').removeClass('active');
+			$(this).addClass('active');
+			$("#" + tab_id).addClass('active');
+		});
+	});
 	</script>
 </body>
 </html>

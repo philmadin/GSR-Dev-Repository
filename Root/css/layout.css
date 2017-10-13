@@ -7460,9 +7460,9 @@ footer nav p a:hover {
 #friend {
   display: inline-block;
   float: right;
-  position: relative;
+  position: absolute;
   right: 12px;
-  top: -42px;
+  top: 272px;
   cursor: auto;
   height: 30px;
   width: 200px;
@@ -7481,6 +7481,7 @@ footer nav p a:hover {
 
 #profile_sidebar {
   float: left;
+  width: 20.5%;
 }
 
 #userInfo {
@@ -7583,7 +7584,7 @@ footer nav p a:hover {
   font-size: 14px;
 }
 
-#photo_gallery_text {
+.sidebar_text {
   margin-left: 35px;
   text-align: center;
   text-transform: uppercase;
@@ -7699,86 +7700,55 @@ footer nav p a:hover {
   opacity: 80%;
 }
 
-/* tab menu*/
-#profile_aside div {
-  margin: 3px 0 0 197px;
-  width: 78.129%;
+#FriendsTag {
+  display: inline-block;
+  padding-left: 4px;
 }
 
-div.tab {
-  overflow: hidden;
+#textFriends {
+  display: inline-block !important;
+  margin-left: 4px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* tab menu */
+#profile_aside {
+  float: left;
+  width: 79%;
+}
+
+.tabs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   border-bottom: 3px solid #e73030;
-  background-color: none;
-  width: auto;
-  margin-top: 2px;
 }
 
-/* Style the buttons inside the tab */
-div.tab button {
+.tablinks {
+  padding: 6px 37px;
+  margin: 5px 0 0 0;
   background-color: #bfbfbf;
-  color: #FFF;
+  color: #fff;
   font-size: 14px;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: -1px;
-  float: left;
-  border: none;
-  outline: none;
+  display: inline-block;
+  width: 49px;
   cursor: pointer;
-  padding: 6px 37px;
-  margin: 0 2px 0 0;
-  transition: 0.3s;
 }
 
-/* Change background color of buttons on hover */
-div.tab button:hover {
+ul.tabs li.active {
   background-color: #e73030;
+  font-weight: bolder;
 }
 
-/* Create an active/current tablink class */
-div.tab button.active {
-  background-color: #e73030;
-}
-
-/* Style the tab content */
 .tabcontent {
   display: none;
-  border: none;
   -webkit-animation: fadeEffect 1s;
   animation: fadeEffect 1s; /* Fading effect takes 1 second */
-}
-
-.tab_header {
-  padding: 0 0 0 18px;
-  margin: 0;
-  font-size: 18px;
-  text-align: left;
-  color: #e73030;
-  background: url(../imgs/gamer_h2.png) no-repeat;
-}
-
-.tab_header:before {
-  content: none;
-}
-
-.tabcontent p, #Clan p {
-  padding: 5px 25px;
-  margin: 0;
-  font-size: 14px;
-  text-align: justify;
-}
-
-.tabcontent h4 {
-  padding: 0;
-  margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-  color: #e73030;
-}
-
-.tabcontent h5 {
-  color: #bfbfbf;
-  font-weight: 200;
 }
 
 @-webkit-keyframes fadeEffect {
@@ -7789,4 +7759,96 @@ div.tab button.active {
 @keyframes fadeEffect {
   from {opacity: 0;}
   to {opacity: 1;}
+}
+
+.tabcontent.active {
+  display: inherit;
+}
+
+.tabcontent h3 {
+  padding: 10px 10px 15px;
+  margin: 0;
+  font-size: 24px;
+  text-align: left;
+  color: #e73030;
+}
+
+.tabcontent p {
+  padding: 0 20px 0 15px;
+  font-size: 14px;
+  text-align: justify;
+}
+
+.tabcontent h4 {
+  padding: 0 0 0 40px;
+  margin: 0;
+  font-size: 28px;
+  font-weight: 100;
+  text-align: left;
+  color: #404040;
+}
+
+.tabcontent h5 {
+  padding: 0 0 0 40px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: left;
+  text-transform: uppercase;
+  color: #404040;
+}
+
+.tabcontent h6 {
+  padding: 0 0 0 15;
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: left;
+  text-transform: uppercase;
+  color: #e73030;
+}
+
+.span1 {
+  padding: 30px 0;
+  background-color: #f9f9f9;
+  width: 100%;
+}
+
+.span2 {
+  flex: 1;
+  width: 70%;
+}
+
+.span3 {
+  flex: 1;
+  width: 29%;
+}
+
+.span4 {
+  padding: 10px 0;
+  background-color: #f9f9f9;
+  border-top: 2px solid #e8e8e8;
+  border-bottom: 2px solid #e8e8e8;
+  width: 100%;
+}
+
+#consoleLove {
+  margin: 0 0 0 20px;
+  height: 35px;
+  width: 40px;
+}
+
+#gameLove {
+  margin: 0 0 0 20px;
+  height: 35px;
+  width: 40px;
+}
+
+.favText {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  display: inline;
+  font-weight: bold;
+  text-transform: uppercase;
 }
