@@ -68,18 +68,6 @@ if ($stmt) {
 	mysqli_stmt_close($stmt);
 }
 
-if($pr_picture == NULL || $pr_picture == "" || empty($pr_picture)) {
-	$pr_image = "default";
-} else {
-	$pr_image = $pr_picture;
-}
-
-if($pr_cover_pic == NULL || $pr_cover_pic == "" || empty($pr_cover_pic)) {
-	$pr_cover = "default_cover";
-} else {
-	$pr_cover = $pr_cover_pic;
-}
-
 /* Number of views */
 $action = "view";
 $views = array();
@@ -133,9 +121,10 @@ if (!empty($pr_friends) || $pr_friends != NULL || $pr_friends != "") { // If the
 		if ($stmt) {
 			mysqli_stmt_bind_param($stmt, 's', $id);
 			mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-			mysqli_stmt_bind_result($stmt, $fr_username, $fr_firstname, $fr_lastname);
+			mysqli_stmt_bind_result($stmt, $fr_showname, $fr_username, $fr_firstname, $fr_lastname, $fr_picture);
 			while (mysqli_stmt_fetch($stmt)) {
-				array_push($friends, $fr_username, $fr_firstname, $fr_lastname); // Fill the array $friends with the information of every friend
+				$friend = array($fr_showname, $fr_username, $fr_firstname, $fr_lastname, $fr_picture);
+				array_push($friends, $friend); // Fill the array $friends with the information of every friend
 			}
 			mysqli_stmt_close($stmt);
 		}
@@ -163,7 +152,8 @@ if (!empty($pr_badges) || $pr_badges != NULL || $pr_badges != "") { // If the us
 			mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
 			mysqli_stmt_bind_result($stmt, $badge_name, $badge_file);
 			while (mysqli_stmt_fetch($stmt)) {
-				array_push($badges, $badge_info);
+				$badge = array($badge_name, $badge_file);
+				array_push($badges, $badge);
 			}
 			mysqli_stmt_close($stmt);
 		}
@@ -182,31 +172,19 @@ if (!empty($pr_badges) || $pr_badges != NULL || $pr_badges != "") { // If the us
 
 /* Number of articles */
 $articles_info = array();
-$articles_ids = array();
-$reviews_info = array();
+//$reviews_info = array();
 $stmt = mysqli_prepare($con, $query_user_articles) or die("Unable to prepare statement: " . mysqli_error($con));
 if ($stmt) {
-	mysqli_stmt_bind_param($stmt, 'sss', $pr_username, $pr_username, $pr_username);
+	mysqli_stmt_bind_param($stmt, 'ssss', $pr_username, $pr_username, $pr_username, $pr_username);
 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-	mysqli_stmt_bind_result($stmt, $art_id, $art_type, $art_title, $art_author, $art_createdate);
+	mysqli_stmt_bind_result($stmt, $art_id, $art_type, $art_title, $art_author, $art_gamename, $art_image);
 	while (mysqli_stmt_fetch($stmt)) {
-		array_push($articles_info, $art_id, $art_type, $art_title, $art_author, $art_createdate);
-		array_push($articles_ids, $art_id);
+		$article = array($art_id, $art_type, $art_title, $art_author, $art_gamename, $art_image);
+		array_push($articles_info, $article);
 	}
 	mysqli_stmt_close($stmt);
 }
-$stmt = mysqli_prepare($con, $query_user_review) or die("Unable to prepare statement: " . mysqli_error($con));
-if ($stmt) {
-	mysqli_stmt_bind_param($stmt, 's', $pr_username);
-	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-	mysqli_stmt_bind_result($stmt, $rev_id, $rev_type, $rev_title, $rev_gamename, $rev_author, $rev_createdate);
-	while (mysqli_stmt_fetch($stmt)) {
-		array_push($reviews_info, $rev_id, $rev_type, $rev_title, $rev_gamename, $rev_author, $rev_createdate);
-		array_push($articles_ids, $rev_id);
-	}
-	mysqli_stmt_close($stmt);
-}
-$num_rows = sizeof($articles_ids);
+$num_rows = sizeof($articles_info);
 if ($num_rows == 1) {
 	$user_articles = 1;
 	$text_articles = "article";
@@ -246,8 +224,8 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 	<div id="page" class="container_24">
 		<div class="profile_header">
 			<div id="imagesProfile">
-				<img title="Cover Picture" id="coverPic" src="imgs/users/<?php echo $pr_cover; ?>.jpg">
-				<img title="Profile Picture" id="profilePic" src="imgs/users/<?php echo $pr_image; ?>-232x270.jpg">
+				<img title="Cover Picture" id="coverPic" src="imgs/users/<?php echo $pr_cover_pic; ?>.jpg">
+				<img title="Profile Picture" id="profilePic" src="imgs/users/<?php echo $pr_picture; ?>-232x270.jpg">
 			</div>
 			<!-- Add as a friend -->
 			<?php
@@ -363,11 +341,26 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 			<div id="userFriendList">
 				<span id="FriendsTag"><img id="backStats" src="imgs/stats_icons/friends_icon.png"><span id="textFriends">friends</span></span>
 				<br>
-				<br>
 				<?php
 				if (!empty($friends)) { // If the user has friends
-					// 3x3 grid with thumbnail
-					// To be continue...
+					?>
+					<div id="friendsThumbnail">
+						<?php
+						for ($i = 0; $i <= sizeof($friends) - 1; $i++) {
+							if ($i <= 8  || $i <= sizeof($friends)) {
+								if ($friends[$i][0]) {
+									$name = $friens[$i][2] . " " . $friens[$i][3];
+								} else {
+									$name = $friens[$i][1];
+								}
+								echo "<a href='profile.php?profilename=" . $friends[$i][1] . "'><img src='imgs/users/" . $friends[$i][4] . "-116x135.jpg' alt='" . $name . "' ></a>";
+							} else {
+								$i = sizeof($friends) + 1;
+							}
+						}
+						?>
+					</div>
+					<?php
 				} else {
 					echo "<span class='sidebar_text'>This user has no friends</span>";
 				} ?>
@@ -396,8 +389,28 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 			</div>
 
 			<div id="Articles" class="tabcontent">
-				<h3>Articles tab</h3>
-				<p>Real time changes</p>
+				<br>
+				<?php
+				if(!empty($articles_info)) {
+					?>
+					<div class="articlesThumbnail">
+						<?php
+						for ($i = 0; $i <= sizeof($articles_info) - 1; $i++) {
+							echo "<a href='" . $articles_info[$i][1] . ".php?t=" . urlencode(str_replace(' ', '_', $articles_info[$i][2])) . "&g=" . urlencode(str_replace('' , '_', $articles_info[$i][4])) .
+							"'>" . "<img src='imgs/". $articles_info[$i][1] ."/". urlencode($articles_info[$i][5]) . "' alt='" . $articles_info[$i][2] . "'></a>";
+							if ($i <= 14) {
+
+							} else {
+								$i = sizeof($articles_info) + 1;
+							}
+						}
+						?>
+					</div>
+					<?php
+				} else {
+					echo "<p style='text-align:center;font-weight:bold;font-size:16px;color:#e73030'>This user has written no articles</p>";
+				}
+				?>
 			</div>
 
 			<div id="Clan" class="tabcontent">
@@ -445,32 +458,32 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 				if($pr_website != "undefined" || empty($pr_website)) {
 					$social = "true";
 					?>
-					<a href="<?php echo $pr_website; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/www.png">&nbsp;</a>
+					<a href="<?php echo $pr_website; ?>"><img id="webPage" alt="Website" src="imgs/profile_media/www.png">&nbsp;</a>
 					<?php
 				}
 				if ($pr_facebook != "undefined" || empty($pr_facebook)) {
 					$social = "true";
 					?>
-					<a href="<?php echo $pr_facebook; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/facebook.png">&nbsp;</a>
+					<a href="<?php echo $pr_facebook; ?>"><img id="Facebook" alt="Website" src="imgs/profile_media/facebook.png">&nbsp;</a>
 					<?php
 				}
 				if ($pr_twitter != "undefined" || empty($pr_twitter)) {
 					$social = "true";
 					?>
-					<a href="<?php echo $pr_twitter; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/twitter.png">&nbsp;</a>
+					<a href="<?php echo $pr_twitter; ?>"><img id="Twitter" alt="Website" src="imgs/profile_media/twitter.png">&nbsp;</a>
 					<?php
 				}
 				if ($pr_googleplus != "undefined" || empty($pr_googleplus)) {
 					$social = "true";
 					?>
-					<a href="<?php echo $pr_googleplus; ?>" class="socialMedia"><img class="socialIcon" alt="Website" src="imgs/profile_media/google-plus.png">&nbsp;</a>
+					<a href="<?php echo $pr_googleplus; ?>"><img id="Googleplus" alt="Website" src="imgs/profile_media/google-plus.png">&nbsp;</a>
 					<?php
 				}
 				if ($social === "true") {
 					?>
 					<br>
 					<br>
-					<p style="font-size:8px;padding:0">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
+					<p style="font-size:8px;padding:0;text-align:center">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
 					<?php
 				} else {
 					?>
@@ -515,40 +528,40 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 		});
 	});
 
-	// Modal
-	function openModal() { // Shows the modal
-		document.getElementById("modal").style.display = "block";
-	}
-
-	function closeModal() { // Hides the modal
-		document.getElementById("modal").style.display = "none";
-	}
-
-	var slideIndex = 1;
-	showSlides(slideIndex);
-
-	function plusSlides(n) {
-		showSlides(slideIndex += n);
-	}
-
-	function currentSlide(n) {
-		showSlides(slideIndex = n);
-	}
-
-	function showSlides(n) {
-		var i;
-		var slides = document.getElementsByClassName("images");
-		if (n > slides.length) {
-			slideIndex = 1;
-		}
-		if (n < 1) {
-			slideIndex = slides.length
-		}
-		for (i = 0; i < slides.length; i++) {
-			slides[i].style.display = "none";
-		}
-		slides[slideIndex-1].style.display = "block";
-	}
+	// // Modal
+	// function openModal() { // Shows the modal
+	// 	document.getElementById("modal").style.display = "block";
+	// }
+	//
+	// function closeModal() { // Hides the modal
+	// 	document.getElementById("modal").style.display = "none";
+	// }
+	//
+	// var slideIndex = 1;
+	// showSlides(slideIndex);
+	//
+	// function plusSlides(n) {
+	// 	showSlides(slideIndex += n);
+	// }
+	//
+	// function currentSlide(n) {
+	// 	showSlides(slideIndex = n);
+	// }
+	//
+	// function showSlides(n) {
+	// 	var i;
+	// 	var slides = document.getElementsByClassName("images");
+	// 	if (n > slides.length) {
+	// 		slideIndex = 1;
+	// 	}
+	// 	if (n < 1) {
+	// 		slideIndex = slides.length
+	// 	}
+	// 	for (i = 0; i < slides.length; i++) {
+	// 		slides[i].style.display = "none";
+	// 	}
+	// 	slides[slideIndex-1].style.display = "block";
+	// }
 
 	$(document).ready(function() {
 		$('ul.tabs li').click(function() {
