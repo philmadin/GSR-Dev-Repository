@@ -492,8 +492,8 @@ usort($newsFeed, 'cmp');
 							} else {
 								$imgURL = "gsr_raw_logo.jpg";
 							}
-							echo "<a href='" . $articles_info[$i][1] . ".php?t=" . urlencode(str_replace(' ', '_', $articles_info[$i][2])) . "&g=" . urlencode(str_replace('' , '_', $articles_info[$i][4])) .
-							"'>" . "<img src='imgs/". $imgURL . "' alt='" . $articles_info[$i][2] . "'></a>";
+							echo "<div><a href='" . $articles_info[$i][1] . ".php?t=" . urlencode(str_replace(' ', '_', $articles_info[$i][2])) . "&g=" . urlencode(str_replace('' , '_', $articles_info[$i][4])) .
+							"'>" . "<img src='imgs/". $imgURL . "' alt='" . $articles_info[$i][2] . "'></a><p>" . $articles_info[$i][2] . "</p></div>";
 							if ($i <= 14) {
 
 							} else {
@@ -594,7 +594,7 @@ usort($newsFeed, 'cmp');
 	</div>
 	<?php include "footer.html"; ?>
 	<script>
-	var timeout = 30000 //30 seconds
+	var timeout = 60000 //30 seconds
 	setInterval(function () {
 		$.ajax({
     type: "POST",
@@ -683,7 +683,7 @@ usort($newsFeed, 'cmp');
 	$('#statusInput').on('keyup', function() {
 		var chars = $(this).val().length;
 		$('#charCount').text(250 - chars);
-		if (chars >= 251) {
+		if (chars >= 251 || chars !== '') {
 			$('#charCount').text(250 - chars);
 			$('#charCount').css('color', '#e73030');
 			$('#submitStatus').prop('disabled', true);
