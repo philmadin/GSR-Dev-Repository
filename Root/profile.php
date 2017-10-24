@@ -4,6 +4,8 @@ include ("timecal.php");
 include ("links.php");
 include ("header.php");
 
+$newsFeed = array(); // Array for the newsfeedtab
+
 $browserUSER = $_SESSION['username']; // User that starts the session
 
 if (isset($browserUSER)) {
@@ -53,10 +55,27 @@ if ($stmt) {
 	$pr_clan,
 	$pr_clantime,
 	$pr_photos,
-	$pr_cover_pic,
-	$pr_status);
+	$pr_cover_pic);
 	mysqli_stmt_fetch($stmt);
 	mysqli_stmt_close($stmt);
+}
+
+$pr_status = array();
+$stmt = mysqli_prepare($con, $query_user_status) or die("Unable to prepare statement: " . mysqli_error($con));
+if ($stmt) {
+	mysqli_stmt_bind_param($stmt, 's', $pr_username);
+	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
+	mysqli_stmt_bind_result($stmt, $stts_username, $stts_status, $stts_date_status, $stts_likes);
+	while (mysqli_stmt_fetch($stmt)) {
+		$stts = array($stts_username, $stts_status, $stts_date_status, $stts_likes);
+		array_push($pr_status, $stts);
+		array_push($stts, "0");
+		array_push($newsFeed, $stts);
+	}
+}
+if (empty($pr_status)) {
+	$status = "Greetings outlander!";
+	array_push($newsFeed, array($getprofilename, $status, $pr_since, "0", "0"));
 }
 
 $stmt = mysqli_prepare($con, $query_user_rank) or die("Unable to prepare statement: " . mysqli_error($con));
@@ -75,9 +94,10 @@ $stmt = mysqli_prepare($con, $query_user_exp) or die("Unable to prepare statemen
 if ($stmt) {
 	mysqli_stmt_bind_param($stmt, 'ss', $getprofilename, $action);
 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-	mysqli_stmt_bind_result($stmt, $pr_views);
+	mysqli_stmt_bind_result($stmt, $feedDate, $feedURL);
 	while (mysqli_stmt_fetch($stmt)) {
-		array_push($views, $pr_views);
+		array_push($views, array($getprofilename, $feedDate, $feedURL));
+		array_push($newsFeed, array($getprofilename, "read", $feedDate, $feedURL, "1"));
 	}
 	mysqli_stmt_close($stmt);
 }
@@ -97,9 +117,10 @@ $stmt = mysqli_prepare($con, $query_user_exp) or die("Unable to prepare statemen
 if ($stmt) {
 	mysqli_stmt_bind_param($stmt, 'ss', $getprofilename, $action);
 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-	mysqli_stmt_bind_result($stmt, $pr_bites);
+	mysqli_stmt_bind_result($stmt, $feedDate, $feedURL);
 	while (mysqli_stmt_fetch($stmt)) {
-		array_push($bites, $pr_bites);
+		array_push($bites, array($getprofilename, $feedDate, $feedURL));
+		array_push($newsFeed, array($getprofilename, "bit", $feedDate, $feedURL, "1"));
 	}
 	mysqli_stmt_close($stmt);
 }
@@ -110,6 +131,21 @@ if ($num_rows == 1) {
 } else {
 	$user_bites = $num_rows;
 	$text_bite = "bites";
+}
+
+/* Articles shared on social media */
+$actions = array("social_fb", "social_twitter", "social_gplus");
+foreach ($actions as $action) {
+	$stmt = mysqli_prepare($con, $query_user_exp) or die("Unable to prepare statement: " . mysqli_error($con));
+	if ($stmt) {
+		mysqli_stmt_bind_param($stmt, 'ss', $getprofilename, $action);
+		mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
+		mysqli_stmt_bind_result($stmt, $feedDate, $feedURL);
+		while (mysqli_stmt_fetch($stmt)) {
+			array_push($newsFeed, array($getprofilename, "shared", $feedDate, $feedURL, "1"));
+		}
+		mysqli_stmt_close($stmt);
+	}
 }
 
 /* Number of friends */
@@ -179,7 +215,12 @@ if ($stmt) {
 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
 	mysqli_stmt_bind_result($stmt, $art_id, $art_type, $art_title, $art_author, $art_gamename, $art_image);
 	while (mysqli_stmt_fetch($stmt)) {
-		$article = array($art_id, $art_type, $art_title, $art_author, $art_gamename, $art_image);
+		if ($art_type === "Guide") {
+			$images = unserialize($art_image);
+			$article = array($art_id, $art_type, $art_title, $art_author, $art_gamename, $images[0]);
+		} else {
+			$article = array($art_id, $art_type, $art_title, $art_author, $art_gamename, $art_image);
+		}
 		array_push($articles_info, $article);
 	}
 	mysqli_stmt_close($stmt);
@@ -208,6 +249,15 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 	$photos_var = "false";
 	$photos_text = "no pictures";
 }
+
+/* Organize the NewsFeed array by date */
+function cmp($a, $b){
+    $ad = strtotime($a[2]);
+    $bd = strtotime($b[2]);
+    return ($ad - $bd);
+}
+usort($newsFeed, 'cmp');
+
 ?>
 
 <!doctype html>
@@ -311,23 +361,23 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 					}
 					?>
 					<!-- Modal -->
-					<div id="modal" class="image_modal">
+					<!-- <div id="modal" class="image_modal">
 						<span class="close cursor" onclick="closeModal()">&times;</span>
 						<div class="modal_content">
 							<?php
-							foreach ($photos as $photo) {
+							//foreach ($photos as $photo) {
 								?>
 								<div class="images">
-									<img class="modal_photo" src="imgs/users/<?php echo $photo; ?>.jpg" style="width:100%">
+									<img class="modal_photo" src="imgs/users/<?php //echo $photo; ?>.jpg" style="width:100%">
 								</div>
 								<?php
-							}
+							//}
 							?>
 							<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
 							<a class="next" onclick="plusSlides(1)">&#10095;</a>
 
 						</div>
-					</div>
+					</div> -->
 					<?php
 				} else { // The user has no pictures
 					?>
@@ -346,7 +396,7 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 					?>
 					<div id="friendsThumbnail">
 						<?php
-						for ($i = 0; $i <= sizeof($friends) - 1; $i++) {
+						for ($i = sizeof($friends) - 1; $i >= 0; $i--) {
 							if ($i <= 8  || $i <= sizeof($friends)) {
 								if ($friends[$i][0]) {
 									$name = $friens[$i][2] . " " . $friens[$i][3];
@@ -371,7 +421,7 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 		<div id="profile_aside">
 			<ul class="tabs">
 				<li class="tablinks active" data-tab="Activity">Activity</li>
-				<li class="tablinks" data-tab="Status">Status</li>
+				<li class="tablinks" data-tab="Stats">Stats</li>
 				<li class="tablinks" data-tab="Articles">Articles</li>
 				<li class="tablinks" data-tab="Clan">Clan</li>
 				<li class="tablinks" data-tab="About">About</li>
@@ -379,13 +429,53 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 			</ul>
 
 			<div id="Activity" class="tabcontent active">
-				<h3>Activity tab</h3>
-				<p>Real time changes</p>
+				<br>
+				<?php
+				if ($browserUSER === $getprofilename) {
+					?>
+					<form name="userStatus" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" id="statusFrame">
+						<input type="text" name="status" placeholder="What are you playing?" id="statusInput">
+						<br>
+						<div style="margin-left:78%">
+							<span id="charCount">250</span><button type="button" id="submitStatus" name="submitStatus">Submit</button>
+						</div>
+					</form>
+					<br>
+					<?php
+				}
+				?>
+				<hr>
+				<div id="news" class="feed">
+					<?php
+					$feed = array_slice(array_reverse($newsFeed), 0, 9);
+					for ($i = 0; $i <= sizeof($feed) - 1; $i++){
+						if ($feed[$i][4]) {
+							$ttl = preg_split("/(\?t=|\&g=)/", $feed[$i][3]);
+							$title = urldecode(str_replace("_", " ", $ttl[1]));
+							?>
+							<div id="savedAction">
+								<img src="imgs/users/<?php echo $pr_picture; ?>-232x270.jpg" alt="<?php echo $getprofilename; ?>">
+								<p id="name_action"><?php echo "<b>" . $pr_username . "'s</b> " . $feed[$i][1] . " <a href='" . $feed[$i][3] . "'>" . $title . "</a>"  . " <i>" . humanTiming(strtotime($feed[$i][2])) . " ago</i>"; ?></p>
+							</div>
+							<?php
+						} else {
+							?>
+							<div id="savedStatus">
+								<img src="imgs/users/<?php echo $pr_picture; ?>-232x270.jpg" alt="<?php echo $getprofilename; ?>">
+								<p id="name_stts"><?php echo $pr_username; ?></p>
+								<p id="timestamp"><?php echo humanTiming(strtotime($feed[$i][2])); ?> ago</p>
+								<hr>
+								<p id="statusSaved"><?php echo str_replace("-","'", str_replace("_", " ", $feed[$i][1])); ?></p>
+							</div>
+							<?php
+						}
+					}
+					?>
+				</div>
 			</div>
 
-			<div id="Status" class="tabcontent">
-				<h3>Status tab</h3>
-				<p>Real time changes</p>
+			<div id="Stats" class="tabcontent">
+				<p>profile bites, article bites, review bites, comments, etc</p>
 			</div>
 
 			<div id="Articles" class="tabcontent">
@@ -396,8 +486,14 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 					<div class="articlesThumbnail">
 						<?php
 						for ($i = 0; $i <= sizeof($articles_info) - 1; $i++) {
+							// If the article does not have images.
+							if (!empty($articles_info[$i][5])) {
+								$imgURL = $articles_info[$i][1] . "/" . urlencode($articles_info[$i][5]);
+							} else {
+								$imgURL = "gsr_raw_logo.jpg";
+							}
 							echo "<a href='" . $articles_info[$i][1] . ".php?t=" . urlencode(str_replace(' ', '_', $articles_info[$i][2])) . "&g=" . urlencode(str_replace('' , '_', $articles_info[$i][4])) .
-							"'>" . "<img src='imgs/". $articles_info[$i][1] ."/". urlencode($articles_info[$i][5]) . "' alt='" . $articles_info[$i][2] . "'></a>";
+							"'>" . "<img src='imgs/". $imgURL . "' alt='" . $articles_info[$i][2] . "'></a>";
 							if ($i <= 14) {
 
 							} else {
@@ -498,6 +594,17 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 	</div>
 	<?php include "footer.html"; ?>
 	<script>
+	var timeout = 30000 //30 seconds
+	setInterval(function () {
+		$.ajax({
+    type: "POST",
+    url: "profile.php?profilename=<?php echo $getprofilename; ?>",
+		success: function (data) {
+			$("body").html(data);
+    }
+    });
+	}, timeout);
+
 	$("#addfriend").click(function() {
 		var sendUser = $(this).attr("data-send-user");
 		var sendProf = $(this).attr("data-send-prof");
@@ -570,6 +677,34 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 			$('.tabcontent').removeClass('active');
 			$(this).addClass('active');
 			$("#" + tab_id).addClass('active');
+		});
+	});
+
+	$('#statusInput').on('keyup', function() {
+		var chars = $(this).val().length;
+		$('#charCount').text(250 - chars);
+		if (chars >= 251) {
+			$('#charCount').text(250 - chars);
+			$('#charCount').css('color', '#e73030');
+			$('#submitStatus').prop('disabled', true);
+		} else {
+			$('#charCount').css('color', '#808080');
+			$('#submitStatus').prop('disabled', false);
+		}
+	});
+
+	$('#submitStatus').click(function() {
+		var user = "<?php echo $getprofilename; ?>";
+		var status = $('#statusInput').val().split(' ').join('_');
+		status = status.replace(/'/g, "-");
+		var statusURL = "newstatus.php?user=" + user + "&stt=" + status;
+		$.ajax({
+			url : statusURL,
+			type : "GET",
+			async : false,
+			success: function() {
+				location.reload();
+			}
 		});
 	});
 	</script>

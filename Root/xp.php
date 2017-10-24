@@ -21,6 +21,7 @@ include 'mysql_con.php';
             $description = mysqli_real_escape_string($con, $_POST['description']);
 
             $desc = str_replace("%xp%", $xp_amount, $description);
+            $url = $_SERVER['REQUEST_URI'];
 
 if($_POST['reciever']!="null"){
     if(has_perms("manage-xp")) {
@@ -70,7 +71,7 @@ if(!isset($xp_amount) || !isset($item_type) || !isset($item_id) || !isset($actio
                     echo 'false'.$splitter.'5';
                     return false;
                 } else {
-                    $insertXp = "INSERT INTO tbl_xp_log (username, xp, item_type, item_id, action_type, date_logged, description) VALUES ('$user', '$xp_amount', '$item_type', '$item_id', '$action_type', '$date_logged', '$desc')";
+                    $insertXp = "INSERT INTO tbl_xp_log (username, xp, item_type, item_id, action_type, date_logged, description, url) VALUES ('$user', '$xp_amount', '$item_type', '$item_id', '$action_type', '$date_logged', '$desc', '$url')";
                     if (!mysqli_query($con, $insertXp)) {
                         echo 'false'.$splitter.'6';
                         return false;

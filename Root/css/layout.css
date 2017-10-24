@@ -7883,3 +7883,126 @@ ul.tabs li.active {
   height: 120px;
   padding: 10px 2px;
 }
+
+#statusFrame {
+  display: block;
+}
+
+#statusInput {
+  margin: 0 0 0 15px;
+  width: 50%;
+  border: 2px solid #efefef;
+  border-radius: 4px;
+  text-transform: none;
+  background-color: white;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+#statusInput:focus {
+  width: 95%;
+}
+
+#charCount {
+  padding: 10px 0 0 15px;
+  color: #808080;
+}
+
+#submitStatus {
+  margin: 10px 0 0 15px;
+  cursor: pointer;
+  outline: none;
+  height: 30px;
+  width: 90px;
+  border: none #e73030;
+  background-color: #e73030;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  color: white;
+}
+
+#submitStatus:hover {
+  background-color: #e8e8e8;
+  color: #e73030;
+}
+
+#submitStatus:disabled {
+  background-color: #e8e8e8;
+  color: #FFFFFF;
+}
+
+#savedStatus {
+  margin: 10px;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+
+#savedAction {
+  margin: 10px;
+  padding: 10px;
+}
+
+#savedAction:nth-child(even) {
+  margin: 10px;
+  background-color: #f5f5f5;
+}
+
+#savedStatus img {
+  float: left;
+  width: 45px;
+  height: 45px;
+  vertical-align: text-bottom;
+  padding-right: 5px;
+}
+
+#savedAction img {
+  float: left;
+  width: 35px;
+  height: 35px;
+  vertical-align: text-bottom;
+  padding-right: 5px;
+}
+
+#statusSaved {
+  font-size: 16px;
+  padding: 0;
+}
+
+#savedStatus hr {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+#name_stts {
+  padding-top: 2px;
+  padding-bottom: 0;
+  color: #e73030;
+  text-align: left;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#name_action b {font-size: 16px;}
+
+#name_action {
+  padding-top: 5px;
+  color: #000;
+  text-align: left;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+#name_action i {
+  font-size: 12px;
+  text-transform: lowercase;
+  font-style: normal;
+}
+
+#timestamp {
+  margin-top: -20px;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 100;
+  text-align: left;
+}
