@@ -7530,24 +7530,7 @@ footer nav p a:hover {
 #userStats span {
   display: block;
 }
-/*
-#userStats #statsList .statsBack {
-  position: relative;
-  display: inline-block;
-  height: 22px;
-  width: 22px;
-  padding-top: 15px;
-  background-image: url(.../imgs/stats_icons/stats_icons.png);
-  background-repeat: no-repeat;
-}
 
-#userStats #statsList .statsBack #userViews { background-position: 0px 0px; }
-#userStats #statsList .statsBack #userBites { background-position: 0px 0px; }
-#userStats #statsList .statsBack #userFriends { background-position: 0px 0px; }
-#userStats #statsList .statsBack #userAchievements { background-position: 0px 0px; }
-#userStats #statsList .statsBack #userArticles { background-position: 0px 0px; }
-#userStats #statsList .statsBack #userClan { background-position: 0px 0px; }
-*/
 #backStats {
   padding: 4px;
   margin-left: 2px;
@@ -7823,78 +7806,11 @@ ul.tabs li.active {
   color: #e73030;
 }
 
-#Contact img {
-  padding: 10px 0 0 10px;
-  width: 40px;
-  height: 40px;
-}
-
-.span1 {
-  padding: 30px 0;
-  background-color: #f9f9f9;
-  width: 100%;
-}
-
-.span2 {
-  flex: 1;
-  width: 70%;
-}
-
-.span3 {
-  flex: 1;
-  width: 29%;
-}
-
-.span4 {
-  padding: 10px 0;
-  background-color: #f9f9f9;
-  border-top: 2px solid #e8e8e8;
-  border-bottom: 2px solid #e8e8e8;
-  width: 100%;
-}
-
-#consoleLove {
-  margin: 0 0 0 20px;
-  height: 35px;
-  width: 40px;
-}
-
-#gameLove {
-  margin: 0 0 0 20px;
-  height: 35px;
-  width: 40px;
-}
-
-.favText {
-  margin: 0;
-  padding: 0;
-  font-size: 12px;
-  display: inline;
+.profile_alert {
+  text-align: center !important;
   font-weight: bold;
-  text-transform: uppercase;
-}
-
-.articlesThumbnail {
-  padding: 0 0 0 20px;
-}
-
-.articlesThumbnail div {
-  margin: 10px;
-  display: inline-grid;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-}
-
-.articlesThumbnail img {
-  width: 200px;
-  height: 120px;
-  padding: 10px 2px;
-}
-
-.articlesThumbnail p {
-  width: 200px;
-  text-align: center;
-  font-size: 14px;
-  color: #e73030;
+  font-size: 18px !important;
+  color:#e73030;
 }
 
 #statusFrame {
@@ -8018,4 +7934,228 @@ ul.tabs li.active {
   font-size: 12px;
   font-weight: 100;
   text-align: left;
+}
+
+#tab_stats {
+  width: 50%;
+  margin-left: 25%;
+}
+
+.key {
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: right;
+  color: #e73030;
+  align: right;
+}
+
+.value {
+  padding: 5px;
+  font-size: 16px;
+  text-transform: capitalize;
+  align: right;
+}
+
+#tab_stats strong {
+  display: inline-block;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+#Contact img {
+  padding: 10px 0 0 10px;
+  width: 40px;
+  height: 40px;
+}
+
+.span1 {
+  padding: 30px 0;
+  background-color: #f9f9f9;
+  width: 100%;
+}
+
+.span2 {
+  flex: 1;
+  width: 70%;
+}
+
+.span3 {
+  flex: 1;
+  width: 29%;
+}
+
+.span4 {
+  padding: 10px 0;
+  background-color: #f9f9f9;
+  border-top: 2px solid #e8e8e8;
+  border-bottom: 2px solid #e8e8e8;
+  width: 100%;
+}
+
+#consoleLove {
+  margin: 0 0 0 20px;
+  height: 35px;
+  width: 40px;
+}
+
+#gameLove {
+  margin: 0 0 0 20px;
+  height: 35px;
+  width: 40px;
+}
+
+.favText {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  display: inline;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.articlesThumbnail {
+  padding: 0 0 0 5px;
+  background-color: #efefef;
+  -webkit-transition:all .8s linear;
+  -moz-transition:all .8s linear;
+  -o-transition:all .8s linear;
+  -ms-transition:all .8s linear;
+  transition:all .8s linear;
+}
+
+.articlesThumbnail img {
+  width: 247px;
+  height: 120px;
+  padding: 10px 0;
+}
+
+.articlesThumbnail span {
+  display: inline-grid;
+  height: auto;
+}
+
+.thumbnail_gradient::after {
+  display: block;
+  position: relative;
+  background-image: linear-gradient(#000000 0%, rgba(0, 0, 0, 0.5) 50%);
+  background-image: -webkit-linear-gradient(#000000 0%, rgba(0, 0, 0, 0.5) 50%);
+  background-image: -o-linear-gradient(#000000 0%, rgba(0, 0, 0, 0.5) 50%);
+  background-image: -moz-linear-gradient(#000000 0%, rgba(0, 0, 0, 0.5) 50%);
+  margin-top: -130px;
+  height: 125px;
+  content: '';
+  overflow: hidden;
+}
+
+.title_articles {
+  position: relative;
+  top: -115px;
+  left: 0;
+  width: 247px;
+  height: 20px;
+  color: #FFFFFF;
+  font-size: 19px !important;
+  text-shadow: -2px -2px #000000;
+  text-transform: capitalize;
+  text-align: right;
+}
+
+.thumbnail_container_Guide {
+  padding: 5px 0;
+  position: relative;
+  top: -45px;
+  background-color: #1fe006;
+}
+
+.thumbnail_container_News {
+  padding: 5px 0;
+  position: relative;
+  top: -45px;
+  background-color: #00bfff;
+}
+
+.thumbnail_container_Review {
+  padding: 5px 0;
+  position: relative;
+  top: -45px;
+  background-color: #e73030;
+}
+
+.thumbnail_container_Opinion {
+  padding: 5px 0;
+  position: relative;
+  top: -45px;
+  background-color: #9900cc;
+}
+
+.container_title {
+  padding: 0 10px;
+  float: right;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: lighter;
+  text-transform: uppercase;
+}
+
+.container_score {
+  padding: 0 10px;
+  float: left;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: lighter;
+  text-transform: uppercase;
+}
+
+.thumbnail_container1_Guide {
+  padding: 10px 0;
+  background-color: #0e6303;
+  margin-top: -50px;
+}
+
+.thumbnail_container1_News {
+  padding: 10px 0;
+  background-color: #004d66;
+  margin-top: -50px;
+}
+
+.thumbnail_container1_Review {
+  padding: 10px 0;
+  background-color: #5b0b0b;
+  margin-top: -50px;
+}
+
+.thumbnail_container1_Opinion {
+  padding: 10px 0;
+  background-color: #4d0066;
+  margin-top: -50px;
+}
+
+.author_date {
+  margin: 3px 0 0 10px;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: lighter;
+}
+
+.thumbnail_stats {
+  padding: 5px 0;
+}
+
+.thumbnail_stats1 {
+  display: inline-block !important;
+  margin-left: 35px;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: lighter;
+  vertical-align: middle;
+}
+
+.thumbnail_stats img {
+  width: 16px !important;
+  height: 16px !important;
+  padding: 2px 5px;
+  margin: 0;
+  display: inline-block;
 }
