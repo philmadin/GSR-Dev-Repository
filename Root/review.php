@@ -21,7 +21,7 @@
 		$check_position		= $check_posa . " " . $check_posb;
 	}
 
-	$tQUERY = mysqli_query($con, "SELECT * FROM tbl_review WHERE title = '$review_title' AND gamename = '$review_game'");
+	$tQUERY = mysqli_query($con, "SELECT * FROM tbl_review WHERE title = '$review_title' AND gamename = '$review_game' AND beta_approved='true' AND alpha_approved='true'");
 	if(mysqli_num_rows($tQUERY)==0){ $articleSet = false; }
 	while ($tROW = mysqli_fetch_array($tQUERY)) {
 		$articleid 			= $tROW['id'];
