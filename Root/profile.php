@@ -3,11 +3,7 @@ include ("mysql_con.php");
 include ("timecal.php");
 include ("links.php");
 include ("header.php");
-
-//$newsFeed = array(); // Array for the newsfeedtab
-
 $browserUSER = $_SESSION['username']; // User that starts the session
-
 if (isset($browserUSER)) {
 	$stmt = mysqli_prepare($con, "SELECT id, friends FROM tbl_accounts WHERE username = ?") or die("Unable to prepare statement: " . mysqli_error($con));
 	if ($stmt) {
@@ -19,9 +15,7 @@ if (isset($browserUSER)) {
 		mysqli_stmt_close($stmt);
 	}
 }
-
 $getprofilename = mysqli_real_escape_string($con, $_GET['profilename']);
-
 $stmt = mysqli_prepare($con, $query_user_info) or die("Unable to prepare statement: " . mysqli_error($con));
 if ($stmt) {
 	mysqli_stmt_bind_param($stmt, 's', $getprofilename);
@@ -59,25 +53,6 @@ if ($stmt) {
 	mysqli_stmt_fetch($stmt);
 	mysqli_stmt_close($stmt);
 }
-
-// $pr_status = array();
-// $stmt = mysqli_prepare($con, $query_user_status) or die("Unable to prepare statement: " . mysqli_error($con));
-// if ($stmt) {
-// 	mysqli_stmt_bind_param($stmt, 's', $pr_username);
-// 	mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-// 	mysqli_stmt_bind_result($stmt, $stts_username, $stts_status, $stts_date_status, $stts_likes);
-// 	while (mysqli_stmt_fetch($stmt)) {
-// 		$stts = array($stts_username, $stts_status, $stts_date_status, $stts_likes);
-// 		array_push($pr_status, $stts);
-// 		array_push($stts, "0");
-// 		array_push($newsFeed, $stts);
-// 	}
-// }
-// if (empty($pr_status)) {
-// 	$status = "Greetings outlander!";
-// 	array_push($newsFeed, array($getprofilename, $status, $pr_since, "0", "0"));
-// }
-
 $stmt = mysqli_prepare($con, $query_user_rank) or die("Unable to prepare statement: " . mysqli_error($con));
 if ($stmt) {
 	mysqli_stmt_bind_param($stmt, 's', $pr_rank);
@@ -86,7 +61,6 @@ if ($stmt) {
 	mysqli_stmt_fetch($stmt);
 	mysqli_stmt_close($stmt);
 }
-
 /* Number of views */
 $action = "view";
 $views = array();
@@ -97,11 +71,9 @@ if ($stmt) {
 	mysqli_stmt_bind_result($stmt, $feedDate, $feedURL);
 	while (mysqli_stmt_fetch($stmt)) {
 		array_push($views, array($getprofilename, $feedDate, $feedURL));
-		//array_push($newsFeed, array($getprofilename, "read", $feedDate, $feedURL, "1"));
 	}
 	mysqli_stmt_close($stmt);
 }
-
 /* Number of bites */
 $action = "bite";
 $bites = array();
@@ -112,26 +84,9 @@ if ($stmt) {
 	mysqli_stmt_bind_result($stmt, $feedDate, $feedURL);
 	while (mysqli_stmt_fetch($stmt)) {
 		array_push($bites, array($getprofilename, $feedDate, $feedURL));
-		//array_push($newsFeed, array($getprofilename, "bit", $feedDate, $feedURL, "1"));
 	}
 	mysqli_stmt_close($stmt);
 }
-
-// /* Articles shared on social media */
-// $actions = array("social_fb", "social_twitter", "social_gplus");
-// foreach ($actions as $action) {
-// 	$stmt = mysqli_prepare($con, $query_user_exp) or die("Unable to prepare statement: " . mysqli_error($con));
-// 	if ($stmt) {
-// 		mysqli_stmt_bind_param($stmt, 'ss', $getprofilename, $action);
-// 		mysqli_stmt_execute($stmt) or die("Unable to execute query: " . mysqli_error($con));
-// 		mysqli_stmt_bind_result($stmt, $feedDate, $feedURL);
-// 		while (mysqli_stmt_fetch($stmt)) {
-// 			array_push($newsFeed, array($getprofilename, "shared", $feedDate, $feedURL, "1"));
-// 		}
-// 		mysqli_stmt_close($stmt);
-// 	}
-// }
-
 /* Number of friends */
 if (!empty($pr_friends) || $pr_friends != NULL || $pr_friends != "") { // If the user has friends
 	$friends = array();
@@ -160,7 +115,6 @@ if (!empty($pr_friends) || $pr_friends != NULL || $pr_friends != "") { // If the
 } else {
 	$text_friends = "no friends";
 }
-
 /* Number of achievements */
 if (!empty($pr_badges) || $pr_badges != NULL || $pr_badges != "") { // If the user has badges
 	$badges = array();
@@ -189,12 +143,10 @@ if (!empty($pr_badges) || $pr_badges != NULL || $pr_badges != "") { // If the us
 } else {
 	$text_achievements = "no badges";
 }
-
 /* Number of articles */
 $articles_info = array();
 $num_views = 0;
 $user_bites = 0;
-//$reviews_info = array();
 $stmt = mysqli_prepare($con, $query_user_articles) or die("Unable to prepare statement: " . mysqli_error($con));
 if ($stmt) {
 	mysqli_stmt_bind_param($stmt, 'ssss', $pr_username, $pr_username, $pr_username, $pr_username);
@@ -234,14 +186,12 @@ if ($user_bites == 1) {
 } else {
 	$text_bite = "bites";
 }
-
 /* Clan */
 if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 	$user_clan = $pr_clan;
 } else {
 	$user_clan = "No clan";
 }
-
 /* Photos */
 if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 	$photos = explode(',', $pr_photos);
@@ -250,16 +200,13 @@ if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
 	$photos_var = "false";
 	$photos_text = "no pictures";
 }
-
 /* Organize the NewsFeed array by date */
 function cmp($a, $b){
     $ad = strtotime($a[2]);
     $bd = strtotime($b[2]);
     return ($ad - $bd);
 }
-//usort($newsFeed, 'cmp');
 usort($articles_info, 'cmp');
-
 ?>
 
 <!doctype html>
@@ -294,7 +241,6 @@ usort($articles_info, 'cmp');
 					};
 					mysqli_stmt_close($stmt);
 				}
-
 				$stmt = mysqli_prepare($con, $query_add_friend) or die("Unable to prepare statement: " . mysqli_error($con));
 				if ($stmt) {
 					mysqli_stmt_bind_param($stmt, 'ii', $bwsrID, $pr_id);
@@ -305,7 +251,6 @@ usort($articles_info, 'cmp');
 					};
 					mysqli_stmt_close($stmt);
 				}
-
 				if(sizeof($requesteeQRY) > 0) { // The session user send a friend request
 					?>
 					<button id="requestfriend" name="FriendAdd" type="button" style="cursor: auto !important;"><i class="fa fa-user-o"></i>  Request sent</button>
@@ -363,23 +308,7 @@ usort($articles_info, 'cmp');
 					}
 					?>
 					<!-- Modal -->
-					<!-- <div id="modal" class="image_modal">
-						<span class="close cursor" onclick="closeModal()">&times;</span>
-						<div class="modal_content">
-							<?php
-							//foreach ($photos as $photo) {
-								?>
-								<div class="images">
-									<img class="modal_photo" src="imgs/users/<?php //echo $photo; ?>.jpg" style="width:100%">
-								</div>
-								<?php
-							//}
-							?>
-							<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-							<a class="next" onclick="plusSlides(1)">&#10095;</a>
 
-						</div>
-					</div> -->
 					<?php
 				} else { // The user has no pictures
 					?>
@@ -422,15 +351,15 @@ usort($articles_info, 'cmp');
 
 		<div id="profile_aside">
 			<ul class="tabs">
-				<li class="tablinks active" data-tab="Activity">Activity</li>
+				<li class="tablinks" data-tab="Activity">Activity</li>
 				<li class="tablinks" data-tab="Stats">Stats</li>
-				<li class="tablinks" data-tab="Articles">Articles</li>
+				<li class="tablinks active" data-tab="Articles">Articles</li>
 				<li class="tablinks" data-tab="Clan">Clan</li>
 				<li class="tablinks" data-tab="About">About</li>
 				<li class="tablinks" data-tab="Contact">Contact</li>
 			</ul>
 
-			<div id="Activity" class="tabcontent active">
+			<div id="Activity" class="tabcontent">
 				<?php
 				if ($browserUSER === $getprofilename) {
 					?>
@@ -448,10 +377,7 @@ usort($articles_info, 'cmp');
 				}
 				?>
 				<div id="news" class="feed">
-					<?php
-					// include ('profile_activity.php');
-					// var_dump($feed);
-					?>
+
 				</div>
 			</div>
 
@@ -493,10 +419,9 @@ usort($articles_info, 'cmp');
 						<td class="value"><?php echo " " . $user_clan;?></td>
 					</tr>
 				</table>
-				<!-- <p>profile bites, article bites, review bites, comments, etc</p> -->
 			</div>
 
-			<div id="Articles" class="tabcontent">
+			<div id="Articles" class="tabcontent active">
 				<?php
 				if(!empty($articles_info)) {
 					?>
@@ -505,15 +430,15 @@ usort($articles_info, 'cmp');
 						for ($i = 0; $i <= sizeof($articles_info) - 1; $i++) {
 							// If the article does not have images.
 							if (!empty($articles_info[$i][5])) {
-								$imgURL = $articles_info[$i][1] . "/" . urlencode($articles_info[$i][5]);
+								$imgURL = "imgs/" . strtolower($articles_info[$i][1]) . "/" . urlencode($articles_info[$i][5]);
 							} else {
-								$imgURL = "gsr_raw_logo.jpg";
+								$imgURL = "imgs/gsr_raw_logo.jpg";
 							}
 							?>
 							<span class="thumbnail_<?php echo $articles_info[$i][1]; ?>">
-								<a href="<?php echo $articles_info[$i][1]; ?>.php?t=<?php echo urlencode(str_replace(' ', '_', $articles_info[$i][2])); ?>&g=<?php echo urlencode(str_replace('' , '_', $articles_info[$i][4])); ?>">
+								<a href="<?php echo strtolower($articles_info[$i][1]); ?>.php?t=<?php echo urlencode(str_replace(' ', '_', $articles_info[$i][2])); ?>&g=<?php echo urlencode(str_replace('' , '_', $articles_info[$i][4])); ?>">
 									<div class="thumbnail_gradient">
-										<img class="article_image" src="imgs/<?php echo $imgURL; ?>" alt="<?php echo $articles_info[$i][2]?>">
+										<img class="article_image" src="<?php echo $imgURL; ?>" alt="<?php echo $articles_info[$i][2]?>">
 									</div>
 									<p class="title_articles"><?php echo $articles_info[$i][2]; ?></p>
 								</a>
@@ -632,7 +557,7 @@ usort($articles_info, 'cmp');
 	</div>
 	<?php include "footer.html"; ?>
 	<script>
-	var timeout = 60000; //30 seconds
+	var timeout = 60000; //1 minute
 	setInterval(function () {
 		$.ajax({
     type: "POST",
@@ -642,11 +567,9 @@ usort($articles_info, 'cmp');
     }
     });
 	}, timeout);
-
 	$("#addfriend").click(function() {
 		var sendUser = $(this).attr("data-send-user");
 		var sendProf = $(this).attr("data-send-prof");
-
 		var requestFriendURL = "requestfriend.php?user=" + sendUser + "&profile=" + sendProf;
 		$.ajax({
 			url : requestFriendURL,
@@ -657,11 +580,9 @@ usort($articles_info, 'cmp');
 			}
 		});
 	});
-
 	$("#acceptfriend").click(function() {
 		var sendUser = $(this).attr("data-send-user");
 		var sendProf = $(this).attr("data-send-prof");
-
 		var addFriendURL = "addfriend.php?user=" + sendUser + "&profile=" + sendProf;
 		$.ajax({
 			url : addFriendURL,
@@ -672,42 +593,6 @@ usort($articles_info, 'cmp');
 			}
 		});
 	});
-
-	// // Modal
-	// function openModal() { // Shows the modal
-	// 	document.getElementById("modal").style.display = "block";
-	// }
-	//
-	// function closeModal() { // Hides the modal
-	// 	document.getElementById("modal").style.display = "none";
-	// }
-	//
-	// var slideIndex = 1;
-	// showSlides(slideIndex);
-	//
-	// function plusSlides(n) {
-	// 	showSlides(slideIndex += n);
-	// }
-	//
-	// function currentSlide(n) {
-	// 	showSlides(slideIndex = n);
-	// }
-	//
-	// function showSlides(n) {
-	// 	var i;
-	// 	var slides = document.getElementsByClassName("images");
-	// 	if (n > slides.length) {
-	// 		slideIndex = 1;
-	// 	}
-	// 	if (n < 1) {
-	// 		slideIndex = slides.length
-	// 	}
-	// 	for (i = 0; i < slides.length; i++) {
-	// 		slides[i].style.display = "none";
-	// 	}
-	// 	slides[slideIndex-1].style.display = "block";
-	// }
-
 	$(document).ready(function() {
 		$('ul.tabs li').click(function() {
 			var tab_id = $(this).attr('data-tab');
@@ -717,7 +602,6 @@ usort($articles_info, 'cmp');
 			$("#" + tab_id).addClass('active');
 		});
 	});
-
 	$(document).ready(function() {
 		$.ajax({
     type: "POST",
@@ -727,7 +611,6 @@ usort($articles_info, 'cmp');
     }
     });
 	});
-
 	$('#statusInput').on('keyup', function() {
 		var chars = $(this).val().length;
 		$('#charCount').text(250 - chars);
@@ -740,7 +623,6 @@ usort($articles_info, 'cmp');
 			$('#submitStatus').prop('disabled', false);
 		}
 	});
-
 	$('#submitStatus').click(function() {
 		var user = "<?php echo $getprofilename; ?>";
 		var status = $('#statusInput').val().split(' ').join('_');
