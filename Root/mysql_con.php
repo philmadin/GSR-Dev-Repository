@@ -15,7 +15,7 @@ include_once("perms.php");
 include_once("tokengen.php");
 
 /* Prepared Statements */
-$query_user_info = "SELECT id, username, firstname, lastname, showname, xbox, playstation, steam, console, game, quote, biography, rank, since, town, country, website, facebook, twitter, googleplus, level, picture, badges, favourites, friends, clan, clantime, photos, cover_pic FROM tbl_accounts WHERE username = ?";
+$query_user_info = "SELECT id, username, firstname, lastname, showname, xbox, playstation, steam, console, game, quote, biography, rank, since, town, country, website, facebook, twitter, googleplus, level, picture, badges, favourites, friends, clan, clantime, cover_pic FROM tbl_accounts WHERE username = ?";
 $query_user_rank = "SELECT name FROM tbl_ranks WHERE id = ?";
 $query_user_exp = "SELECT timestamp, url FROM tbl_xp_log WHERE username = ? AND action_type = ?";
 $query_user_friend = "SELECT showname, username, firstname, lastname, picture FROM tbl_accounts WHERE id = ?";

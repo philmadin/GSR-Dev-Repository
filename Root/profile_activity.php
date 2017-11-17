@@ -84,6 +84,7 @@ function cmp($a, $b){
   $bd = strtotime($b[2]);
   return ($ad - $bd);
 }
+
 usort($newsFeed, 'cmp');
 
 $feed = array_slice(array_reverse($newsFeed), 0, 10);
@@ -94,7 +95,7 @@ for ($i = 0; $i <= sizeof($feed) - 1; $i++){
     ?>
     <div id="savedAction">
       <img src="imgs/users/<?php echo $pr_picture; ?>-232x270.jpg" alt="<?php echo $getprofilename; ?>">
-      <p id="name_action"><?php echo "<b>" . $pr_username . "'s</b> " . $feed[$i][1] . " <a href='" . $feed[$i][3] . "'>" . $title . "</a>"  . " <i>" . humanTiming(strtotime($feed[$i][2])) . " ago</i>"; ?></p>
+      <p id="name_action"><?php echo "<b>" . $pr_username . "</b> " . $feed[$i][1] . " <a href='".$feed[$i][3]."'>".$title . "</a>"." <i>".humanTiming(strtotime($feed[$i][2]))." ago</i>"; ?></p>
     </div>
     <?php
   } else {

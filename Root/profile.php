@@ -48,10 +48,12 @@ if ($stmt) {
 	$pr_friends,
 	$pr_clan,
 	$pr_clantime,
-	$pr_photos,
 	$pr_cover_pic);
 	mysqli_stmt_fetch($stmt);
 	mysqli_stmt_close($stmt);
+}
+if (strcmp($pr_cover_pic, "default_cover") !== 0) {
+	$pr_cover_pic .= "-851x315";
 }
 $stmt = mysqli_prepare($con, $query_user_rank) or die("Unable to prepare statement: " . mysqli_error($con));
 if ($stmt) {
@@ -192,19 +194,11 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 } else {
 	$user_clan = "No clan";
 }
-/* Photos */
-if (!empty($pr_photos) || $pr_photos != NULL || $pr_photos != "") {
-	$photos = explode(',', $pr_photos);
-	$photos_var = "true";
-} else {
-	$photos_var = "false";
-	$photos_text = "no pictures";
-}
-/* Organize the NewsFeed array by date */
+/* Organize the NewsFeed and articles array by date */
 function cmp($a, $b){
-    $ad = strtotime($a[2]);
-    $bd = strtotime($b[2]);
-    return ($ad - $bd);
+  $ad = strtotime($a[2]);
+  $bd = strtotime($b[2]);
+  return ($ad - $bd);
 }
 usort($articles_info, 'cmp');
 ?>
@@ -223,7 +217,7 @@ usort($articles_info, 'cmp');
 	<div id="page" class="container_24">
 		<div class="profile_header">
 			<div id="imagesProfile">
-				<img title="Cover Picture" id="coverPic" src="imgs/users/<?php echo $pr_cover_pic; ?>.jpg">
+				<div id="covercontainer"><img title="Cover Picture" id="coverPic" src="imgs/users/<?php echo $pr_cover_pic; ?>.jpg"></div>
 				<img title="Profile Picture" id="profilePic" src="imgs/users/<?php echo $pr_picture; ?>-232x270.jpg">
 			</div>
 			<!-- Add as a friend -->
@@ -282,41 +276,9 @@ usort($articles_info, 'cmp');
 					<span><img id="backStats" src="imgs/stats_icons/friends_icon.png"><span id="userStts"><?php echo $user_friends; ?><strong id="stats"> <?php echo $text_friends; ?></strong></span></span>
 					<span><img id="backStats" src="imgs/stats_icons/achievements_icon.png"><span id="userStts"><?php echo $user_achievements; ?><strong id="stats"> <?php echo $text_achievements; ?></strong></span></span>
 					<span><img id="backStats" src="imgs/stats_icons/articles_icon.png"><span id="userStts"><?php echo $user_articles; ?><strong id="stats"> <?php echo $text_articles; ?></strong></span></span>
-					<span><img id="backStats" src="imgs/stats_icons/clan_icon.png"><span id="userClanText"><?php echo $user_clan; ?></span>
+					<!--<span><img id="backStats" src="imgs/stats_icons/clan_icon.png"><span id="userClanText"><?php //echo $user_clan; ?></span> -->
 				</div>
 				<br>
-			</div>
-			<br>
-			<div id="userPhotos">
-				<span id="photosTag"><i id="backPhotos"><i class="fa fa-camera" aria-hidden="true" style="color:white;"></i></i><span id="textPhotos">photos</span></span>
-				<br>
-				<?php
-				if ($photos_var === "true") { // The user has pictures
-					?>
-					<img id="main_Pic" src='imgs/users/<?php echo $photos[0]; ?>.jpg' onclick="openModal(); currentSlide(1)">
-					<?php
-					if (sizeof($photos) > 1) { // The user has just one picture
-						?>
-						<br>
-						<img id="second_Pic" src='imgs/users/<?php echo $photos[1]; ?>.jpg' onclick="openModal(); currentSlide(2)">
-						<?php
-					} if (sizeof($photos) > 2) { // The user has two pictures
-						?>
-						<img id="third_Pic" src='imgs/users/<?php echo $photos[2]; ?>.jpg'>
-						<b id="third_Pic_text" onclick="openModal(); currentSlide(1)">See more<br>photos</b>
-						<?php
-					}
-					?>
-					<!-- Modal -->
-
-					<?php
-				} else { // The user has no pictures
-					?>
-					<br>
-					<span class="sidebar_text"><?php echo $photos_text; ?></span>
-					<?php
-				}
-				?>
 			</div>
 			<br>
 			<div id="userFriendList">
@@ -351,15 +313,15 @@ usort($articles_info, 'cmp');
 
 		<div id="profile_aside">
 			<ul class="tabs">
-				<li class="tablinks" data-tab="Activity">Activity</li>
+				<li class="tablinks active" data-tab="Activity">Activity</li>
 				<li class="tablinks" data-tab="Stats">Stats</li>
-				<li class="tablinks active" data-tab="Articles">Articles</li>
+				<li class="tablinks" data-tab="Articles">Articles</li>
 				<li class="tablinks" data-tab="Clan">Clan</li>
 				<li class="tablinks" data-tab="About">About</li>
 				<li class="tablinks" data-tab="Contact">Contact</li>
 			</ul>
 
-			<div id="Activity" class="tabcontent">
+			<div id="Activity" class="tabcontent active">
 				<?php
 				if ($browserUSER === $getprofilename) {
 					?>
@@ -421,50 +383,61 @@ usort($articles_info, 'cmp');
 				</table>
 			</div>
 
-			<div id="Articles" class="tabcontent active">
+			<div id="Articles" class="tabcontent">
 				<?php
 				if(!empty($articles_info)) {
 					?>
 					<div class="articlesThumbnail">
 						<?php
 						for ($i = 0; $i <= sizeof($articles_info) - 1; $i++) {
-							// If the article does not have images.
-							if (!empty($articles_info[$i][5])) {
-								$imgURL = "imgs/" . strtolower($articles_info[$i][1]) . "/" . urlencode($articles_info[$i][5]);
-							} else {
-								$imgURL = "imgs/gsr_raw_logo.jpg";
-							}
-							?>
-							<span class="thumbnail_<?php echo $articles_info[$i][1]; ?>">
-								<a href="<?php echo strtolower($articles_info[$i][1]); ?>.php?t=<?php echo urlencode(str_replace(' ', '_', $articles_info[$i][2])); ?>&g=<?php echo urlencode(str_replace('' , '_', $articles_info[$i][4])); ?>">
-									<div class="thumbnail_gradient">
-										<img class="article_image" src="<?php echo $imgURL; ?>" alt="<?php echo $articles_info[$i][2]?>">
-									</div>
-									<p class="title_articles"><?php echo $articles_info[$i][2]; ?></p>
-								</a>
-								<div class="thumbnail_container_<?php echo $articles_info[$i][1]; ?>">
-									<span class="container_title"><?php echo $articles_info[$i][1]; ?></span>
-									<?php
-									if (!strcmp($articles_info[$i][1], "Review")) {
-										?>
-										<span class="container_score"><?php echo $articles_info[$i][0]; ?></span>
-										<?php
-									}
-									?>
-								</div>
-								<div class="thumbnail_container1_<?php echo $articles_info[$i][1]; ?>">
-									<span class="author_date">by<br> <?php echo $articles_info[$i][3]; ?><br> <?php echo date('jS M Y', strtotime($articles_info[$i][7])); ?></span>
-									<span class="thumbnail_stats">
-										<span class="thumbnail_stats1"><img src="imgs/stats_icons/views_icon.png"><?php echo $articles_info[$i][6] . " " . $text_view; ?></span>
-										<span class="thumbnail_stats1"><img src="imgs/stats_icons/bites_icon.png"><?php echo $articles_info[$i][8] . " " . $text_bite; ?></span>
-									</span>
-								</div>
-							</span>
-							<?php
+						  // If the article does not have images.
+						  if (!empty($articles_info[$i][5])) {
+						    $imgURL = $articles_info[$i][1] . "/" . urlencode($articles_info[$i][5]);
+						  } else {
+						    $imgURL = "gsr_raw_logo.jpg";
+						  }
+						  ?>
+						  <span class="thumbnail_<?php echo $articles_info[$i][1]; ?>">
+						    <a href="<?php echo $articles_info[$i][1]; ?>.php?t=<?php echo urlencode(str_replace(' ', '_', $articles_info[$i][2])); ?>&g=<?php echo urlencode(str_replace('' , '_', $articles_info[$i][4])); ?>">
+						      <div class="thumbnail_gradient">
+						        <img class="article_image" src="imgs/<?php echo $imgURL; ?>" alt="<?php echo $articles_info[$i][2]?>">
+						      </div>
+						      <p class="title_articles"><?php echo $articles_info[$i][2]; ?></p>
+						    </a>
+						    <div class="thumbnail_container_<?php echo $articles_info[$i][1]; ?>">
+						      <span class="container_title"><?php echo $articles_info[$i][1]; ?></span>
+						      <?php
+						      if (!strcmp($articles_info[$i][1], "Review")) {
+						        ?>
+						        <span class="container_score"><?php echo $articles_info[$i][0]; ?></span>
+						        <?php
+						      }
+						      ?>
+						    </div>
+						    <div class="thumbnail_container1_<?php echo $articles_info[$i][1]; ?>">
+						      <span class="author_date">by<br> <?php echo $articles_info[$i][3]; ?><br> <?php echo date('jS M Y', strtotime($articles_info[$i][7])); ?></span>
+						      <span class="thumbnail_stats">
+						        <span class="thumbnail_stats1"><img src="imgs/stats_icons/views_icon.png"><?php echo $articles_info[$i][6] . " " . $text_view; ?></span>
+						        <span class="thumbnail_stats1"><img src="imgs/stats_icons/bites_icon.png"><?php echo $articles_info[$i][8] . " " . $text_bite; ?></span>
+						      </span>
+						    </div>
+						  </span>
+						  <?php
 						}
 						?>
 					</div>
 					<?php
+					if (sizeof($articles_info) > 9) {
+					  //$num_articles = ceil(sizeof($articles_info)/9); // Maximum number of articles to show per page
+					  ?>
+					  <br>
+					  <div>
+					    <span id="articles_prev">&#8249;</span>
+					  	<span id="articles_next">&#8250;</span>
+					  </div>
+					  <br>
+					  <?php
+					}
 				} else {
 					echo "<br><p class='profile_alert'>This user has written no articles</p>";
 				}
@@ -557,6 +530,7 @@ usort($articles_info, 'cmp');
 	</div>
 	<?php include "footer.html"; ?>
 	<script>
+	/* Refresh the activity tab */
 	var timeout = 60000; //1 minute
 	setInterval(function () {
 		$.ajax({
@@ -567,6 +541,7 @@ usort($articles_info, 'cmp');
     }
     });
 	}, timeout);
+	/* Add as a friend */
 	$("#addfriend").click(function() {
 		var sendUser = $(this).attr("data-send-user");
 		var sendProf = $(this).attr("data-send-prof");
@@ -580,6 +555,7 @@ usort($articles_info, 'cmp');
 			}
 		});
 	});
+	/* Acepts the friend request */
 	$("#acceptfriend").click(function() {
 		var sendUser = $(this).attr("data-send-user");
 		var sendProf = $(this).attr("data-send-prof");
@@ -593,6 +569,7 @@ usort($articles_info, 'cmp');
 			}
 		});
 	});
+	/* Manage the tabs */
 	$(document).ready(function() {
 		$('ul.tabs li').click(function() {
 			var tab_id = $(this).attr('data-tab');
@@ -601,16 +578,24 @@ usort($articles_info, 'cmp');
 			$(this).addClass('active');
 			$("#" + tab_id).addClass('active');
 		});
-	});
-	$(document).ready(function() {
+		/* Gets the information for the activity tab as soon as the page is loaded */
 		$.ajax({
-    type: "POST",
-    url: "profile_activity.php?profilename=<?php echo $getprofilename; ?>&picture=<?php echo $pr_picture; ?>",
-		success: function (data) {
-			$("#news").html(data);
-    }
-    });
+			type: "POST",
+			url: "profile_activity.php?profilename=<?php echo $getprofilename; ?>&picture=<?php echo $pr_picture; ?>",
+			success: function (data) {
+				$("#news").html(data);
+			}
+		});
+		$('#articles_next').on('click', getNext);
+		$('#articles_prev').on('click', getPrev);
 	});
+	/* Creates the 9-Grid */
+	function getNext() {
+		var $curr = ('.articlesThumbnail span:visible'),
+		$next = ($curr.next().length) ? $curr.next() : $('.articlesThumbnail span')
+	}
+
+	/* Checks that the status is no longer than 250 characters */
 	$('#statusInput').on('keyup', function() {
 		var chars = $(this).val().length;
 		$('#charCount').text(250 - chars);
@@ -623,6 +608,7 @@ usort($articles_info, 'cmp');
 			$('#submitStatus').prop('disabled', false);
 		}
 	});
+	/* Submit the status */
 	$('#submitStatus').click(function() {
 		var user = "<?php echo $getprofilename; ?>";
 		var status = $('#statusInput').val().split(' ').join('_');
