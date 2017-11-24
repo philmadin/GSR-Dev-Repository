@@ -5836,8 +5836,11 @@ ul.tabs li.active {
 }
 /*Articles tab*/
 .articlesThumbnail {
-  padding: 0 0 0 5px;
   background-color: #efefef;
+  padding: 100px 0 5px 5px;
+}
+.row {
+  padding: 0 0 0 0;
   -webkit-transition:all .8s linear;
   -moz-transition:all .8s linear;
   -o-transition:all .8s linear;
@@ -5845,13 +5848,13 @@ ul.tabs li.active {
   transition:all .8s linear;
 }
 
-.articlesThumbnail img {
+.row img {
   width: 247px;
   height: 120px;
   padding: 10px 0;
 }
 
-.articlesThumbnail span {
+.row span {
   display: inline-grid;
   height: auto;
 }
@@ -5980,22 +5983,40 @@ ul.tabs li.active {
   display: inline-block;
 }
 
+#prevNextArt {
+  display: inline-block;
+  margin-left: 42%;
+  width: auto;
+  height: 40px;
+  overflow: hidden;
+}
+
 #articles_prev {
-  margin-left: 45%;
+  position: relative;
+  top: -5px;
   width: auto;
   color: #e73030;
-	font-size: 50px;
+	font-size: 40px;
 }
 
 #articles_next {
-  width: auto;
+  position: relative;
+  top: -5px;
   color: #e73030;
-	font-size: 50px;
+	font-size: 40px;
 }
 
 #articles_prev:hover, #articles_next:hover {
   cursor: pointer;
   color: #5b0b0b;
+}
+
+#articles_pages {
+  position: relative;
+  top: -10px;
+  width: auto;
+  padding: 0 10px;
+  font-size: 14px;
 }
 
 /* MESSAGES */

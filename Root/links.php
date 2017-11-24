@@ -17,7 +17,6 @@
 <script type="text/javascript" src="slider/js/unslider-min.js"></script>
 <script type="text/javascript" src="js/owl.carousel.min.js"></script>
 
-
 <script src="js/soundmanager2.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/modernizr.custom.35571.js"></script>
 <script type="text/javascript" src="js/jquery.sticky-kit.min.js"></script>

@@ -194,13 +194,13 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 } else {
 	$user_clan = "No clan";
 }
-/* Organize the NewsFeed and articles array by date */
-function cmp($a, $b){
-  $ad = strtotime($a[2]);
-  $bd = strtotime($b[2]);
-  return ($ad - $bd);
+/* Organize the Articles array by date */
+function art_dates($a, $b){
+	$ad = strtotime($a[7]);
+  $bd = strtotime($b[7]);
+  return ($bd - $ad);
 }
-usort($articles_info, 'cmp');
+usort($articles_info, 'art_dates');
 ?>
 
 <!doctype html>
@@ -394,35 +394,41 @@ usort($articles_info, 'cmp');
 						  if (!empty($articles_info[$i][5])) {
 						    $imgURL = $articles_info[$i][1] . "/" . urlencode($articles_info[$i][5]);
 						  } else {
-						    $imgURL = "gsr_raw_logo.jpg";
+						    $imgURL = "gsr_raw_logo.jpg"; // Selects GSR logo as the article image to show if the article has no images.
 						  }
-						  ?>
-						  <span class="thumbnail_<?php echo $articles_info[$i][1]; ?>">
-						    <a href="<?php echo $articles_info[$i][1]; ?>.php?t=<?php echo urlencode(str_replace(' ', '_', $articles_info[$i][2])); ?>&g=<?php echo urlencode(str_replace('' , '_', $articles_info[$i][4])); ?>">
-						      <div class="thumbnail_gradient">
-						        <img class="article_image" src="imgs/<?php echo $imgURL; ?>" alt="<?php echo $articles_info[$i][2]?>">
-						      </div>
-						      <p class="title_articles"><?php echo $articles_info[$i][2]; ?></p>
-						    </a>
-						    <div class="thumbnail_container_<?php echo $articles_info[$i][1]; ?>">
-						      <span class="container_title"><?php echo $articles_info[$i][1]; ?></span>
-						      <?php
-						      if (!strcmp($articles_info[$i][1], "Review")) {
-						        ?>
-						        <span class="container_score"><?php echo $articles_info[$i][0]; ?></span>
-						        <?php
-						      }
-						      ?>
-						    </div>
-						    <div class="thumbnail_container1_<?php echo $articles_info[$i][1]; ?>">
-						      <span class="author_date">by<br> <?php echo $articles_info[$i][3]; ?><br> <?php echo date('jS M Y', strtotime($articles_info[$i][7])); ?></span>
-						      <span class="thumbnail_stats">
-						        <span class="thumbnail_stats1"><img src="imgs/stats_icons/views_icon.png"><?php echo $articles_info[$i][6] . " " . $text_view; ?></span>
-						        <span class="thumbnail_stats1"><img src="imgs/stats_icons/bites_icon.png"><?php echo $articles_info[$i][8] . " " . $text_bite; ?></span>
-						      </span>
-						    </div>
-						  </span>
-						  <?php
+							if ($i == 0 || $i % 9 == 0) { // Creates a 3x3 matrix
+								echo "<span class='row'>";
+							}
+							?>
+							<span class="thumbnail_<?php echo $articles_info[$i][1]; ?>">
+								<a href="<?php echo $articles_info[$i][1]; ?>.php?t=<?php echo urlencode(str_replace(' ', '_', $articles_info[$i][2])); ?>&g=<?php echo urlencode(str_replace('' , '_', $articles_info[$i][4])); ?>">
+									<div class="thumbnail_gradient">
+										<img class="article_image" src="imgs/<?php echo $imgURL; ?>" alt="<?php echo $articles_info[$i][2]?>">
+									</div>
+									<p class="title_articles"><?php echo $articles_info[$i][2]; ?></p>
+								</a>
+								<div class="thumbnail_container_<?php echo $articles_info[$i][1]; ?>">
+									<span class="container_title"><?php echo $articles_info[$i][1]; ?></span>
+									<?php
+									if (!strcmp($articles_info[$i][1], "Review")) {
+										?>
+										<span class="container_score"><?php echo $articles_info[$i][0]; ?></span>
+										<?php
+									}
+									?>
+								</div>
+								<div class="thumbnail_container1_<?php echo $articles_info[$i][1]; ?>">
+									<span class="author_date">by<br> <?php echo $articles_info[$i][3]; ?><br> <?php echo date('jS M Y', strtotime($articles_info[$i][7])); ?></span>
+									<span class="thumbnail_stats">
+										<span class="thumbnail_stats1"><img src="imgs/stats_icons/views_icon.png"><?php echo $articles_info[$i][6] . " " . $text_view; ?></span>
+										<span class="thumbnail_stats1"><img src="imgs/stats_icons/bites_icon.png"><?php echo $articles_info[$i][8] . " " . $text_bite; ?></span>
+									</span>
+								</div>
+							</span>
+							<?php
+							if (($i+1) % 9 == 0) {
+								echo "</span>";
+							}
 						}
 						?>
 					</div>
@@ -431,9 +437,10 @@ usort($articles_info, 'cmp');
 					  //$num_articles = ceil(sizeof($articles_info)/9); // Maximum number of articles to show per page
 					  ?>
 					  <br>
-					  <div>
-					    <span id="articles_prev">&#8249;</span>
-					  	<span id="articles_next">&#8250;</span>
+					  <div id="prevNextArt">
+					    <span id="articles_prev" onclick="prevGrid()">&#8249;</span>
+							<span id="articles_pages"></span>
+					  	<span id="articles_next" onclick="nextGrid()">&#8250;</span>
 					  </div>
 					  <br>
 					  <?php
@@ -530,6 +537,11 @@ usort($articles_info, 'cmp');
 	</div>
 	<?php include "footer.html"; ?>
 	<script>
+	var Totalrows = document.querySelectorAll(".articlesThumbnail .row"); // Total amount of 9x9 grids on the document.
+	var prevArrow = document.getElementById("articles_prev"); // Prev 9x9 articles grid arrow variable.
+	var nextArrow = document.getElementById("articles_next"); // Next 9x9 articles grid arrow varialbe.
+	var artPages = document.getElementById("articles_pages"); // Display the current grid page and the totoal amount of grids.
+	var currentPage = 1;
 	/* Refresh the activity tab */
 	var timeout = 60000; //1 minute
 	setInterval(function () {
@@ -586,15 +598,14 @@ usort($articles_info, 'cmp');
 				$("#news").html(data);
 			}
 		});
-		$('#articles_next').on('click', getNext);
-		$('#articles_prev').on('click', getPrev);
+		/* Starts the slider for the articles tab */
+		prevArrow.setAttribute("style", "cursor: default; color: #fad1d1;"); // Changes the color of the arrow and the cursor so it looks deactivated.
+		prevArrow.onclick = false;
+		artPages.innerHTML = currentPage + "/" + Totalrows.length;
+		for (var i = 1; i <= Totalrows.length - 1; i++) { // Only display the first 9x9 grid.
+			Totalrows[i].style.display = "none";
+		}
 	});
-	/* Creates the 9-Grid */
-	function getNext() {
-		var $curr = ('.articlesThumbnail span:visible'),
-		$next = ($curr.next().length) ? $curr.next() : $('.articlesThumbnail span')
-	}
-
 	/* Checks that the status is no longer than 250 characters */
 	$('#statusInput').on('keyup', function() {
 		var chars = $(this).val().length;
@@ -623,6 +634,42 @@ usort($articles_info, 'cmp');
 			}
 		});
 	});
+	/* Display next grid of articles when Next arrow is pressed */
+	function nextGrid () {
+		prevArrow.onclick = prevGrid;
+		prevArrow.setAttribute("style", "color: e73030;");
+		currentPage += 1;
+		artPages.innerHTML = currentPage + "/" + Totalrows.length;
+		Totalrows[currentPage - 1].style.display = "inline";
+		for (var i = 0; i < Totalrows.length; i++) {
+			if (i != currentPage - 1) {
+				Totalrows[i].style.display = "none";
+			}
+		}
+		if (currentPage == Totalrows.length) {
+			Totalrows[currentPage - 1].style.display = "inline";
+			nextArrow.setAttribute("style", "cursor: default; color: #fad1d1;");
+			nextArrow.onclick = false;
+		}
+	}
+	/* Display prev grid of articles when Prev arrow is pressed */
+	function prevGrid () {
+		nextArrow.onclick = nextGrid;
+		nextArrow.setAttribute("style", "color: e73030;");
+		currentPage -= 1;
+		artPages.innerHTML = currentPage + "/" + Totalrows.length;
+		Totalrows[currentPage - 1].style.display = "inline";
+		for (var i = 0; i < Totalrows.length; i++) {
+			if (i != currentPage - 1) {
+				Totalrows[i].style.display = "none";
+			}
+		}
+		if (currentPage == 1) {
+			Totalrows[0].style.display = "inline";
+			prevArrow.setAttribute("style", "cursor: default; color: #fad1d1;");
+			prevArrow.onclick = false;
+		}
+	}
 	</script>
 </body>
 </html>
