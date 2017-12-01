@@ -5835,12 +5835,13 @@ ul.tabs li.active {
   text-transform: uppercase;
 }
 /*Articles tab*/
-.articlesThumbnail {
-  background-color: #efefef;
-  padding: 100px 0 5px 5px;
+.filters_tab {
+  margin-top: 20px;
 }
-.row {
-  padding: 0 0 0 0;
+
+.articlesThumbnail {
+  padding: 0 0 10px 5px;
+  background-color: #efefef;
   -webkit-transition:all .8s linear;
   -moz-transition:all .8s linear;
   -o-transition:all .8s linear;
@@ -5848,24 +5849,32 @@ ul.tabs li.active {
   transition:all .8s linear;
 }
 
-.row img {
+.articlesThumbnail img {
   width: 247px;
   height: 120px;
   padding: 10px 0;
 }
 
-.row span {
+.articlesThumbnail span {
   display: inline-grid;
   height: auto;
+}
+
+.thumbnail_element {
+  display: inline;
+}
+
+.thumbnail_hide {
+  display: none;
 }
 
 .thumbnail_gradient::after {
   display: block;
   position: relative;
-  background-image: linear-gradient(#000000 0%, rgba(0, 0, 0, 0.5) 10%);
-  background-image: -webkit-linear-gradient(#000000 0%, rgba(0, 0, 0, 0.5) 10%);
-  background-image: -o-linear-gradient(#000000 0%, rgba(0, 0, 0, 0.5) 10%);
-  background-image: -moz-linear-gradient(#000000 0%, rgba(0, 0, 0, 0.5) 10%);
+  background-image: linear-gradient(#000000 0%, rgba(0, 0, 0, 0.1) 50%);
+  background-image: -webkit-linear-gradient(#000000 0%, rgba(0, 0, 0, 0.1) 50%);
+  background-image: -o-linear-gradient(#000000 0%, rgba(0, 0, 0, 0.1) 50%);
+  background-image: -moz-linear-gradient(#000000 0%, rgba(0, 0, 0, 0.1) 50%);
   margin-top: -130px;
   height: 125px;
   content: '';
@@ -5879,10 +5888,10 @@ ul.tabs li.active {
   width: 247px;
   height: 20px;
   color: #FFFFFF;
-  font-size: 19px !important;
+  font-size: 18px !important;
   text-shadow: -2px -2px #000000;
   text-transform: capitalize;
-  text-align: right;
+  text-align: left !important;
 }
 
 .thumbnail_container_Guide {
