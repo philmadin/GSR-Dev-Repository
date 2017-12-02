@@ -5993,7 +5993,6 @@ ul.tabs li.active {
 }
 
 #prevNextArt {
-  display: inline-block;
   margin-left: 42%;
   width: auto;
   height: 40px;

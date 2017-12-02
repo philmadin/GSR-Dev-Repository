@@ -479,9 +479,10 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 	<script>
 	// Global variables
 	var timeout = 60000; // 1 minute time out to refresh the newsfeed on the Activity tab.
-	var userArt = <?php echo $user_articles; ?>; // Amount of articles written by the user.
-	var prevArrow = document.getElementById("articles_prev"); // Prev 3x3 articles grid arrow variable.
-	var nextArrow = document.getElementById("articles_next"); // Next 3x3 articles grid arrow varialbe.
+	var num_pages = Math.ceil(<?php echo $user_articles; ?> / 9); // Amount of 3x3 grids.
+	var currentPage = 1; // Initial page to show.
+	var totalArts = 0;
+	var url = "profile_articles.php";
 	var artPages = document.getElementById("articles_pages"); // Span tag that displays the current grid page and the totoal amount of grids.
 	// Start up functions.
 	$(document).ready(function() {
@@ -501,19 +502,20 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 				$("#news").html(data);
 			}
 		});
-		// Gets the information for the articles tab
+		// Gets the information for the articles tab. All types of articles.
 		var art_url = "profile_articles.php?profilename=<?php echo $getprofilename; ?>&offset=0";
 		$.ajax({
 			url: art_url,
 			type: "GET",
 			async: false,
 			success: function(data) {
-				$(".articlesThumbnail").html(data);
-				artGrid();
+				// Appends the data gotten from the profile_articles.php page and saves the value of invis_value into the totalArts variable.
+				totalArts = $(".articlesThumbnail").html(data).find("#invis_value").text(); // Total amount of articles written by the user.
+				setInterval(artGrid(), 0);
 			}
 		});
 	});
-	/* Refresh the activity tab */
+	/* Refresh the activity tab every minute */
 	setInterval(function () {
 		$.ajax({
     type: "POST",
@@ -579,14 +581,144 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 			}
 		});
 	});
-	// Manage the article grids
+	// Manage the next and prev arrows on load.
 	function artGrid () {
-		prevArrow.setAttribute("style", "cursor: default; color: #fad1d1;"); // Changes the color of the arrow and the cursor so it looks deactivated.
-		prevArrow.onclick = false; // Deactivates the onclick function for the prev arrow.
-		if (userArt <= 9) {
-			nextArrow.setAttribute("style", "cursor: default; color: #fad1d1;"); // Changes the color of the arrow and the cursor so it looks deactivated.
-			prevArrow.onclick = false; // Deactivates the onclick function for the next arrow.
+		document.getElementById("articles_prev").setAttribute("style", "cursor: default; color: #fad1d1;"); // Changes the color of the arrow and the cursor so it looks deactivated.
+		document.getElementById("articles_prev").onclick = false; // Deactivates the onclick function for the prev arrow.
+		if (totalArts <= 9) { // Check if the user has written 9 articles or less to disabled the next arrow as well.
+			document.getElementById("articles_next").setAttribute("style", "cursor: default; color: #fad1d1;"); // Changes the color of the arrow and the cursor so it looks deactivated.
+			document.getElementById("articles_next").onclick = false; // Deactivates the onclick function for the next arrow.
 		}
+	}
+	// Shows the next 3x3 grid
+	function nextGrid () {
+		currentPage += 1;
+		var offset = (currentPage * 9) - 9; // Increases the offset by 9.
+		var url_art = url + "?profilename=<?php echo $getprofilename; ?>&offset=" + offset;
+		// Ajax to refresh the articles grid
+		$.ajax({
+			url : url_art,
+			type : "GET",
+			async : false,
+			success : function(data) {
+				$(".articlesThumbnail").html(data);
+			}
+		});
+		// Disables the next arrow when the user has reached the last page available
+		if (currentPage == num_pages) {
+			document.getElementById("articles_next").setAttribute("style", "cursor: default; color: #fad1d1;");
+			document.getElementById("articles_next").onclick = false;
+		}
+	}
+	// Shows the prev 3x3 grid
+	function prevGrid () {
+		currentPage -= 1;
+		var offset = (currentPage * 9) - 9; // Decreases the offset by 9.
+		var url_art = url + "?profilename=<?php echo $getprofilename; ?>&offset=" + offset;
+		// Ajax to refresh the articles grid
+		$.ajax({
+			url : url_art,
+			type : "GET",
+			async : false,
+			success : function(data) {
+				$(".articlesThumbnail").html(data);
+			}
+		});
+		// Disables the prev arrow when the user has reached the first page available
+		if (currentPage == 1) {
+			document.getElementById("articles_prev").setAttribute("style", "cursor: default; color: #fad1d1;");
+			document.getElementById("articles_prev").onclick = false;
+		}
+	}
+	// Filters by type
+	$("#filters_form select").change(function () {
+		var art_type = $("#article_type").val();
+		if (art_type == "reviews") {
+			setInterval(getReviews(), 0);
+			url = "profile_reviews.php";
+		} else if (art_type == "opinions") {
+			setInterval(getOpinions(), 0);
+			url = "profile_opinions.php";
+		} else if (art_type == "news") {
+			setInterval(getNews(), 0);
+			url = "profile_news.php";
+		} else if (art_type == "guides") {
+			setInterval(getGuides(), 0);
+			url = "profile_guides.php";
+		} else {
+			setInterval(getArticles(), 0);
+			url = "profile_articles.php";
+		}
+	});
+	// Retrieve the reviews written by the user
+	function getReviews () {
+		var art_url = "profile_reviews.php?profilename=<?php echo $getprofilename; ?>&offset=0";
+		$.ajax({
+			url: art_url,
+			type: "GET",
+			async: false,
+			success: function(data) {
+				// Appends the data gotten from the profile_articles.php page and saves the value of invis_value into the totalArts variable.
+				totalArts = $(".articlesThumbnail").html(data).find("#invis_value").text(); // Total amount of articles written by the user.
+				setInterval(artGrid(), 0);
+			}
+		});
+	}
+	// Retrieve the opinions written by the user
+	function getOpinions () {
+		var art_url = "profile_opinions.php?profilename=<?php echo $getprofilename; ?>&offset=0";
+		$.ajax({
+			url: art_url,
+			type: "GET",
+			async: false,
+			success: function(data) {
+				// Appends the data gotten from the profile_articles.php page and saves the value of invis_value into the totalArts variable.
+				totalArts = $(".articlesThumbnail").html(data).find("#invis_value").text(); // Total amount of articles written by the user.
+				setInterval(artGrid(), 0);
+			}
+		});
+	}
+	// Retrieve the news written by the user
+	function getNews () {
+		var art_url = "profile_news.php?profilename=<?php echo $getprofilename; ?>&offset=0";
+		$.ajax({
+			url: art_url,
+			type: "GET",
+			async: false,
+			success: function(data) {
+				// Appends the data gotten from the profile_articles.php page and saves the value of invis_value into the totalArts variable.
+				totalArts = $(".articlesThumbnail").html(data).find("#invis_value").text(); // Total amount of articles written by the user.
+				setInterval(artGrid(), 0);
+			}
+		});
+	}
+	// Retrieve the guides written by the user
+	function getGuides () {
+		var art_url = "profile_guides.php?profilename=<?php echo $getprofilename; ?>&offset=0";
+		$.ajax({
+			url: art_url,
+			type: "GET",
+			async: false,
+			success: function(data) {
+				// Appends the data gotten from the profile_articles.php page and saves the value of invis_value into the totalArts variable.
+				totalArts = $(".articlesThumbnail").html(data).find("#invis_value").text(); // Total amount of articles written by the user.
+				setInterval(artGrid(), 0);
+			}
+		});
+	}
+	// Retrieve the articles written by the user
+	function getArticles () {
+		var art_url = "profile_articles.php?profilename=<?php echo $getprofilename; ?>&offset=0";
+		$.ajax({
+			url: art_url,
+			type: "GET",
+			async: false,
+			success: function(data) {
+				// Appends the data gotten from the profile_articles.php page and saves the value of invis_value into the totalArts variable.
+				totalArts = $(".articlesThumbnail").html(data).find("#invis_value").text(); // Total amount of articles written by the user.
+				setInterval(artGrid(), 0);
+			}
+		});
 	}
 	</script>
 </body>

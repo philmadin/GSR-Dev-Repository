@@ -7,11 +7,23 @@ $user = $_GET['profilename'];
 // Gets the ofset for the search
 $offset = $_GET['offset'];
 
+// Current page
+$currentPage = ($offset + 9) / 9;
+
+// Gets the total number of articles the user has written
+$totalArts = mysqli_num_rows(mysqli_query($con, "SELECT id FROM tbl_review WHERE authuser = '$user' AND alpha_approved = 'true' UNION SELECT id FROM tbl_guide WHERE authuser = '$user' AND alpha_approved = 'true' UNION SELECT id FROM tbl_news WHERE authuser = '$user' AND alpha_approved = 'true'
+  UNION SELECT id FROM tbl_opinion WHERE authuser = '$user' AND alpha_approved = 'true'"));
+
+// Total amount of pages
+$pages = ceil($totalArts / 9);
+
 // Array that contains the information of every article written by the user
 $articles_info = array();
 
 // Fetch the information of every article written by the user
-$query_user_arts = "SELECT main_rating, article_type, title, author, gamename, a_image, views, createdate, bites FROM tbl_review WHERE authuser = ? UNION SELECT id, article_type, title, author, month, images, views, createdate, bites FROM tbl_guide WHERE authuser = ? UNION SELECT id, article_type, title, author, month, a_image, views, createdate, bites FROM tbl_news WHERE authuser = ? UNION SELECT id, article_type, title, author, month, a_image, views, createdate, bites FROM tbl_opinion WHERE authuser = ? ORDER BY createdate LIMIT 9 OFFSET " .  $offset . ";";
+$query_user_arts = "SELECT main_rating, article_type, title, author, gamename, a_image, views, createdate, bites FROM tbl_review WHERE authuser = ? AND alpha_approved = 'true' UNION SELECT id, article_type, title, author, month, images, views, createdate, bites FROM tbl_guide WHERE authuser = ? AND alpha_approved = 'true'
+ UNION SELECT id, article_type, title, author, month, a_image, views, createdate, bites FROM tbl_news WHERE authuser = ? AND alpha_approved = 'true' UNION SELECT id, article_type, title, author, month, a_image, views, createdate, bites FROM tbl_opinion WHERE authuser = ? AND alpha_approved = 'true' ORDER BY createdate
+ DESC LIMIT 9 OFFSET " .  $offset . ";";
 $stmt = mysqli_prepare($con, $query_user_arts) or die("Unable to prepare statement: " . mysqli_error($con));
 if ($stmt) {
   mysqli_stmt_bind_param($stmt, 'ssss', $user, $user, $user, $user);
@@ -28,13 +40,6 @@ if ($stmt) {
   }
   mysqli_stmt_close($stmt);
 }
-// Organize the NewsFeed and articles array by date (earliest to oldest)
-function deo($a, $b){
-  $ad = strtotime($a[7]);
-  $bd = strtotime($b[7]);
-  return ($bd - $ad);
-}
-usort($articles_info, 'deo');
 
 for ($i = 0; $i <= sizeof($articles_info) - 1; $i++) {
   // Checks if the article does not have images.
@@ -79,7 +84,8 @@ for ($i = 0; $i <= sizeof($articles_info) - 1; $i++) {
 <!-- Create the navigation arrows -->
 <div id="prevNextArt">
   <span id="articles_prev" onclick="prevGrid()">&#8249;</span>
-  <span id="articles_pages"></span>
+  <span id="articles_pages"><?php echo $currentPage . "/" . $pages; ?></span>
+  <span id="invis_value"><?php echo $totalArts;?></span>
   <span id="articles_next" onclick="nextGrid()">&#8250;</span>
 </div>
 <br>
