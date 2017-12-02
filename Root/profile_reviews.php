@@ -10,6 +10,10 @@ $offset = $_GET['offset'];
 // Current page
 $currentPage = ($offset + 9) / 9;
 
+// Order by
+$type = $_GET['type'];
+$order = $_GET['order'];
+
 // Gets the total number of articles the user has written
 $totalArts = mysqli_num_rows(mysqli_query($con, "SELECT id FROM tbl_review WHERE authuser = '$user' AND alpha_approved = 'true'"));
 
@@ -20,7 +24,7 @@ $pages = ceil($totalArts / 9);
 $articles_info = array();
 
 // Fetch the information of every article written by the user
-$query_user_arts = "SELECT main_rating, article_type, title, author, gamename, a_image, views, createdate, bites FROM tbl_review WHERE authuser = ? AND alpha_approved = 'true' ORDER BY createdate DESC LIMIT 9 OFFSET " .  $offset . ";";
+$query_user_arts = "SELECT main_rating, article_type, title, author, gamename, a_image, views, createdate, bites FROM tbl_review WHERE authuser = ? AND alpha_approved = 'true' ORDER BY " . $type . " ". $order ." LIMIT 9 OFFSET " .  $offset . ";";
 $stmt = mysqli_prepare($con, $query_user_arts) or die("Unable to prepare statement: " . mysqli_error($con));
 if ($stmt) {
   mysqli_stmt_bind_param($stmt, 's', $user);
@@ -31,7 +35,7 @@ if ($stmt) {
     array_push($articles_info, $article);
   }
   mysqli_stmt_close($stmt);
-}
+} 
 if ($totalArts == 0) { // If the user has written no reviews.
   echo "<br><p class='profile_alert'>This user has written no Reviews</p>";
   $pages = 1;

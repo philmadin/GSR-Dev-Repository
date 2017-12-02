@@ -25,16 +25,15 @@ Justin Lillico 22/11/2017
 			<option value="guides">Guides</option>
 		</select>
 		<!-- Added by JL for arrangement filters -->
-		<label for="views">VIEWS</label>
-		<select name="views" id="views_drop">
-			<option value='none' selected>None</option>
-			<option value='hightolow'>High to low</option>
-			<option value='lowtohigh'>Low to high</option>
+		<label for="type">ORDER BY</label>
+		<select name="type" id="type_drop">
+			<option value='createdate' selected>Date</option>
+			<option value='views'>Views</option>
 		</select>
-		<label for="dates">DATE</label>
-		<select name="dates" id="dates_drop">
-			<option value='hightolow'selected>Most Recent</option>
-			<option value='lowtohigh'>Oldest first</option>
+		<!-- <label for="dates"></label> -->
+		<select name="order" id="orderby_drop">
+			<option value='DESC'selected>High to low</option>
+			<option value='ASC'>Low to high</option>
 		</select>
 	</form>
 </div>

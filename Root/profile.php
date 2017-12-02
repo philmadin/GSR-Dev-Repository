@@ -374,10 +374,6 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 					?>
 					<div class="filters_tab">
 						<?php
-						// $JSViews = [];
-						// for ($i = 0; $i < sizeof($articles_info); $i++) {
-						// 	array_push($JSViews, $articles_info[$i][6]);
-						// }
 						include "filters.php";
 						?>
 					</div>
@@ -483,6 +479,8 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 	var currentPage = 1; // Initial page to show.
 	var totalArts = 0;
 	var url = "profile_articles.php";
+	var type = "createdate";
+	var order = "DESC";
 	var artPages = document.getElementById("articles_pages"); // Span tag that displays the current grid page and the totoal amount of grids.
 	// Start up functions.
 	$(document).ready(function() {
@@ -503,7 +501,7 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 			}
 		});
 		// Gets the information for the articles tab. All types of articles.
-		var art_url = "profile_articles.php?profilename=<?php echo $getprofilename; ?>&offset=0";
+		var art_url = "profile_articles.php?profilename=<?php echo $getprofilename; ?>&offset=0&type=createdate&order=DESC";
 		$.ajax({
 			url: art_url,
 			type: "GET",
@@ -511,7 +509,7 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 			success: function(data) {
 				// Appends the data gotten from the profile_articles.php page and saves the value of invis_value into the totalArts variable.
 				totalArts = $(".articlesThumbnail").html(data).find("#invis_value").text(); // Total amount of articles written by the user.
-				setInterval(artGrid(), 0);
+				artGrid();
 			}
 		});
 	});
@@ -594,7 +592,7 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 	function nextGrid () {
 		currentPage += 1;
 		var offset = (currentPage * 9) - 9; // Increases the offset by 9.
-		var url_art = url + "?profilename=<?php echo $getprofilename; ?>&offset=" + offset;
+		var url_art = url + "?profilename=<?php echo $getprofilename; ?>&offset=" + offset + "&type=" + type + "&order=" + order;
 		// Ajax to refresh the articles grid
 		$.ajax({
 			url : url_art,
@@ -614,7 +612,7 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 	function prevGrid () {
 		currentPage -= 1;
 		var offset = (currentPage * 9) - 9; // Decreases the offset by 9.
-		var url_art = url + "?profilename=<?php echo $getprofilename; ?>&offset=" + offset;
+		var url_art = url + "?profilename=<?php echo $getprofilename; ?>&offset=" + offset + "&type=" + type + "&order=" + order;
 		// Ajax to refresh the articles grid
 		$.ajax({
 			url : url_art,
@@ -633,26 +631,28 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 	// Filters by type
 	$("#filters_form select").change(function () {
 		var art_type = $("#article_type").val();
+		order = $("#orderby_drop").val();
+		type = $("#type_drop").val();
 		if (art_type == "reviews") {
-			setInterval(getReviews(), 0);
+			setInterval(getReviews(order, type), 0);
 			url = "profile_reviews.php";
 		} else if (art_type == "opinions") {
-			setInterval(getOpinions(), 0);
+			setInterval(getOpinions(order, type), 0);
 			url = "profile_opinions.php";
 		} else if (art_type == "news") {
-			setInterval(getNews(), 0);
+			setInterval(getNews(order, type), 0);
 			url = "profile_news.php";
 		} else if (art_type == "guides") {
-			setInterval(getGuides(), 0);
+			setInterval(getGuides(order, type), 0);
 			url = "profile_guides.php";
 		} else {
-			setInterval(getArticles(), 0);
+			setInterval(getArticles(order, type), 0);
 			url = "profile_articles.php";
 		}
 	});
 	// Retrieve the reviews written by the user
-	function getReviews () {
-		var art_url = "profile_reviews.php?profilename=<?php echo $getprofilename; ?>&offset=0";
+	function getReviews (order, type) {
+		var art_url = "profile_reviews.php?profilename=<?php echo $getprofilename; ?>&offset=0&type=" + type + "&order=" + order;
 		$.ajax({
 			url: art_url,
 			type: "GET",
@@ -665,8 +665,8 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 		});
 	}
 	// Retrieve the opinions written by the user
-	function getOpinions () {
-		var art_url = "profile_opinions.php?profilename=<?php echo $getprofilename; ?>&offset=0";
+	function getOpinions (order, type) {
+		var art_url = "profile_opinions.php?profilename=<?php echo $getprofilename; ?>&offset=0&type=" + type + "&order=" + order;
 		$.ajax({
 			url: art_url,
 			type: "GET",
@@ -679,8 +679,8 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 		});
 	}
 	// Retrieve the news written by the user
-	function getNews () {
-		var art_url = "profile_news.php?profilename=<?php echo $getprofilename; ?>&offset=0";
+	function getNews (order, type) {
+		var art_url = "profile_news.php?profilename=<?php echo $getprofilename; ?>&offset=0&type=" + type + "&order=" + order;
 		$.ajax({
 			url: art_url,
 			type: "GET",
@@ -693,8 +693,8 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 		});
 	}
 	// Retrieve the guides written by the user
-	function getGuides () {
-		var art_url = "profile_guides.php?profilename=<?php echo $getprofilename; ?>&offset=0";
+	function getGuides (order, type) {
+		var art_url = "profile_guides.php?profilename=<?php echo $getprofilename; ?>&offset=0&type=" + type + "&order=" + order;
 		$.ajax({
 			url: art_url,
 			type: "GET",
@@ -702,13 +702,13 @@ if (!empty($pr_clan) || $pr_clan != NULL || $pr_clan != "") {
 			success: function(data) {
 				// Appends the data gotten from the profile_articles.php page and saves the value of invis_value into the totalArts variable.
 				totalArts = $(".articlesThumbnail").html(data).find("#invis_value").text(); // Total amount of articles written by the user.
-				setInterval(artGrid(), 0);
+				artGrid();
 			}
 		});
 	}
 	// Retrieve the articles written by the user
-	function getArticles () {
-		var art_url = "profile_articles.php?profilename=<?php echo $getprofilename; ?>&offset=0";
+	function getArticles (order, type) {
+		var art_url = "profile_articles.php?profilename=<?php echo $getprofilename; ?>&offset=0&type=" + type + "&order=" + order;
 		$.ajax({
 			url: art_url,
 			type: "GET",
